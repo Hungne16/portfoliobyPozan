@@ -1,21 +1,20 @@
-import FloatingWorld from '../components/floating-world';
-import ScrollStory from '../components/scroll-story';
-import { listProjects } from '@/db';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
-  ArrowUpRight,
   ArrowDown,
+  ArrowUpRight,
+  Code2,
+  Mail,
   Palette,
   PenTool,
-  Code2,
-  Heart,
-  Mail,
 } from 'lucide-react';
+import ScrollStory from '../components/scroll-story';
+import { listProjects } from '@/db';
+
 type PortfolioProject = {
   name: string;
   sub: string;
   type: string;
-  cls: string;
   brief: string;
   role: string;
   process: string;
@@ -23,12 +22,12 @@ type PortfolioProject = {
   year: string;
   imageKey: string | null;
 };
+
 const sampleProjects: PortfolioProject[] = [
   {
     name: 'Kumo Café',
     sub: 'Một chút Nhật Bản, một chút bình yên.',
     type: 'BRAND IDENTITY',
-    cls: 'kumo',
     brief:
       'Xây dựng nhận diện cho một quán cà phê nhỏ lấy cảm hứng từ nhịp sống Nhật Bản.',
     role: 'Thiết kế nhận diện & bao bì',
@@ -41,7 +40,6 @@ const sampleProjects: PortfolioProject[] = [
     name: 'Yoru — Music App',
     sub: 'Giai điệu dành riêng cho thế giới của bạn.',
     type: 'UI/UX DESIGN',
-    cls: 'yoru',
     brief: 'Khám phá cách tìm nhạc phù hợp với tâm trạng người nghe.',
     role: 'Thiết kế trải nghiệm & giao diện',
     process: 'Persona giả định → user flow → wireframe → prototype.',
@@ -53,7 +51,6 @@ const sampleProjects: PortfolioProject[] = [
     name: 'Những ngày xanh',
     sub: 'Gom những điều nhỏ bé thành câu chuyện.',
     type: 'ILLUSTRATION',
-    cls: 'days',
     brief: 'Kể lại cảm giác những ngày hè qua một bộ tranh cá nhân.',
     role: 'Ý tưởng & minh họa',
     process: 'Quan sát đời sống → phác thảo → thử màu → hoàn thiện.',
@@ -62,17 +59,18 @@ const sampleProjects: PortfolioProject[] = [
     imageKey: null,
   },
 ];
+
 export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   let projects = sampleProjects;
   try {
     const saved = await listProjects();
-    if (saved.length)
-      projects = saved.map((project, index) => ({
+    if (saved.length) {
+      projects = saved.map((project) => ({
         name: project.title,
         sub: project.subtitle,
         type: project.category,
-        cls: ['kumo', 'yoru', 'days'][index % 3],
         brief: project.brief,
         role: project.role,
         process: project.process,
@@ -80,293 +78,238 @@ export default async function Home() {
         year: project.year,
         imageKey: project.imageKey,
       }));
+    }
   } catch {
-    /* Sample projects keep the local preview useful before migrations. */
+    /* The authored projects remain visible before the first database migration. */
   }
+
   return (
     <ScrollStory>
-      <a className="skip" href="#main">
+      <a className="skip-link" href="#main">
         Đến nội dung chính
       </a>
-      <header>
-        <a className="brand" href="#home">
-          <span>✳</span> sora<b>.</b>
-          <small>
-            CREATIVE
-            <br />
-            PORTFOLIO
-          </small>
+      <header className="site-hud">
+        <a className="hud-brand" href="#home">
+          <span>✳</span> SORA/夢
         </a>
-        <nav aria-label="Điều hướng chính">
-          <a href="#about">Về mình</a>
-          <a href="#projects">Dự án</a>
-          <a href="#skills">Kỹ năng</a>
-        </nav>
-        <a className="nav-contact" href="#contact">
-          Cùng trò chuyện <ArrowUpRight size={17} />
+        <div className="hud-status">
+          <i /> AVAILABLE FOR SELECT PROJECTS
+        </div>
+        <a className="hud-contact" href="#contact">
+          CONTACT <ArrowUpRight />
         </a>
       </header>
+
       <main id="main">
-        <section className="hero wrap" id="home">
-          <div>
-            <div className="eyebrow">
-              ● &nbsp; MỘT TÂM HỒN SÁNG TẠO, NHIỀU ĐIỀU MUỐN KỂ
-            </div>
-            <p className="greeting">
-              こんにちは! Mình là Sora <em>✦</em>
-            </p>
-            <h1>
-              Biến ý tưởng
+        <section className="scene-chapter hero-chapter" id="home">
+          <div className="coordinate coordinate-left">
+            35.6762° N<br />
+            139.6503° E
+          </div>
+          <div className="hero-copy-block">
+            <p className="hero-kicker">DIGITAL DESIGNER / VISUAL STORYTELLER</p>
+            <h1 className="hero-title">
+              Dreams
               <br />
-              thành <em>điều kỳ diệu.</em>
+              <em>in motion.</em>
             </h1>
-            <p className="intro">
-              Một designer yêu những câu chuyện, nét vẽ
-              <br />
-              và những trải nghiệm số có chút khác biệt.
+            <p className="hero-copy">
+              Mình tạo nên những thế giới số nơi hình ảnh, chuyển động và câu
+              chuyện gặp nhau.
             </p>
-            <div className="actions">
-              <a className="button" href="#projects">
-                Khám phá dự án <ArrowUpRight size={21} />
+            <div className="hero-actions">
+              <a href="#projects">
+                Khám phá thế giới <ArrowDown />
               </a>
-              <a className="text-link" href="#about">
-                Làm quen nhé <ArrowDown size={17} />
-              </a>
+              <span>SCROLL TO ENTER / 巻物</span>
             </div>
-            <p className="hero-foot">
-              ✧ &nbsp; Thiết kế bằng sự tò mò. Tạo nên bằng trái tim.
-            </p>
           </div>
-          <div className="hero-art">
-            <div className="art-top">
-              <span>CHAPTER 01 — MY LITTLE WORLD</span>
-              <span>● ● ●</span>
-            </div>
-            <Image
-              src="/anime-studio.png"
-              alt="Minh họa anime: designer làm việc trong căn phòng nhìn ra thị trấn biển Nhật Bản"
-              width="1536"
-              height="1024"
-            />
-            <div className="art-bottom">
-              <span>想像から、はじまる。</span>
-              <span>EVERYTHING STARTS WITH A LITTLE DREAM ↗</span>
-            </div>
-            <span className="sticker">
-              Made of
-              <br />
-              <b>little dreams ✧</b>
-            </span>
-            <span className="art-spark" aria-hidden="true">
-              ✦
-            </span>
+          <div className="hero-kanji" aria-hidden="true">
+            夢
+          </div>
+          <div className="coordinate coordinate-right">
+            CHAPTER_00
+            <br />
+            ORIGIN_SIGNAL
           </div>
         </section>
-        <div className="ribbon" aria-hidden="true">
-          <span>DESIGN WITH SOUL</span> ✳ <span>夢を描く</span> ✳{' '}
-          <span>A LITTLE PLAYFUL. A LOT OF HEART.</span> ✳{' '}
-          <span>STAY CURIOUS</span> ✳
+
+        <div className="glitch-cut" aria-hidden="true">
+          <span>SORA_SIGNAL // 001</span>
         </div>
-        <section className="wrap section" id="about">
-          <div className="section-label">
-            01 / VỀ MÌNH <span>はじめまして</span>
+
+        <section className="scene-chapter about-chapter" id="about">
+          <div className="chapter-index">
+            <b>01</b>
+            <span>IDENTITY / 自己紹介</span>
           </div>
-          <div className="about-grid">
-            <div>
-              <h2>
-                Đằng sau những nét vẽ,
-                <br />
-                là một người <em>hay mơ.</em>
-              </h2>
-              <p className="handnote">Và luôn tò mò về thế giới! ↗</p>
-              <FloatingWorld />
-            </div>
-            <div>
-              <p>
-                Mình là Sora — tên mẫu cho người kể câu chuyện này. Mình khám
-                phá thiết kế đồ họa, giao diện và minh họa, tìm cảm hứng từ
-                anime, những góc phố và các chi tiết đời thường.
-              </p>
-              <p>
-                Mình tin một thiết kế tốt vừa đẹp, vừa giúp mọi thứ dễ hiểu hơn.
-                Từ ý tưởng đầu tiên đến chi tiết cuối cùng, mình muốn tạo ra
-                những trải nghiệm có cá tính và có ý nghĩa.
-              </p>
-              <div className="tags">
-                <span>☀ Luôn tò mò</span>
-                <span>✎ Chú ý chi tiết</span>
-                <span>♡ Yêu kể chuyện</span>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="projects wrap section" id="projects">
-          <div className="section-label">
-            02 / DỰ ÁN TIÊU BIỂU <span>作品集</span>
-          </div>
-          <div className="section-heading">
-            <h2>
-              Một vài điều mình <em>đã tạo.</em>
+          <div className="signal-card">
+            <p className="micro-label">INCOMING TRANSMISSION</p>
+            <h2 className="chapter-title">
+              Một người hay mơ.
+              <br />
+              Một góc nhìn <em>khác.</em>
             </h2>
-            <p>Những concept mẫu, mang màu sắc riêng.</p>
+            <div className="signal-copy">
+              <p>
+                Mình là Sora — một designer yêu anime, những góc phố Nhật Bản và
+                cảm giác khi một ý tưởng nhỏ dần trở thành cả một thế giới.
+              </p>
+              <p>
+                Mình kết hợp thiết kế đồ họa, giao diện và chuyển động để tạo ra
+                trải nghiệm có cá tính, dễ hiểu và đọng lại lâu hơn một lần
+                lướt.
+              </p>
+            </div>
+            <div className="signal-tags">
+              <span>CURIOUS</span>
+              <span>PLAYFUL</span>
+              <span>STORY-DRIVEN</span>
+            </div>
           </div>
-          <div className="project-grid">
-            {projects.map((p, i) => (
-              <article key={p.name}>
-                <div className={'project-cover ' + p.cls}>
-                  <span className="project-no">0{i + 1} / CONCEPT</span>
-                  {p.imageKey ? (
+          <p className="side-note">
+            EVERYTHING STARTS
+            <br />
+            WITH A LITTLE DREAM ✦
+          </p>
+        </section>
+
+        <div className="glitch-cut inverse" aria-hidden="true">
+          <span>作品集 // SELECTED WORK</span>
+        </div>
+
+        <section className="projects-chapter" id="projects">
+          <div className="projects-intro">
+            <div className="chapter-index">
+              <b>02</b>
+              <span>SELECTED WORK / 作品集</span>
+            </div>
+            <h2 className="chapter-title">
+              Những tín hiệu
+              <br />
+              mình đã <em>gửi đi.</em>
+            </h2>
+            <p>Mỗi dự án là một thế giới riêng. Cuộn để tiến sâu hơn.</p>
+          </div>
+          <div className="project-stack">
+            {projects.map((project, index) => (
+              <article
+                className="project-orbit"
+                key={`${project.name}-${index}`}
+              >
+                <div className={`project-visual visual-${index % 3}`}>
+                  {project.imageKey ? (
                     <Image
-                      className="uploaded-cover"
-                      src={`/api/project-image?key=${encodeURIComponent(p.imageKey)}`}
-                      alt={`Ảnh bìa dự án ${p.name}`}
+                      src={`/api/project-image?key=${encodeURIComponent(project.imageKey)}`}
+                      alt={`Ảnh dự án ${project.name}`}
                       fill
-                      sizes="(max-width: 650px) 100vw, 33vw"
+                      sizes="(max-width: 800px) 92vw, 58vw"
                       unoptimized
                     />
-                  ) : i === 0 ? (
-                    <div className="coffee-pack">
-                      <span>☁</span>
-                      <strong>KUMO</strong>
-                      <small>COFFEE & SLOW DAYS</small>
-                    </div>
-                  ) : i === 1 ? (
-                    <div className="music-card">
-                      <small>YOUR NIGHT, YOUR SOUND</small>
-                      <strong>yoru.</strong>
-                      <div className="record">♫</div>
-                      <div className="player">
-                        ◀ &nbsp; Ⅱ &nbsp; ▶ <span>01:24 ━━━━━</span>
-                      </div>
-                    </div>
                   ) : (
-                    <div className="poster">
-                      <small>A COLLECTION OF LITTLE MOMENTS</small>
-                      <strong>
-                        Những
-                        <br />
-                        ngày xanh ✳
-                      </strong>
-                      <p>SUMMER MEMORIES / 青い日々</p>
+                    <div className="project-symbol" aria-hidden="true">
+                      <span>{['雲', '夜', '青'][index % 3]}</span>
+                      <i />
                     </div>
                   )}
+                  <span className="visual-index">PROJECT / 0{index + 1}</span>
+                  <span className="visual-year">{project.year}</span>
                 </div>
-                <div className="project-meta">
-                  <span>{p.type}</span>
-                  <span>{p.year}</span>
+                <div className="project-copy">
+                  <p className="micro-label">{project.type}</p>
+                  <h3>{project.name}</h3>
+                  <p className="project-sub">{project.sub}</p>
+                  <details>
+                    <summary>
+                      Xem case study <ArrowUpRight />
+                    </summary>
+                    <div className="case-grid">
+                      <div>
+                        <b>Bối cảnh</b>
+                        <p>{project.brief}</p>
+                      </div>
+                      <div>
+                        <b>Vai trò</b>
+                        <p>{project.role}</p>
+                      </div>
+                      <div>
+                        <b>Quá trình</b>
+                        <p>{project.process}</p>
+                      </div>
+                      <div>
+                        <b>Kết quả</b>
+                        <p>{project.result}</p>
+                      </div>
+                    </div>
+                  </details>
                 </div>
-                <h3>{p.name}</h3>
-                <p className="project-sub">{p.sub}</p>
-                <details>
-                  <summary>
-                    Khám phá câu chuyện <ArrowUpRight size={19} />
-                  </summary>
-                  <div className="case-study">
-                    <b>Bối cảnh</b>
-                    <p>{p.brief}</p>
-                    <b>Vai trò</b>
-                    <p>{p.role}</p>
-                    <b>Quá trình</b>
-                    <p>{p.process}</p>
-                    <b>Kết quả concept</b>
-                    <p>{p.result}</p>
-                  </div>
-                </details>
               </article>
             ))}
           </div>
         </section>
-        <section className="skills section" id="skills">
-          <div className="wrap">
-            <div className="section-label">
-              03 / KỸ NĂNG & DẤU ẤN <span>できること</span>
+
+        <div className="glitch-cut" aria-hidden="true">
+          <span>CAPABILITY_MATRIX // ONLINE</span>
+        </div>
+
+        <section className="scene-chapter skills-chapter" id="skills">
+          <div className="chapter-index">
+            <b>03</b>
+            <span>CAPABILITIES / 技術</span>
+          </div>
+          <div className="skills-copy">
+            <h2 className="chapter-title">
+              Ý tưởng cần
+              <br />
+              <em>đúng công cụ.</em>
+            </h2>
+            <p>Từ nét vẽ đầu tiên đến trải nghiệm tương tác cuối cùng.</p>
+          </div>
+          <div className="skills-orbit">
+            <div>
+              <Palette />
+              <span>01</span>
+              <h3>Visual Design</h3>
+              <p>Branding · Art Direction · Photoshop · Illustrator</p>
             </div>
-            <div className="section-heading">
-              <h2>
-                Trong chiếc túi <em>sáng tạo.</em>
-              </h2>
-              <span>✧</span>
+            <div>
+              <PenTool />
+              <span>02</span>
+              <h3>UI / UX</h3>
+              <p>Figma · Wireframe · Prototype · Design System</p>
             </div>
-            <div className="skill-grid">
-              {[
-                {
-                  icon: Palette,
-                  title: 'Thiết kế đồ họa',
-                  text: 'Nhận diện thương hiệu · Bố cục · Màu sắc',
-                  tools: 'Illustrator / Photoshop',
-                },
-                {
-                  icon: PenTool,
-                  title: 'UI/UX & Minh họa',
-                  text: 'Wireframe · Prototype · Kể chuyện bằng hình ảnh',
-                  tools: 'Figma / Procreate',
-                },
-                {
-                  icon: Code2,
-                  title: 'Biến ý tưởng thành web',
-                  text: 'Responsive · Tương tác · Chi tiết giao diện',
-                  tools: 'HTML / CSS / JavaScript',
-                },
-              ].map((s) => (
-                <div className="skill" key={s.title}>
-                  <s.icon size={28} />
-                  <h3>{s.title}</h3>
-                  <p>{s.text}</p>
-                  <span>{s.tools}</span>
-                </div>
-              ))}
-            </div>
-            <div className="achievement">
-              <span>✷</span>
-              <div>
-                <b>Mỗi bước nhỏ đều đáng được ghi lại.</b>
-                <p>
-                  Chứng chỉ, giải thưởng và phản hồi thực tế sẽ được cập nhật
-                  tại đây.
-                </p>
-              </div>
-              <small>TO BE CONTINUED →</small>
+            <div>
+              <Code2 />
+              <span>03</span>
+              <h3>Creative Web</h3>
+              <p>React · GSAP · Three.js · Interaction Design</p>
             </div>
           </div>
         </section>
-        <section className="contact wrap section" id="contact">
-          <div className="section-label">
-            04 / KẾT NỐI <span>話しましょう</span>
+
+        <section className="scene-chapter contact-chapter" id="contact">
+          <div className="contact-ring" aria-hidden="true">
+            LET&apos;S CREATE · 一緒に作ろう ·{' '}
           </div>
-          <span className="contact-spark" aria-hidden="true">
-            ✳
-          </span>
-          <p>Bạn có một ý tưởng thú vị?</p>
-          <h2>
-            Cùng viết nên
+          <p className="micro-label">FINAL TRANSMISSION / 04</p>
+          <h2 className="chapter-title">
+            Có một thế giới
             <br />
-            <em>chương tiếp theo.</em> <ArrowUpRight />
+            muốn cùng mình <em>tạo nên?</em>
           </h2>
-          <p>
-            Một dự án mới, một lời chào, hay một câu chuyện.
-            <br />
-            Mình luôn sẵn lòng lắng nghe.
-          </p>
-          <a className="button" href="mailto:hello@example.com">
-            <Mail size={19} /> Gửi lời chào <ArrowUpRight size={20} />
+          <a className="contact-button" href="mailto:hello@sora.design">
+            <Mail /> HELLO@SORA.DESIGN <ArrowUpRight />
           </a>
-          <small className="sample-note">
-            Email mẫu: hello@example.com · Thay bằng địa chỉ của bạn trước khi
-            chia sẻ.
-          </small>
+          <p className="contact-note">
+            OPEN FOR FREELANCE, COLLABORATION & GOOD STORIES.
+          </p>
         </section>
       </main>
-      <footer className="wrap">
-        <a className="brand" href="#home">
-          ✳ sora.
-        </a>
-        <span>© 2026 · Portfolio mẫu, chờ câu chuyện của bạn.</span>
-        <span>
-          Made with <Heart size={14} /> & a little imagination.
-        </span>
-        <a href="#home" aria-label="Về đầu trang">
-          ↑
-        </a>
+
+      <footer className="site-footer">
+        <span>© 2026 SORA STUDIO</span>
+        <span>DESIGNED WITH CURIOSITY / BUILT WITH HEART</span>
+        <Link href="/admin">STUDIO ADMIN ↗</Link>
       </footer>
     </ScrollStory>
   );

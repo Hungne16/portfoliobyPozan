@@ -1,0 +1,411 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600&family=Fira+Sans:wght@400;500;600;700&display=swap');
+* {
+  box-sizing: border-box;
+}
+.admin-shell {
+  --admin-ink: #181a18;
+  --admin-red: #b83d2b;
+  --admin-paper: #f5f4ee;
+  min-height: 100vh;
+  background: var(--admin-paper);
+  color: var(--admin-ink);
+  font-family: 'Fira Sans', sans-serif;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+}
+.admin-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  border-right: 1px solid #c8cbc3;
+  background: #eeeee7;
+  padding: 26px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 10px 25px;
+  border-bottom: 1px solid #c8cbc3;
+}
+.admin-brand > span {
+  font-size: 32px;
+  color: var(--admin-red);
+}
+.admin-brand b {
+  font-size: 18px;
+}
+.admin-brand small,
+.admin-user small {
+  display: block;
+  font:
+    500 10px/1.5 'Fira Code',
+    monospace;
+  color: #697068;
+  letter-spacing: 0.8px;
+}
+.back-link,
+.project-row,
+.admin-topbar a,
+.delete-trigger {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.back-link {
+  font-size: 13px;
+  margin: 15px 4px 20px;
+  color: #4e564d;
+}
+.back-link svg,
+.project-row svg,
+.admin-topbar svg,
+.delete-trigger svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+}
+.library-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px 10px;
+  font:
+    600 11px 'Fira Code',
+    monospace;
+  letter-spacing: 0.8px;
+}
+.library-title b {
+  background: #d4d7ce;
+  border-radius: 20px;
+  padding: 3px 8px;
+}
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.project-row {
+  padding: 11px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+  border: 1px solid transparent;
+}
+.project-row:hover,
+.project-row.active {
+  background: #fff;
+  border-color: #c7cbc0;
+}
+.project-row.active {
+  box-shadow: 3px 3px 0 #d6d9d0;
+}
+.project-row span {
+  min-width: 0;
+}
+.project-row b,
+.project-row small {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.project-row small {
+  font-size: 11px;
+  color: #667064;
+  margin-top: 2px;
+}
+.admin-user {
+  margin-top: auto;
+  border-top: 1px solid #c8cbc3;
+  padding: 18px 8px 0;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+.admin-user > span {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  background: var(--admin-ink);
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+}
+.admin-user div {
+  min-width: 0;
+}
+.admin-user b,
+.admin-user small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-user > a {
+  grid-column: 2;
+  font-size: 12px;
+  color: var(--admin-red);
+}
+.admin-workspace {
+  padding: 0 4vw 50px;
+  min-width: 0;
+}
+.admin-topbar {
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #c8cbc3;
+}
+.admin-topbar span,
+.editor-heading > div > span {
+  font:
+    600 11px 'Fira Code',
+    monospace;
+  letter-spacing: 1px;
+  color: #667064;
+}
+.admin-topbar p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #606960;
+}
+.admin-topbar a {
+  font-size: 13px;
+  border: 1px solid #aeb3a9;
+  padding: 0 15px;
+  border-radius: 7px;
+  background: white;
+}
+.editor-form {
+  max-width: 960px;
+  margin: 38px auto;
+  background: #fffefa;
+  border: 1px solid #c9cdc3;
+  border-radius: 12px;
+  box-shadow: 7px 7px 0 #dedfd8;
+  overflow: hidden;
+}
+.editor-heading {
+  padding: 26px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #d5d8d0;
+  gap: 20px;
+}
+.editor-heading h2 {
+  font:
+    700 26px/1.3 'Fira Sans',
+    sans-serif;
+  margin: 4px 0 0;
+  letter-spacing: -0.5px;
+}
+.publish-control {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.publish-control span {
+  text-align: right;
+}
+.publish-control b,
+.publish-control small {
+  display: block;
+}
+.publish-control small {
+  font-size: 11px;
+  color: #6c736b;
+}
+.editor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 21px;
+  padding: 30px;
+}
+.editor-grid label {
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  position: relative;
+}
+.editor-grid label.wide {
+  grid-column: 1/-1;
+}
+.editor-grid input,
+.editor-grid textarea {
+  min-height: 44px;
+  border-color: #bfc4ba;
+  background: white;
+  font:
+    400 15px 'Fira Sans',
+    sans-serif;
+}
+.editor-grid textarea {
+  min-height: 105px;
+  resize: vertical;
+  padding: 12px;
+}
+.editor-grid label > svg {
+  position: absolute;
+  right: 14px;
+  top: 42px;
+  width: 18px;
+  color: #6a7467;
+}
+.editor-grid label > small {
+  font-size: 11px;
+  font-weight: 400;
+  color: #697067;
+}
+.editor-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 30px;
+  background: #f0f1eb;
+  border-top: 1px solid #d5d8d0;
+}
+.editor-actions > span {
+  font-size: 12px;
+  color: #646c63;
+}
+.admin-primary {
+  min-height: 46px;
+  border: 1px solid #6e2117;
+  border-radius: 7px;
+  background: var(--admin-red);
+  color: white;
+  padding: 0 19px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font:
+    600 14px 'Fira Sans',
+    sans-serif;
+  cursor: pointer;
+}
+.admin-primary:hover {
+  background: #982f20;
+}
+.admin-primary:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.admin-primary svg {
+  width: 17px;
+}
+.form-message {
+  margin: 20px 30px 0;
+  padding: 12px 14px;
+  border-radius: 7px;
+  font-size: 14px;
+}
+.form-message.success {
+  background: #e5f1df;
+  color: #2c5c2a;
+}
+.form-message.error {
+  background: #f9e3df;
+  color: #8b281b;
+}
+.danger-zone {
+  max-width: 960px;
+  margin: 25px auto;
+  padding: 20px 24px;
+  border: 1px solid #d6a49d;
+  background: #fff7f5;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.danger-zone b {
+  font-size: 14px;
+}
+.danger-zone p {
+  font-size: 12px;
+  color: #71605d;
+  margin: 4px 0;
+}
+.delete-trigger {
+  border: 1px solid #b83d2b;
+  color: #9c2f21;
+  background: white;
+  border-radius: 7px;
+  padding: 0 14px;
+  font:
+    600 13px 'Fira Sans',
+    sans-serif;
+  cursor: pointer;
+}
+.admin-shell a:focus-visible,
+.admin-shell button:focus-visible,
+.admin-shell input:focus-visible,
+.admin-shell textarea:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+@media (max-width: 800px) {
+  .admin-shell {
+    display: block;
+  }
+  .admin-sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid #c8cbc3;
+  }
+  .project-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .admin-user {
+    margin-top: 18px;
+  }
+  .admin-workspace {
+    padding-inline: 18px;
+  }
+  .admin-topbar {
+    height: auto;
+    padding-block: 18px;
+  }
+  .admin-topbar p {
+    display: none;
+  }
+  .editor-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .publish-control span {
+    text-align: left;
+  }
+  .editor-grid {
+    grid-template-columns: 1fr;
+    padding: 22px;
+  }
+  .editor-grid label.wide {
+    grid-column: auto;
+  }
+  .editor-actions,
+  .danger-zone {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .admin-primary {
+    justify-content: center;
+  }
+}

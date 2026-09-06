@@ -5,11 +5,18 @@ import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { SplitText } from 'gsap/SplitText';
 import IntroCurtain from './intro-curtain';
 import ImmersiveWorld from './immersive-world';
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin, SplitText);
+gsap.registerPlugin(
+  useGSAP,
+  ScrollTrigger,
+  ScrollToPlugin,
+  ScrambleTextPlugin,
+  SplitText,
+);
 
 const chapters = [
   ['home', 'Khởi hành'],
@@ -386,6 +393,45 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                 const image = project.querySelector('.project-visual img');
                 const copy = project.querySelector('.project-copy');
                 const proof = project.querySelectorAll('.project-proof > div');
+                const signal = project.querySelector(
+                  '.project-signal',
+                ) as HTMLElement | null;
+                const reticle = project.querySelector('.project-reticle');
+                if (desktop) {
+                  const entryMask =
+                    index % 2
+                      ? 'polygon(0 38%, 100% 8%, 100% 100%, 0 100%)'
+                      : 'polygon(0 8%, 100% 38%, 100% 100%, 0 100%)';
+                  const openMask =
+                    index % 3 === 1
+                      ? 'polygon(0 0, 100% 4%, 100% 100%, 0 96%)'
+                      : 'polygon(0 3%, 100% 0, 100% 97%, 0 100%)';
+                  gsap.fromTo(
+                    project,
+                    { clipPath: entryMask },
+                    {
+                      clipPath: openMask,
+                      ease: 'none',
+                      scrollTrigger: {
+                        trigger: project,
+                        start: 'top 96%',
+                        end: 'top 4%',
+                        scrub: 0.8,
+                      },
+                    },
+                  );
+                  gsap.to(copy, {
+                    yPercent: -12,
+                    opacity: 0.3,
+                    ease: 'none',
+                    scrollTrigger: {
+                      trigger: project,
+                      start: 'top top',
+                      end: 'bottom top',
+                      scrub: 0.8,
+                    },
+                  });
+                }
                 gsap
                   .timeline({
                     scrollTrigger: {
@@ -403,6 +449,36 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                   })
                   .from(copy, { y: 55, opacity: 0 }, '<0.1')
                   .from(proof, { y: 20, opacity: 0, stagger: 0.08 }, '<0.18');
+                if (signal) {
+                  const finalSignal = signal.textContent || '';
+                  signal.textContent = 'INITIALIZING / 000000';
+                  gsap.to(signal, {
+                    scrambleText: {
+                      text: finalSignal,
+                      chars: '01_X/[]',
+                      speed: 0.7,
+                    },
+                    duration: 1.1,
+                    scrollTrigger: {
+                      trigger: project,
+                      start: 'top 64%',
+                      once: true,
+                    },
+                  });
+                }
+                if (reticle) {
+                  gsap.to(reticle, {
+                    rotate: index % 2 ? -140 : 140,
+                    scale: 1.45,
+                    ease: 'none',
+                    scrollTrigger: {
+                      trigger: project,
+                      start: 'top bottom',
+                      end: 'bottom top',
+                      scrub: 1,
+                    },
+                  });
+                }
                 if (image) {
                   gsap.fromTo(
                     image,

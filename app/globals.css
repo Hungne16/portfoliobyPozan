@@ -646,7 +646,7 @@ textarea {
 .projects-chapter {
   position: relative;
   z-index: 7;
-  padding: 150px clamp(24px, 6vw, 96px) 180px;
+  padding: 150px clamp(24px, 6vw, 96px) 0;
   background: linear-gradient(
     180deg,
     rgba(9, 10, 18, 0.12),
@@ -675,14 +675,60 @@ textarea {
 .project-stack {
   display: flex;
   flex-direction: column;
-  gap: 26vh;
+  gap: 0;
+  margin-inline: calc(-1 * clamp(24px, 6vw, 96px));
+  isolation: isolate;
 }
 .project-orbit {
-  min-height: 85vh;
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(310px, 0.65fr);
   gap: clamp(30px, 6vw, 100px);
   align-items: center;
+  padding: clamp(100px, 13vh, 150px) clamp(24px, 6vw, 96px)
+    clamp(65px, 9vh, 100px);
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  background:
+    radial-gradient(
+      circle at 18% 28%,
+      rgba(255, 85, 123, 0.13),
+      transparent 34%
+    ),
+    linear-gradient(145deg, #121522, #080910 62%);
+  clip-path: polygon(0 3%, 100% 0, 100% 97%, 0 100%);
+  will-change: clip-path, transform;
+}
+.project-orbit:nth-child(3n + 2) {
+  background:
+    radial-gradient(
+      circle at 82% 24%,
+      rgba(111, 230, 225, 0.14),
+      transparent 34%
+    ),
+    linear-gradient(215deg, #101b22, #080910 62%);
+  clip-path: polygon(0 0, 100% 4%, 100% 100%, 0 96%);
+}
+.project-orbit:nth-child(3n) {
+  background:
+    radial-gradient(
+      circle at 50% 78%,
+      rgba(255, 213, 118, 0.1),
+      transparent 36%
+    ),
+    linear-gradient(155deg, #1a1422, #080910 64%);
+}
+.project-orbit::before {
+  content: 'ARCHIVE / KPR_POZAN';
+  position: absolute;
+  right: 4vw;
+  top: 9vh;
+  color: rgba(255, 255, 255, 0.16);
+  font-family: 'DM Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.22em;
 }
 .project-orbit:nth-child(even) {
   grid-template-columns: minmax(310px, 0.65fr) minmax(0, 1.35fr);
@@ -710,6 +756,20 @@ textarea {
     transparent 48%
   );
   mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+.project-visual::before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  opacity: 0.2;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 4px,
+    rgba(255, 255, 255, 0.07) 5px
+  );
   pointer-events: none;
 }
 .project-visual img {
@@ -804,6 +864,46 @@ textarea {
 .visual-year {
   right: 18px;
   bottom: 18px;
+}
+.project-signal {
+  position: absolute;
+  z-index: 3;
+  right: 18px;
+  top: 18px;
+  color: var(--cyan);
+  font-family: 'DM Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.13em;
+  text-shadow: 0 0 12px rgba(111, 230, 225, 0.5);
+}
+.project-reticle {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  width: 74px;
+  height: 74px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.project-reticle::before,
+.project-reticle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: rgba(255, 255, 255, 0.38);
+  transform: translate(-50%, -50%);
+}
+.project-reticle::before {
+  width: 112px;
+  height: 1px;
+}
+.project-reticle::after {
+  width: 1px;
+  height: 112px;
 }
 .project-copy {
   max-width: 460px;
@@ -951,6 +1051,9 @@ textarea {
   letter-spacing: -0.02em;
 }
 .capability-proof > div:first-child b {
+  font-size: 30px;
+}
+.capability-proof > div:nth-child(2) b {
   font-size: 30px;
 }
 .capability-proof span {
@@ -1106,6 +1209,38 @@ textarea {
 .skills-resume-head b {
   color: var(--yellow);
   font-weight: 500;
+}
+.experience-stamp {
+  position: relative;
+  display: grid;
+  grid-template-columns: 100px minmax(190px, 1fr) 1.4fr auto;
+  align-items: center;
+  gap: 18px;
+  min-height: 74px;
+  padding: 0 22px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg, rgba(255, 85, 123, 0.12), transparent 78%);
+}
+.experience-stamp span,
+.experience-stamp i {
+  color: var(--pink);
+  font-family: 'DM Mono', monospace;
+  font-size: 7px;
+  font-style: normal;
+  letter-spacing: 0.12em;
+}
+.experience-stamp strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+.experience-stamp p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 9px;
+}
+.experience-stamp i {
+  color: var(--yellow);
+  white-space: nowrap;
 }
 .status-dot {
   width: 7px;
@@ -2132,6 +2267,10 @@ summary:focus-visible {
     grid-template-columns: 1fr;
     gap: 35px;
   }
+  .project-orbit {
+    padding-top: 120px;
+    padding-bottom: 90px;
+  }
   .project-orbit:nth-child(even) .project-visual {
     order: 0;
   }
@@ -2317,7 +2456,12 @@ summary:focus-visible {
     gap: 18vh;
   }
   .project-orbit {
+    position: relative;
+    top: auto;
     min-height: auto;
+    margin-bottom: 12vh;
+    padding: 90px 24px 70px;
+    clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%);
   }
   .project-visual {
     aspect-ratio: 1 / 1.08;
@@ -2364,6 +2508,19 @@ summary:focus-visible {
     flex-direction: column;
     justify-content: center;
     padding-block: 14px;
+  }
+  .experience-stamp {
+    grid-template-columns: 1fr auto;
+    gap: 8px 14px;
+    padding-block: 16px;
+  }
+  .experience-stamp strong,
+  .experience-stamp p {
+    grid-column: 1 / -1;
+  }
+  .experience-stamp i {
+    grid-column: 2;
+    grid-row: 1;
   }
   .language-row {
     grid-template-columns: minmax(105px, 1fr) 64px 57px;

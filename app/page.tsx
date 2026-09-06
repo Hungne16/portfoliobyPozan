@@ -9,7 +9,6 @@ import {
   GraduationCap,
   Mail,
   MapPin,
-  Palette,
   Radio,
   Server,
   ShieldCheck,
@@ -273,6 +272,7 @@ export default async function Home() {
               <article
                 className="project-orbit"
                 key={`${project.name}-${index}`}
+                style={{ zIndex: index + 1 }}
               >
                 <div className={`project-visual visual-${index % 3}`}>
                   {project.imageKey ? (
@@ -295,6 +295,13 @@ export default async function Home() {
                   )}
                   <span className="visual-index">PROJECT / 0{index + 1}</span>
                   <span className="visual-year">{project.year}</span>
+                  <span
+                    className="project-signal"
+                    aria-label={`Tín hiệu dự án ${index + 1}`}
+                  >
+                    SIGNAL_{String(index + 1).padStart(2, '0')} / DATA_STREAM
+                  </span>
+                  <i className="project-reticle" aria-hidden="true" />
                 </div>
                 <div className="project-copy">
                   <p className="micro-label">{project.type}</p>
@@ -370,6 +377,10 @@ export default async function Home() {
             </p>
             <div className="capability-proof">
               <div>
+                <b>1+ NĂM</b>
+                <span>Xây dựng sản phẩm web thực tế · 2025 — nay</span>
+              </div>
+              <div>
                 <b>10</b>
                 <span>Sản phẩm đã đưa lên môi trường thật</span>
               </div>
@@ -402,6 +413,13 @@ export default async function Home() {
                 TECHNICAL PROFILE / 2026
               </div>
               <b>SOFTWARE ENGINEERING · HUCE</b>
+            </div>
+
+            <div className="experience-stamp">
+              <span>EXPERIENCE</span>
+              <strong>1+ năm Frontend & Product Development</strong>
+              <p>10 sản phẩm thực tế · Community · EdTech · Web App · Web3</p>
+              <i>2025 — PRESENT</i>
             </div>
 
             <div className="skill-panel language-panel">
@@ -474,27 +492,29 @@ export default async function Home() {
             <div className="competency-grid">
               <article>
                 <GitBranch />
-                <b>ENGINEERING</b>
-                <p>Git workflow · Clean code · Component architecture</p>
-                <small>Reusable systems across 10 products</small>
+                <b>ANALYSIS & DESIGN</b>
+                <p>Requirements · UML · User flows · System design</p>
+                <small>Chuyển bài toán thành đặc tả và kiến trúc rõ ràng</small>
+              </article>
+              <article>
+                <Database />
+                <b>IMPLEMENTATION</b>
+                <p>OOP · Data structures · REST · Component architecture</p>
+                <small>
+                  Xây dựng frontend, API và luồng dữ liệu end-to-end
+                </small>
               </article>
               <article>
                 <ShieldCheck />
-                <b>QUALITY</b>
-                <p>Validation · Error handling · Responsive · Accessibility</p>
-                <small>Production flows tested end-to-end</small>
+                <b>QUALITY & SECURITY</b>
+                <p>Testing · Debugging · Validation · Performance</p>
+                <small>Kiểm soát lỗi, accessibility và security basics</small>
               </article>
               <article>
-                <Palette />
-                <b>PRODUCT & UX</b>
-                <p>User flows · Prototyping · Design systems</p>
-                <small>Community, EdTech and Web3 products</small>
-              </article>
-              <article>
-                <Sparkles />
-                <b>MOTION & DELIVERY</b>
-                <p>ScrollTrigger · 3D · Performance · Deployment</p>
-                <small>Interactive experiences running live</small>
+                <ArrowUpRight />
+                <b>DELIVERY & TEAMWORK</b>
+                <p>Git · Agile/Scrum · Documentation · CI/CD concepts</p>
+                <small>Làm việc theo vòng đời phát triển phần mềm</small>
               </article>
             </div>
           </div>

@@ -246,7 +246,9 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                 0.7,
               )
               .from(
-                q('.cv-intro, .cv-education, .cv-stats, .cv-foundation'),
+                q(
+                  '.cv-intro, .cv-education, .cv-projects, .cv-foundation, .cv-focus',
+                ),
                 {
                   y: 24,
                   autoAlpha: 0,
@@ -255,6 +257,43 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                 },
                 0.74,
               );
+            gsap
+              .timeline({
+                scrollTrigger: {
+                  trigger: '#contact',
+                  start: 'top 88%',
+                  end: 'center 48%',
+                  scrub: 0.7,
+                },
+              })
+              .from(q('.contact-heading'), {
+                xPercent: -12,
+                autoAlpha: 0,
+                filter: 'blur(12px)',
+              })
+              .from(
+                q('.contact-console'),
+                {
+                  xPercent: 18,
+                  rotateY: -12,
+                  autoAlpha: 0,
+                  filter: 'blur(10px)',
+                },
+                '<0.08',
+              )
+              .from(
+                q('.contact-orbit-system'),
+                { scale: 0.45, rotate: -70, autoAlpha: 0 },
+                '<',
+              );
+            gsap.to(q('.contact-core'), {
+              scale: 1.18,
+              boxShadow: '0 0 160px rgba(255, 85, 123, 0.42)',
+              repeat: -1,
+              yoyo: true,
+              duration: 1.8,
+              ease: 'sine.inOut',
+            });
             gsap.from(q('.skills-orbit > div'), {
               y: 45,
               opacity: 0,

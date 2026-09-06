@@ -8,9 +8,12 @@ import {
   GitBranch,
   GraduationCap,
   Mail,
+  MapPin,
   Palette,
+  Radio,
   Server,
   ShieldCheck,
+  Sparkles,
   Terminal,
 } from 'lucide-react';
 import ScrollStory from '../components/scroll-story';
@@ -435,10 +438,12 @@ export default async function Home() {
               </div>
               <div className="cv-panel">
                 <div className="cv-intro">
-                  <p className="micro-label">ENGINEER PROFILE / 2026</p>
+                  <p className="micro-label">
+                    UNDERGRADUATE ACADEMIC CV / 2026
+                  </p>
                   <h2>POZAN</h2>
                   <p>
-                    Software Engineering Student
+                    B.Eng. Software Engineering Student
                     <br />
                     Creative Developer
                   </p>
@@ -447,24 +452,31 @@ export default async function Home() {
                   <GraduationCap />
                   <span>EDUCATION</span>
                   <h3>Trường Đại học Xây dựng Hà Nội</h3>
-                  <p>HUCE · Công nghệ Phần mềm · Đang theo học</p>
+                  <p>
+                    Kỹ sư Công nghệ Phần mềm · Đang theo học
+                    <br />
+                    Hanoi University of Civil Engineering — HUCE
+                  </p>
                 </div>
-                <div className="cv-stats">
-                  <div>
-                    <b>10</b>
-                    <span>Dự án đã triển khai</span>
-                  </div>
-                  <div>
-                    <b>06</b>
-                    <span>Nhóm năng lực kỹ sư</span>
-                  </div>
-                  <div>
-                    <b>01</b>
-                    <span>Tư duy sản phẩm xuyên suốt</span>
-                  </div>
+                <div className="cv-projects">
+                  <span>SELECTED ENGINEERING PROJECTS</span>
+                  <ol>
+                    <li>
+                      <b>BeeTools</b>
+                      <small>Ứng dụng web · Khám phá công cụ AI</small>
+                    </li>
+                    <li>
+                      <b>Arcade Học Đường</b>
+                      <small>EdTech · Trải nghiệm học tập tương tác</small>
+                    </li>
+                    <li>
+                      <b>ULIS Digital Ecosystem</b>
+                      <small>Nền tảng cộng đồng · Thiết kế sản phẩm</small>
+                    </li>
+                  </ol>
                 </div>
                 <div className="cv-foundation">
-                  <span>ENGINEERING FOUNDATION</span>
+                  <span>ACADEMIC & TECHNICAL FOUNDATION</span>
                   <ul>
                     <li>Cấu trúc dữ liệu & giải thuật</li>
                     <li>Lập trình hướng đối tượng</li>
@@ -473,6 +485,13 @@ export default async function Home() {
                     <li>Phân tích yêu cầu & vòng đời phần mềm</li>
                     <li>Làm việc nhóm, Git workflow & giao tiếp kỹ thuật</li>
                   </ul>
+                </div>
+                <div className="cv-focus">
+                  <span>AREAS OF INTEREST</span>
+                  <p>
+                    Human–Computer Interaction <i>/</i> Software Architecture{' '}
+                    <i>/</i> Web Engineering <i>/</i> Creative Technology
+                  </p>
                 </div>
                 <a className="cv-cta" href="#contact">
                   <Terminal /> TRAO ĐỔI CƠ HỘI <ArrowUpRight />
@@ -488,21 +507,67 @@ export default async function Home() {
         </section>
 
         <section className="scene-chapter contact-chapter" id="contact">
-          <div className="contact-ring" aria-hidden="true">
-            LET&apos;S CREATE · 一緒に作ろう ·{' '}
+          <div className="contact-wordmark" aria-hidden="true">
+            SIGNAL
           </div>
-          <p className="micro-label">FINAL TRANSMISSION / 06</p>
-          <h2 className="chapter-title">
-            Có một thế giới
-            <br />
-            muốn cùng mình <em>tạo nên?</em>
-          </h2>
-          <a className="contact-button" href="mailto:hello@pozan.dev">
-            <Mail /> HELLO@POZAN.DEV <ArrowUpRight />
-          </a>
-          <p className="contact-note">
-            OPEN FOR FREELANCE, COLLABORATION & GOOD STORIES.
-          </p>
+          <div className="contact-orbit-system" aria-hidden="true">
+            <span className="contact-orbit orbit-a" />
+            <span className="contact-orbit orbit-b" />
+            <span className="contact-orbit orbit-c" />
+            <i className="contact-satellite satellite-a" />
+            <i className="contact-satellite satellite-b" />
+            <div className="contact-core">
+              <Radio />
+            </div>
+          </div>
+          <div className="contact-layout">
+            <div className="contact-heading">
+              <p className="micro-label">FINAL TRANSMISSION / 06</p>
+              <h2 className="chapter-title">
+                Gửi một <em>tín hiệu.</em>
+                <br />
+                Mình sẽ biến nó thành chuyển động.
+              </h2>
+              <p>
+                Thực tập, dự án nghiên cứu sinh viên, sản phẩm web hoặc một ý
+                tưởng chưa có tên — hãy bắt đầu bằng một lời chào.
+              </p>
+            </div>
+            <div className="contact-console">
+              <div className="contact-console-bar">
+                <span />
+                <b>POZAN / COMMS_CHANNEL</b>
+                <small>● ONLINE</small>
+              </div>
+              <div className="contact-console-body">
+                <div className="contact-location">
+                  <MapPin />
+                  <span>
+                    BASED IN
+                    <b>HÀ NỘI, VIỆT NAM</b>
+                  </span>
+                </div>
+                <a className="contact-button" href="mailto:hello@pozan.dev">
+                  <span>
+                    <small>DIRECT CHANNEL</small>
+                    HELLO@POZAN.DEV
+                  </span>
+                  <Mail />
+                  <ArrowUpRight />
+                </a>
+                <div className="contact-topics">
+                  <span>INTERNSHIP</span>
+                  <span>STUDENT RESEARCH</span>
+                  <span>WEB PROJECT</span>
+                  <span>CREATIVE COLLAB</span>
+                </div>
+                <p>
+                  <Sparkles /> CHANNEL READY — YOUR MESSAGE STARTS THE NEXT
+                  CHAPTER.
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
 

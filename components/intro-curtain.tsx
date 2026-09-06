@@ -67,12 +67,25 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
       });
       void Promise.all([bounded, minimum]).then(() => {
         if (done || disposed) return;
+        const progress = { value: 0 };
+        const progressLabel =
+          overlay.querySelector<HTMLElement>('.curtain-progress')!;
         timeline = gsap
           .timeline({ onComplete: release, defaults: { ease: 'power4.inOut' } })
-          .to(overlay.querySelector('.curtain-title'), {
+          .to(progress, {
+            value: 100,
+            duration: 1.45,
+            ease: 'power2.inOut',
+            onUpdate: () => {
+              progressLabel.textContent = `${Math.round(progress.value)
+                .toString()
+                .padStart(2, '0')}%`;
+            },
+          })
+          .to(overlay.querySelector('.curtain-loader'), {
             opacity: 0,
-            y: -18,
-            duration: 0.3,
+            y: -12,
+            duration: 0.24,
           })
           .to(
             overlay.querySelectorAll('.curtain-top .curtain-tile'),
@@ -81,7 +94,7 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
               duration: 1.1,
               stagger: { each: 0.065, from: 'center' },
             },
-            0.15,
+            1.5,
           )
           .to(
             overlay.querySelectorAll('.curtain-bottom .curtain-tile'),
@@ -90,9 +103,9 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
               duration: 1.1,
               stagger: { each: 0.065, from: 'center' },
             },
-            0.15,
+            1.5,
           )
-          .to(skip, { opacity: 0, duration: 0.2 }, 0.15);
+          .to(skip, { opacity: 0, duration: 0.2 }, 1.5);
       });
       return () => {
         disposed = true;
@@ -123,10 +136,16 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
           <span className="curtain-tile" key={i} />
         ))}
       </div>
-      <div className="curtain-title">
-        <span>想像から、はじまる。</span>
-        <strong>✳ pozan.</strong>
-        <p>ENGINEERING IMAGINATION — SYSTEM BOOTING</p>
+      <div className="curtain-loader">
+        <div className="curtain-loader-line">
+          <span>
+            ▶ LOADING — <b className="curtain-progress">00%</b>
+          </span>
+          <i />
+          <span>POZAN://ORIGIN/STORY/BUILD/001</span>
+        </div>
+        <div className="curtain-spinner" aria-hidden="true" />
+        <p>ASSEMBLING A WORLD FROM CODE, CURIOSITY & IMAGINATION</p>
       </div>
       <button type="button" className="curtain-skip">
         Bỏ qua phần mở đầu ↗

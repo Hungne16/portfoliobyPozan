@@ -88,6 +88,30 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                 scrub: 0.7,
               },
             });
+            gsap.to(q('.hero-art img'), {
+              scale: 1.19,
+              yPercent: 7,
+              filter: 'saturate(0.55) contrast(1.12) brightness(0.4)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom 32%',
+                scrub: 0.9,
+              },
+            });
+            gsap.to(q('.hero-wordmark'), {
+              yPercent: -42,
+              scale: 1.08,
+              opacity: 0,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom 42%',
+                scrub: 0.7,
+              },
+            });
             gsap.utils
               .toArray<HTMLElement>('.parallax-slow', el)
               .forEach((layer) => {

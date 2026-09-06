@@ -115,56 +115,58 @@ export default async function Home() {
 
       <main id="main">
         <section className="scene-chapter hero-chapter" id="home">
+          <div className="hero-art" aria-hidden="true">
+            <Image src="/anime-studio.png" alt="" fill priority sizes="100vw" />
+          </div>
+          <div className="hero-wordmark" aria-hidden="true">
+            POZAN
+          </div>
           <div className="coordinate coordinate-left">
-            35.6762° N<br />
-            139.6503° E
+            STORY_001 / HANOI
+            <br />
+            THE MAKING OF AN IDEA
           </div>
           <div className="hero-copy-block">
-            <p className="hero-kicker">
-              SOFTWARE ENGINEERING / CREATIVE TECHNOLOGY
-            </p>
+            <p className="hero-kicker">PROLOGUE / THE FIRST SIGNAL</p>
             <h1 className="hero-title">
-              Code. Craft.
+              Bạn mang đến một ý tưởng.
               <br />
-              <em>Impact.</em>
+              Mình xây thế giới để nó <em>sống.</em>
             </h1>
             <p className="hero-copy">
-              Mình là Pozan — sinh viên Công nghệ Phần mềm tại HUCE. Mình biến ý
-              tưởng thành sản phẩm số chỉn chu bằng tư duy kỹ sư và cảm quan
-              thiết kế.
+              Đây là câu chuyện về cách tò mò trở thành ý tưởng, ý tưởng thành
+              sản phẩm, và sản phẩm trở thành trải nghiệm khiến người ta muốn ở
+              lại.
             </p>
             <div className="hero-actions">
-              <a href="#projects">
-                Khám phá thế giới <ArrowDown />
+              <a href="#about">
+                Bắt đầu câu chuyện <ArrowDown />
               </a>
-              <span>SCROLL TO ENTER / 巻物</span>
+              <span>SCROLL TO BEGIN / 物語</span>
             </div>
           </div>
-          <div className="hero-kanji" aria-hidden="true">
-            夢
-          </div>
           <div className="coordinate coordinate-right">
-            CHAPTER_00
+            CHAPTER_00 / ORIGIN
             <br />
-            ORIGIN_SIGNAL
+            CODE × STORY × MOTION
           </div>
         </section>
 
         <div className="glitch-cut" aria-hidden="true">
-          <span>POZAN_SYSTEM // IDENTITY_LOADED</span>
+          <span>POZAN_SYSTEM // EVERY STORY STARTS WITH A QUESTION</span>
         </div>
 
         <section className="scene-chapter about-chapter" id="about">
           <div className="chapter-index">
             <b>01</b>
-            <span>IDENTITY / 自己紹介</span>
+            <span>THE QUESTION / 問い</span>
           </div>
           <div className="signal-card">
-            <p className="micro-label">INCOMING TRANSMISSION</p>
+            <p className="micro-label">EVERY PROJECT STARTS WITH WHY</p>
             <h2 className="chapter-title">
-              Kỹ sư biết mơ.
+              Trước khi viết code,
               <br />
-              Người làm biết <em>đến cùng.</em>
+              mình tìm điều cần <em>thay đổi.</em>
             </h2>
             <div className="signal-copy">
               <p>
@@ -195,12 +197,10 @@ export default async function Home() {
         <section className="experience-chapter" id="experience">
           <div className="chapter-index">
             <b>02</b>
-            <span>EXPERIENCE LOG / 経験</span>
+            <span>THE PROCESS / 過程</span>
           </div>
           <div className="experience-heading parallax-slow">
-            <p className="micro-label">
-              FIELD NOTES / PROJECT-BASED EXPERIENCE
-            </p>
+            <p className="micro-label">FROM QUESTION TO WORKING PRODUCT</p>
             <h2 className="chapter-title">
               Học bằng cách
               <br />
@@ -259,7 +259,7 @@ export default async function Home() {
           <div className="projects-intro">
             <div className="chapter-index">
               <b>03</b>
-              <span>SELECTED WORK / 作品集</span>
+              <span>THE EVIDENCE / 実績</span>
             </div>
             <h2 className="chapter-title">
               Những tín hiệu
@@ -346,7 +346,7 @@ export default async function Home() {
         <section className="scene-chapter skills-chapter" id="skills">
           <div className="chapter-index">
             <b>04</b>
-            <span>ENGINEERING MATRIX / 技術</span>
+            <span>THE TOOLKIT / 技術</span>
           </div>
           <div className="skills-copy">
             <h2 className="chapter-title">
@@ -434,7 +434,7 @@ export default async function Home() {
               </div>
               <div className="chapter-index">
                 <b>05</b>
-                <span>CURRICULUM VITAE / 履歴書</span>
+                <span>THE PERSON / 履歴書</span>
               </div>
               <div className="cv-panel">
                 <div className="cv-intro">

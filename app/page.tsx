@@ -395,67 +395,107 @@ export default async function Home() {
               </span>
             </div>
           </div>
-          <div className="skills-orbit">
-            <div>
-              <Code2 />
-              <span>01</span>
-              <h3>Frontend Engineering</h3>
-              <p>
-                React · Next.js · TypeScript · Responsive UI · Accessibility
-              </p>
-              <small>PROOF / 10 RESPONSIVE PRODUCTS</small>
+          <div className="skills-resume">
+            <div className="skills-resume-head">
+              <div>
+                <span className="status-dot" />
+                TECHNICAL PROFILE / 2026
+              </div>
+              <b>SOFTWARE ENGINEERING · HUCE</b>
             </div>
-            <div>
-              <Server />
-              <span>02</span>
-              <h3>Backend & API</h3>
-              <p>Node.js · REST API · Authentication · Server Actions</p>
-              <small>PROOF / AUTHENTICATED ADMIN & CMS</small>
+
+            <div className="skill-panel language-panel">
+              <div className="skill-panel-title">
+                <Code2 />
+                <span>01 / PROGRAMMING LANGUAGES</span>
+              </div>
+              <div className="language-list">
+                {[
+                  ['JavaScript / TypeScript', 'ADVANCED', 5],
+                  ['HTML / CSS', 'ADVANCED', 5],
+                  ['SQL', 'PROFICIENT', 4],
+                  ['Java', 'ACADEMIC', 3],
+                  ['C / C++', 'FOUNDATION', 3],
+                  ['Python', 'FOUNDATION', 3],
+                ].map(([name, level, score]) => (
+                  <div className="language-row" key={String(name)}>
+                    <strong>{name}</strong>
+                    <div
+                      className="skill-meter"
+                      aria-label={`${name}: ${level}`}
+                    >
+                      {[1, 2, 3, 4, 5].map((step) => (
+                        <i
+                          className={step <= Number(score) ? 'is-active' : ''}
+                          key={step}
+                        />
+                      ))}
+                    </div>
+                    <small>{level}</small>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div>
-              <Database />
-              <span>03</span>
-              <h3>Data Engineering</h3>
-              <p>SQL · Data Modeling · SQLite · D1 · Object Storage</p>
-              <small>PROOF / PROJECT DATA & MEDIA PIPELINE</small>
+
+            <div className="skill-panel stack-panel">
+              <div className="skill-panel-title">
+                <Server />
+                <span>02 / FRAMEWORKS & DATA</span>
+              </div>
+              <div className="skill-chip-grid">
+                <span>React</span>
+                <span>Next.js</span>
+                <span>Node.js</span>
+                <span>REST API</span>
+                <span>Drizzle ORM</span>
+                <span>SQLite / D1</span>
+                <span>GSAP</span>
+                <span>Three.js</span>
+              </div>
             </div>
-            <div>
-              <GitBranch />
-              <span>04</span>
-              <h3>Software Practice</h3>
-              <p>Git · Clean Code · Component Architecture · Documentation</p>
-              <small>PROOF / REUSABLE PRODUCT SYSTEMS</small>
+
+            <div className="skill-panel tools-panel">
+              <div className="skill-panel-title">
+                <Terminal />
+                <span>03 / TOOLS I WORK WITH</span>
+              </div>
+              <div className="tool-cloud">
+                <span>Git</span>
+                <span>GitHub</span>
+                <span>VS Code</span>
+                <span>Figma</span>
+                <span>Framer</span>
+                <span>Postman</span>
+                <span>Vercel</span>
+                <span>Cloudflare</span>
+              </div>
             </div>
-            <div>
-              <ShieldCheck />
-              <span>05</span>
-              <h3>Quality & Security</h3>
-              <p>
-                Validation · Error Handling · Testing · Performance · Security
-                Basics
-              </p>
-              <small>PROOF / VALIDATED PRODUCTION FLOWS</small>
-            </div>
-            <div>
-              <Palette />
-              <span>06</span>
-              <h3>Motion & 3D</h3>
-              <p>Figma · GSAP · Three.js · Motion · Design Systems</p>
-              <small>PROOF / CINEMATIC SCROLL EXPERIENCE</small>
-            </div>
-            <div>
-              <Sparkles />
-              <span>07</span>
-              <h3>Product & UX</h3>
-              <p>Requirements · User Flows · Prototyping · Usability</p>
-              <small>PROOF / COMMUNITY & EDTECH PRODUCTS</small>
-            </div>
-            <div>
-              <ArrowUpRight />
-              <span>08</span>
-              <h3>Delivery</h3>
-              <p>Vercel · Cloudflare · Performance · Production Builds</p>
-              <small>PROOF / LIVE DEPLOYMENTS</small>
+
+            <div className="competency-grid">
+              <article>
+                <GitBranch />
+                <b>ENGINEERING</b>
+                <p>Git workflow · Clean code · Component architecture</p>
+                <small>Reusable systems across 10 products</small>
+              </article>
+              <article>
+                <ShieldCheck />
+                <b>QUALITY</b>
+                <p>Validation · Error handling · Responsive · Accessibility</p>
+                <small>Production flows tested end-to-end</small>
+              </article>
+              <article>
+                <Palette />
+                <b>PRODUCT & UX</b>
+                <p>User flows · Prototyping · Design systems</p>
+                <small>Community, EdTech and Web3 products</small>
+              </article>
+              <article>
+                <Sparkles />
+                <b>MOTION & DELIVERY</b>
+                <p>ScrollTrigger · 3D · Performance · Deployment</p>
+                <small>Interactive experiences running live</small>
+              </article>
             </div>
           </div>
         </section>

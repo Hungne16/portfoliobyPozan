@@ -318,19 +318,54 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
               duration: 1.8,
               ease: 'sine.inOut',
             });
-            gsap.from(q('.skills-orbit > div'), {
-              y: 45,
-              opacity: 0,
-              rotateX: 18,
-              clipPath: 'inset(18% 8% 18% 8%)',
-              stagger: 0.12,
-              ease: 'power3.out',
+            const skillsTimeline = gsap.timeline({
               scrollTrigger: {
-                trigger: '.skills-orbit',
+                trigger: '.skills-resume',
                 start: 'top 84%',
                 once: true,
               },
             });
+            skillsTimeline
+              .from(q('.skills-resume'), {
+                y: 65,
+                opacity: 0,
+                rotateX: 10,
+                clipPath: 'inset(8% 5% 12% 5%)',
+                duration: 0.9,
+                ease: 'power3.out',
+              })
+              .from(
+                q('.language-row'),
+                { x: 28, opacity: 0, stagger: 0.07, ease: 'power2.out' },
+                '-=0.5',
+              )
+              .from(
+                q('.skill-meter i.is-active'),
+                {
+                  scaleX: 0,
+                  transformOrigin: 'left center',
+                  stagger: 0.025,
+                  ease: 'power2.out',
+                },
+                '-=0.55',
+              )
+              .fromTo(
+                q('.skill-chip-grid span, .tool-cloud span'),
+                { y: 12, opacity: 0 },
+                {
+                  y: 0,
+                  opacity: 1,
+                  stagger: 0.035,
+                  ease: 'power2.out',
+                  clearProps: 'transform,opacity',
+                },
+                '-=0.25',
+              )
+              .from(
+                q('.competency-grid article'),
+                { y: 24, opacity: 0, stagger: 0.09, ease: 'power2.out' },
+                '-=0.2',
+              );
             gsap.to(q('.skills-marquee > div'), {
               xPercent: -50,
               duration: 22,

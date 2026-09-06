@@ -392,6 +392,9 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                 const visual = project.querySelector('.project-visual');
                 const image = project.querySelector('.project-visual img');
                 const copy = project.querySelector('.project-copy');
+                const copySurface = project.querySelectorAll(
+                  '.project-copy > :not(details)',
+                );
                 const proof = project.querySelectorAll('.project-proof > div');
                 const signal = project.querySelector(
                   '.project-signal',
@@ -400,8 +403,8 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                 if (desktop) {
                   const entryMask =
                     index % 2
-                      ? 'polygon(0 38%, 100% 8%, 100% 100%, 0 100%)'
-                      : 'polygon(0 8%, 100% 38%, 100% 100%, 0 100%)';
+                      ? 'polygon(0 99%, 100% 86%, 100% 100%, 0 100%)'
+                      : 'polygon(0 86%, 100% 99%, 100% 100%, 0 100%)';
                   const openMask =
                     index % 3 === 1
                       ? 'polygon(0 0, 100% 4%, 100% 100%, 0 96%)'
@@ -411,16 +414,16 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                     { clipPath: entryMask },
                     {
                       clipPath: openMask,
-                      ease: 'none',
+                      ease: 'power1.inOut',
                       scrollTrigger: {
                         trigger: project,
-                        start: 'top 96%',
-                        end: 'top 4%',
-                        scrub: 0.8,
+                        start: 'top bottom',
+                        end: 'top 8%',
+                        scrub: 1.45,
                       },
                     },
                   );
-                  gsap.to(copy, {
+                  gsap.to(copySurface, {
                     yPercent: -12,
                     opacity: 0.3,
                     ease: 'none',
@@ -438,7 +441,7 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                       trigger: project,
                       start: 'top 88%',
                       end: 'top 28%',
-                      scrub: 0.65,
+                      scrub: 1.05,
                     },
                   })
                   .from(visual, {
@@ -447,7 +450,11 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                     filter: 'blur(10px)',
                     opacity: 0.15,
                   })
-                  .from(copy, { y: 55, opacity: 0 }, '<0.1')
+                  .from(
+                    copy,
+                    { y: 55, opacity: 0, clearProps: 'transform,opacity' },
+                    '<0.1',
+                  )
                   .from(proof, { y: 20, opacity: 0, stagger: 0.08 }, '<0.18');
                 if (signal) {
                   const finalSignal = signal.textContent || '';

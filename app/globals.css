@@ -993,6 +993,118 @@ textarea {
 .project-copy details[open] summary svg {
   transform: rotate(90deg);
 }
+.project-copy details[open] {
+  position: absolute;
+  z-index: 20;
+  inset: clamp(72px, 10vh, 110px) clamp(24px, 6vw, 96px);
+  margin: 0;
+  padding: 0 clamp(24px, 5vw, 74px) clamp(30px, 6vh, 60px);
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background:
+    radial-gradient(
+      circle at 88% 16%,
+      rgba(255, 85, 123, 0.16),
+      transparent 28%
+    ),
+    linear-gradient(145deg, rgba(20, 22, 35, 0.98), rgba(7, 8, 14, 0.99));
+  box-shadow: 0 40px 140px rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(24px);
+  animation: case-panel-in 0.45s cubic-bezier(0.2, 0.78, 0.2, 1) both;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cyan) rgba(255, 255, 255, 0.06);
+}
+.project-copy details[open]::-webkit-scrollbar {
+  width: 6px;
+}
+.project-copy details[open]::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+}
+.project-copy details[open]::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--cyan), var(--pink));
+}
+.project-copy details[open] summary {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  min-height: 72px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(10, 11, 18, 0.9);
+  color: var(--cyan);
+}
+.project-copy details[open] summary span {
+  font-size: 0;
+}
+.project-copy details[open] summary span::before {
+  content: 'Đóng case study';
+  font-size: 10px;
+}
+.project-copy details[open] summary svg {
+  transform: rotate(45deg);
+}
+.project-orbit:has(.project-copy details[open]) {
+  z-index: 100 !important;
+}
+body:has(.project-copy details[open]) {
+  overflow: hidden;
+}
+.case-heading {
+  padding: clamp(34px, 6vh, 64px) 0 30px;
+  border-bottom: 1px solid var(--line);
+}
+.case-heading > span {
+  color: var(--pink);
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+}
+.case-heading h4 {
+  max-width: 850px;
+  margin: 15px 0 14px;
+  font-size: clamp(46px, 7vw, 102px);
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+}
+.case-heading p {
+  max-width: 600px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.project-copy details[open] .case-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  padding: 0;
+}
+.project-copy details[open] .case-grid > div {
+  min-height: 170px;
+  padding: 32px 32px 30px 0;
+  border-bottom: 1px solid var(--line);
+}
+.project-copy details[open] .case-grid > div:nth-child(odd) {
+  border-right: 1px solid var(--line);
+}
+.project-copy details[open] .case-grid > div:nth-child(even) {
+  padding-left: 32px;
+}
+.project-copy details[open] .case-grid p {
+  max-width: 540px;
+  font-size: 14px;
+  line-height: 1.75;
+}
+@keyframes case-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+    clip-path: polygon(0 9%, 100% 0, 100% 94%, 0 100%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
 .case-grid {
   padding: 6px 0 25px;
   display: grid;
@@ -2480,6 +2592,27 @@ summary:focus-visible {
   .case-grid {
     grid-template-columns: 1fr;
     gap: 14px;
+  }
+  .project-copy details[open] {
+    position: fixed;
+    inset: 74px 14px 18px;
+    padding: 0 20px 32px;
+    clip-path: none;
+  }
+  .project-orbit:has(.project-copy details[open]) {
+    clip-path: none !important;
+  }
+  .project-copy details[open] .case-grid {
+    grid-template-columns: 1fr;
+  }
+  .project-copy details[open] .case-grid > div,
+  .project-copy details[open] .case-grid > div:nth-child(even) {
+    min-height: auto;
+    padding: 24px 0;
+    border-right: 0;
+  }
+  .case-heading h4 {
+    font-size: 44px;
   }
   .skills-chapter {
     min-height: auto;

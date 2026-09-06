@@ -329,8 +329,15 @@ export default async function Home() {
                   )}
                   <details>
                     <summary>
-                      Xem case study <ArrowUpRight />
+                      <span>Xem case study</span> <ArrowUpRight />
                     </summary>
+                    <div className="case-heading">
+                      <span>
+                        CASE STUDY / {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <h4>{project.name}</h4>
+                      <p>{project.sub}</p>
+                    </div>
                     <div className="case-grid">
                       <div>
                         <b>Bối cảnh</b>

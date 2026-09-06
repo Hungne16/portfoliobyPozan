@@ -819,6 +819,29 @@ textarea {
   line-height: 1.65;
   font-size: 16px;
 }
+.project-proof {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 18px;
+  margin-top: 24px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.project-proof span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--cyan);
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+}
+.project-proof p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+  line-height: 1.55;
+}
 .project-live {
   display: inline-flex;
   align-items: center;
@@ -846,8 +869,7 @@ textarea {
   border-color: var(--cyan);
 }
 .project-copy details {
-  margin-top: 22px;
-  border-top: 1px solid var(--line);
+  margin-top: 8px;
   border-bottom: 1px solid var(--line);
 }
 .project-copy summary {
@@ -892,42 +914,121 @@ textarea {
 }
 
 .skills-chapter {
-  min-height: 175svh;
+  min-height: 220svh;
   align-items: flex-start;
-  padding-top: 28vh;
+  padding-top: 34vh;
 }
 .skills-copy {
-  width: 45%;
+  width: 38%;
+  position: sticky;
+  top: 24vh;
+}
+.skills-copy .chapter-title {
+  max-width: 340px;
+  font-size: clamp(48px, 4.8vw, 76px);
 }
 .skills-copy > p {
   max-width: 350px;
   color: var(--muted);
   line-height: 1.7;
 }
+.capability-proof {
+  margin-top: 40px;
+  border-top: 1px solid var(--line);
+}
+.capability-proof > div {
+  display: grid;
+  grid-template-columns: minmax(90px, 0.7fr) 1.3fr;
+  align-items: center;
+  gap: 16px;
+  min-height: 68px;
+  border-bottom: 1px solid var(--line);
+}
+.capability-proof b {
+  color: var(--yellow);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: -0.02em;
+}
+.capability-proof > div:first-child b {
+  font-size: 30px;
+}
+.capability-proof span {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+.skills-marquee {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  top: 160px;
+  overflow: hidden;
+  padding: 15px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.025);
+  color: rgba(255, 255, 255, 0.68);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+  transform: rotate(-0.7deg) scale(1.02);
+}
+.skills-marquee > div {
+  width: max-content;
+  display: flex;
+  will-change: transform;
+}
+.skills-marquee span {
+  display: block;
+  padding-right: 2em;
+}
 .skills-orbit {
   position: absolute;
   right: 7vw;
-  top: 22vh;
-  width: min(760px, 55vw);
+  top: 34vh;
+  width: min(790px, 58vw);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   transform: perspective(1100px) rotateY(-7deg);
 }
 .skills-orbit > div {
-  min-height: 175px;
+  min-height: 188px;
   position: relative;
   padding: 82px 24px 24px;
   border: 1px solid var(--line);
   margin-top: -1px;
   background: rgba(9, 10, 18, 0.63);
   backdrop-filter: blur(16px);
+  overflow: hidden;
   transition:
     background 0.25s,
-    transform 0.25s;
+    transform 0.25s,
+    border-color 0.25s;
+}
+.skills-orbit > div::after {
+  content: '';
+  position: absolute;
+  inset: -60% -25%;
+  background: linear-gradient(
+    110deg,
+    transparent 38%,
+    rgba(111, 230, 225, 0.11),
+    transparent 62%
+  );
+  transform: translateX(-70%) rotate(8deg);
+  transition: transform 0.75s ease;
+  pointer-events: none;
 }
 .skills-orbit > div:hover {
   background: rgba(28, 20, 40, 0.88);
   transform: translateX(-12px);
+  border-color: rgba(111, 230, 225, 0.32);
+}
+.skills-orbit > div:hover::after {
+  transform: translateX(70%) rotate(8deg);
 }
 .skills-orbit svg {
   position: absolute;
@@ -948,6 +1049,14 @@ textarea {
 .skills-orbit h3 {
   margin: 4px 0 12px;
   font-size: 25px;
+}
+.skills-orbit small {
+  display: block;
+  margin-top: 16px;
+  color: rgba(255, 213, 118, 0.66);
+  font-family: 'DM Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.1em;
 }
 
 .cv-chapter {
@@ -1845,10 +1954,12 @@ summary:focus-visible {
   .skills-chapter {
     display: block;
     padding-top: 25vh;
-    min-height: 150svh;
+    min-height: 220svh;
   }
   .skills-copy {
     width: 72%;
+    position: relative;
+    top: auto;
   }
   .skills-orbit {
     position: relative;
@@ -1856,6 +1967,9 @@ summary:focus-visible {
     top: auto;
     width: 80%;
     margin: 12vh 0 0 auto;
+  }
+  .skills-marquee {
+    top: 145px;
   }
   .cv-panel {
     grid-template-columns: 1fr;
@@ -2017,6 +2131,10 @@ summary:focus-visible {
   .project-copy h3 {
     font-size: 45px;
   }
+  .project-proof {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
   .case-grid {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -2028,6 +2146,9 @@ summary:focus-visible {
   }
   .skills-copy {
     width: 100%;
+  }
+  .capability-proof {
+    margin-top: 28px;
   }
   .skills-orbit {
     width: 100%;

@@ -300,6 +300,16 @@ export default async function Home() {
                   <p className="micro-label">{project.type}</p>
                   <h3>{project.name}</h3>
                   <p className="project-sub">{project.sub}</p>
+                  <div className="project-proof">
+                    <div>
+                      <span>MY ROLE</span>
+                      <p>{project.role}</p>
+                    </div>
+                    <div>
+                      <span>DELIVERED</span>
+                      <p>{project.result}</p>
+                    </div>
+                  </div>
                   {project.projectUrl && (
                     <a
                       className="project-live"
@@ -358,6 +368,32 @@ export default async function Home() {
               Từ nền tảng khoa học máy tính đến sản phẩm chạy ổn định ngoài thực
               tế.
             </p>
+            <div className="capability-proof">
+              <div>
+                <b>10</b>
+                <span>Sản phẩm đã đưa lên môi trường thật</span>
+              </div>
+              <div>
+                <b>END–TO–END</b>
+                <span>Từ bài toán, UI đến triển khai</span>
+              </div>
+              <div>
+                <b>CODE × DESIGN</b>
+                <span>Một quy trình, hai góc nhìn</span>
+              </div>
+            </div>
+          </div>
+          <div className="skills-marquee" aria-hidden="true">
+            <div>
+              <span>
+                REACT ✦ NEXT.JS ✦ TYPESCRIPT ✦ NODE.JS ✦ SQL ✦ GSAP ✦ THREE.JS ✦
+                FIGMA ✦ CLOUDFLARE ✦ VERCEL ✦ ACCESSIBILITY ✦ PRODUCT THINKING ✦
+              </span>
+              <span>
+                REACT ✦ NEXT.JS ✦ TYPESCRIPT ✦ NODE.JS ✦ SQL ✦ GSAP ✦ THREE.JS ✦
+                FIGMA ✦ CLOUDFLARE ✦ VERCEL ✦ ACCESSIBILITY ✦ PRODUCT THINKING ✦
+              </span>
+            </div>
           </div>
           <div className="skills-orbit">
             <div>
@@ -367,24 +403,28 @@ export default async function Home() {
               <p>
                 React · Next.js · TypeScript · Responsive UI · Accessibility
               </p>
+              <small>PROOF / 10 RESPONSIVE PRODUCTS</small>
             </div>
             <div>
               <Server />
               <span>02</span>
               <h3>Backend & API</h3>
               <p>Node.js · REST API · Authentication · Server Actions</p>
+              <small>PROOF / AUTHENTICATED ADMIN & CMS</small>
             </div>
             <div>
               <Database />
               <span>03</span>
               <h3>Data Engineering</h3>
               <p>SQL · Data Modeling · SQLite · D1 · Object Storage</p>
+              <small>PROOF / PROJECT DATA & MEDIA PIPELINE</small>
             </div>
             <div>
               <GitBranch />
               <span>04</span>
               <h3>Software Practice</h3>
               <p>Git · Clean Code · Component Architecture · Documentation</p>
+              <small>PROOF / REUSABLE PRODUCT SYSTEMS</small>
             </div>
             <div>
               <ShieldCheck />
@@ -394,12 +434,28 @@ export default async function Home() {
                 Validation · Error Handling · Testing · Performance · Security
                 Basics
               </p>
+              <small>PROOF / VALIDATED PRODUCTION FLOWS</small>
             </div>
             <div>
               <Palette />
               <span>06</span>
-              <h3>Creative Technology</h3>
+              <h3>Motion & 3D</h3>
               <p>Figma · GSAP · Three.js · Motion · Design Systems</p>
+              <small>PROOF / CINEMATIC SCROLL EXPERIENCE</small>
+            </div>
+            <div>
+              <Sparkles />
+              <span>07</span>
+              <h3>Product & UX</h3>
+              <p>Requirements · User Flows · Prototyping · Usability</p>
+              <small>PROOF / COMMUNITY & EDTECH PRODUCTS</small>
+            </div>
+            <div>
+              <ArrowUpRight />
+              <span>08</span>
+              <h3>Delivery</h3>
+              <p>Vercel · Cloudflare · Performance · Production Builds</p>
+              <small>PROOF / LIVE DEPLOYMENTS</small>
             </div>
           </div>
         </section>

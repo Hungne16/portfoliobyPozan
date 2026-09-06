@@ -321,6 +321,8 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
             gsap.from(q('.skills-orbit > div'), {
               y: 45,
               opacity: 0,
+              rotateX: 18,
+              clipPath: 'inset(18% 8% 18% 8%)',
               stagger: 0.12,
               ease: 'power3.out',
               scrollTrigger: {
@@ -328,6 +330,12 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                 start: 'top 84%',
                 once: true,
               },
+            });
+            gsap.to(q('.skills-marquee > div'), {
+              xPercent: -50,
+              duration: 22,
+              repeat: -1,
+              ease: 'none',
             });
             gsap.to(q('.cinema-flare'), {
               xPercent: 85,
@@ -340,7 +348,9 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
               .toArray<HTMLElement>('.project-orbit', el)
               .forEach((project, index) => {
                 const visual = project.querySelector('.project-visual');
+                const image = project.querySelector('.project-visual img');
                 const copy = project.querySelector('.project-copy');
+                const proof = project.querySelectorAll('.project-proof > div');
                 gsap
                   .timeline({
                     scrollTrigger: {
@@ -356,7 +366,25 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                     filter: 'blur(10px)',
                     opacity: 0.15,
                   })
-                  .from(copy, { y: 55, opacity: 0 }, '<0.1');
+                  .from(copy, { y: 55, opacity: 0 }, '<0.1')
+                  .from(proof, { y: 20, opacity: 0, stagger: 0.08 }, '<0.18');
+                if (image) {
+                  gsap.fromTo(
+                    image,
+                    { scale: 1.08, yPercent: -4 },
+                    {
+                      scale: 1.2,
+                      yPercent: 5,
+                      ease: 'none',
+                      scrollTrigger: {
+                        trigger: project,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 0.8,
+                      },
+                    },
+                  );
+                }
               });
             gsap.utils
               .toArray<HTMLElement>('.glitch-cut', el)

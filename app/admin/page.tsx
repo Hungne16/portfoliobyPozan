@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { ArrowLeft, ExternalLink, FilePlus2, FolderKanban } from 'lucide-react';
 import { getProject, listProjects } from '@/db';
 import { requireAdmin } from './actions';
@@ -12,6 +13,9 @@ export default async function AdminPage({
 }: {
   searchParams: Promise<{ edit?: string }>;
 }) {
+  if (process.env.VERCEL) {
+    redirect('https://pozan-portfolio.youlovecat113.chatgpt.site/admin');
+  }
   const user = await requireAdmin();
   const params = await searchParams;
   const items = await listProjects(true);

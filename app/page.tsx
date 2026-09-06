@@ -4,9 +4,14 @@ import {
   ArrowDown,
   ArrowUpRight,
   Code2,
+  Database,
+  GitBranch,
+  GraduationCap,
   Mail,
   Palette,
-  PenTool,
+  Server,
+  ShieldCheck,
+  Terminal,
 } from 'lucide-react';
 import ScrollStory from '../components/scroll-story';
 import { listProjects } from '@/db';
@@ -95,10 +100,10 @@ export default async function Home() {
       </a>
       <header className="site-hud">
         <a className="hud-brand" href="#home">
-          <span>✳</span> SORA/夢
+          <span>✳</span> POZAN/創
         </a>
         <div className="hud-status">
-          <i /> AVAILABLE FOR SELECT PROJECTS
+          <i /> SOFTWARE ENGINEER / CREATIVE DEVELOPER
         </div>
         <a className="hud-contact" href="#contact">
           CONTACT <ArrowUpRight />
@@ -112,15 +117,18 @@ export default async function Home() {
             139.6503° E
           </div>
           <div className="hero-copy-block">
-            <p className="hero-kicker">DIGITAL DESIGNER / VISUAL STORYTELLER</p>
+            <p className="hero-kicker">
+              SOFTWARE ENGINEERING / CREATIVE TECHNOLOGY
+            </p>
             <h1 className="hero-title">
-              Dreams
+              Code. Craft.
               <br />
-              <em>in motion.</em>
+              <em>Impact.</em>
             </h1>
             <p className="hero-copy">
-              Mình tạo nên những thế giới số nơi hình ảnh, chuyển động và câu
-              chuyện gặp nhau.
+              Mình là Pozan — sinh viên Công nghệ Phần mềm tại HUCE. Mình biến ý
+              tưởng thành sản phẩm số chỉn chu bằng tư duy kỹ sư và cảm quan
+              thiết kế.
             </p>
             <div className="hero-actions">
               <a href="#projects">
@@ -140,7 +148,7 @@ export default async function Home() {
         </section>
 
         <div className="glitch-cut" aria-hidden="true">
-          <span>SORA_SIGNAL // 001</span>
+          <span>POZAN_SYSTEM // IDENTITY_LOADED</span>
         </div>
 
         <section className="scene-chapter about-chapter" id="about">
@@ -151,42 +159,103 @@ export default async function Home() {
           <div className="signal-card">
             <p className="micro-label">INCOMING TRANSMISSION</p>
             <h2 className="chapter-title">
-              Một người hay mơ.
+              Kỹ sư biết mơ.
               <br />
-              Một góc nhìn <em>khác.</em>
+              Người làm biết <em>đến cùng.</em>
             </h2>
             <div className="signal-copy">
               <p>
-                Mình là Sora — một designer yêu anime, những góc phố Nhật Bản và
-                cảm giác khi một ý tưởng nhỏ dần trở thành cả một thế giới.
+                Mình là Pozan, hiện theo học ngành Công nghệ Phần mềm tại Trường
+                Đại học Xây dựng Hà Nội — HUCE. Mình quan tâm đến cách một hệ
+                thống được thiết kế, xây dựng và vận hành trọn vẹn.
               </p>
               <p>
-                Mình kết hợp thiết kế đồ họa, giao diện và chuyển động để tạo ra
-                trải nghiệm có cá tính, dễ hiểu và đọng lại lâu hơn một lần
-                lướt.
+                Thế mạnh của mình nằm ở giao điểm giữa kỹ thuật và sáng tạo:
+                kiến trúc giao diện rõ ràng, code có cấu trúc, trải nghiệm dễ
+                dùng và chuyển động có chủ đích.
               </p>
             </div>
             <div className="signal-tags">
               <span>CURIOUS</span>
-              <span>PLAYFUL</span>
-              <span>STORY-DRIVEN</span>
+              <span>SYSTEM THINKER</span>
+              <span>PRODUCT-MINDED</span>
+              <span>SHIP-FOCUSED</span>
             </div>
           </div>
           <p className="side-note">
             EVERYTHING STARTS
             <br />
-            WITH A LITTLE DREAM ✦
+            WITH A WORKING SYSTEM ✦
           </p>
         </section>
 
+        <section className="experience-chapter" id="experience">
+          <div className="chapter-index">
+            <b>02</b>
+            <span>EXPERIENCE LOG / 経験</span>
+          </div>
+          <div className="experience-heading parallax-slow">
+            <p className="micro-label">
+              FIELD NOTES / PROJECT-BASED EXPERIENCE
+            </p>
+            <h2 className="chapter-title">
+              Học bằng cách
+              <br />
+              <em>xây thật.</em>
+            </h2>
+            <p>
+              Kinh nghiệm của mình được tích lũy qua chu trình hoàn chỉnh: tìm
+              vấn đề, thiết kế giải pháp, phát triển, kiểm thử và đưa sản phẩm
+              lên môi trường thực tế.
+            </p>
+          </div>
+          <div className="experience-timeline">
+            <article className="experience-entry">
+              <span>01 / PRODUCT</span>
+              <div>
+                <h3>Product Engineering</h3>
+                <p>BeeTools · Temsy · Arcade Học Đường</p>
+              </div>
+              <p>
+                Xây dựng ứng dụng web từ luồng người dùng đến giao diện hoạt
+                động, bao gồm tìm kiếm, phân loại, phòng tương tác và trạng thái
+                dữ liệu.
+              </p>
+            </article>
+            <article className="experience-entry">
+              <span>02 / COMMUNITY</span>
+              <div>
+                <h3>Community Platforms</h3>
+                <p>ULIS Eco · WULIS · BookBridge · Lost & Found</p>
+              </div>
+              <p>
+                Chuyển các vấn đề trong đời sống sinh viên thành nền tảng có cấu
+                trúc nội dung rõ ràng, hành trình sử dụng dễ hiểu và bản sắc thị
+                giác riêng.
+              </p>
+            </article>
+            <article className="experience-entry">
+              <span>03 / DIGITAL</span>
+              <div>
+                <h3>Interactive Web Experiences</h3>
+                <p>Orbits DeFi · U-Life · U-RUN</p>
+              </div>
+              <p>
+                Thiết kế và phát triển website responsive, kết hợp animation, hệ
+                thống component và tối ưu trải nghiệm trên nhiều thiết bị.
+              </p>
+            </article>
+          </div>
+        </section>
+
         <div className="glitch-cut inverse" aria-hidden="true">
-          <span>作品集 // SELECTED WORK</span>
+          <span>作品集 // TEN PRODUCTS SHIPPED</span>
         </div>
 
         <section className="projects-chapter" id="projects">
           <div className="projects-intro">
             <div className="chapter-index">
-              <b>02</b>
+              <b>03</b>
               <span>SELECTED WORK / 作品集</span>
             </div>
             <h2 className="chapter-title">
@@ -273,36 +342,117 @@ export default async function Home() {
 
         <section className="scene-chapter skills-chapter" id="skills">
           <div className="chapter-index">
-            <b>03</b>
-            <span>CAPABILITIES / 技術</span>
+            <b>04</b>
+            <span>ENGINEERING MATRIX / 技術</span>
           </div>
           <div className="skills-copy">
             <h2 className="chapter-title">
-              Ý tưởng cần
+              Viết code để
               <br />
-              <em>đúng công cụ.</em>
+              <em>giải quyết vấn đề.</em>
             </h2>
-            <p>Từ nét vẽ đầu tiên đến trải nghiệm tương tác cuối cùng.</p>
+            <p>
+              Từ nền tảng khoa học máy tính đến sản phẩm chạy ổn định ngoài thực
+              tế.
+            </p>
           </div>
           <div className="skills-orbit">
             <div>
-              <Palette />
-              <span>01</span>
-              <h3>Visual Design</h3>
-              <p>Branding · Art Direction · Photoshop · Illustrator</p>
-            </div>
-            <div>
-              <PenTool />
-              <span>02</span>
-              <h3>UI / UX</h3>
-              <p>Figma · Wireframe · Prototype · Design System</p>
-            </div>
-            <div>
               <Code2 />
-              <span>03</span>
-              <h3>Creative Web</h3>
-              <p>React · GSAP · Three.js · Interaction Design</p>
+              <span>01</span>
+              <h3>Frontend Engineering</h3>
+              <p>
+                React · Next.js · TypeScript · Responsive UI · Accessibility
+              </p>
             </div>
+            <div>
+              <Server />
+              <span>02</span>
+              <h3>Backend & API</h3>
+              <p>Node.js · REST API · Authentication · Server Actions</p>
+            </div>
+            <div>
+              <Database />
+              <span>03</span>
+              <h3>Data Engineering</h3>
+              <p>SQL · Data Modeling · SQLite · D1 · Object Storage</p>
+            </div>
+            <div>
+              <GitBranch />
+              <span>04</span>
+              <h3>Software Practice</h3>
+              <p>Git · Clean Code · Component Architecture · Documentation</p>
+            </div>
+            <div>
+              <ShieldCheck />
+              <span>05</span>
+              <h3>Quality & Security</h3>
+              <p>
+                Validation · Error Handling · Testing · Performance · Security
+                Basics
+              </p>
+            </div>
+            <div>
+              <Palette />
+              <span>06</span>
+              <h3>Creative Technology</h3>
+              <p>Figma · GSAP · Three.js · Motion · Design Systems</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="cv-chapter" id="cv">
+          <div className="cv-watermark parallax-fast" aria-hidden="true">
+            CV
+          </div>
+          <div className="chapter-index">
+            <b>05</b>
+            <span>CURRICULUM VITAE / 履歴書</span>
+          </div>
+          <div className="cv-panel">
+            <div className="cv-intro">
+              <p className="micro-label">ENGINEER PROFILE / 2026</p>
+              <h2>POZAN</h2>
+              <p>
+                Software Engineering Student
+                <br />
+                Creative Developer
+              </p>
+            </div>
+            <div className="cv-education">
+              <GraduationCap />
+              <span>EDUCATION</span>
+              <h3>Trường Đại học Xây dựng Hà Nội</h3>
+              <p>HUCE · Công nghệ Phần mềm · Đang theo học</p>
+            </div>
+            <div className="cv-stats">
+              <div>
+                <b>10</b>
+                <span>Dự án đã triển khai</span>
+              </div>
+              <div>
+                <b>06</b>
+                <span>Nhóm năng lực kỹ sư</span>
+              </div>
+              <div>
+                <b>01</b>
+                <span>Tư duy sản phẩm xuyên suốt</span>
+              </div>
+            </div>
+            <div className="cv-foundation">
+              <span>ENGINEERING FOUNDATION</span>
+              <ul>
+                <li>Cấu trúc dữ liệu & giải thuật</li>
+                <li>Lập trình hướng đối tượng</li>
+                <li>Cơ sở dữ liệu & thiết kế hệ thống</li>
+                <li>Mạng máy tính & hệ điều hành</li>
+                <li>Phân tích yêu cầu & vòng đời phần mềm</li>
+                <li>Làm việc nhóm, Git workflow & giao tiếp kỹ thuật</li>
+              </ul>
+            </div>
+            <a className="cv-cta" href="#contact">
+              <Terminal /> TRAO ĐỔI CƠ HỘI <ArrowUpRight />
+            </a>
           </div>
         </section>
 
@@ -310,14 +460,14 @@ export default async function Home() {
           <div className="contact-ring" aria-hidden="true">
             LET&apos;S CREATE · 一緒に作ろう ·{' '}
           </div>
-          <p className="micro-label">FINAL TRANSMISSION / 04</p>
+          <p className="micro-label">FINAL TRANSMISSION / 06</p>
           <h2 className="chapter-title">
             Có một thế giới
             <br />
             muốn cùng mình <em>tạo nên?</em>
           </h2>
-          <a className="contact-button" href="mailto:hello@sora.design">
-            <Mail /> HELLO@SORA.DESIGN <ArrowUpRight />
+          <a className="contact-button" href="mailto:hello@pozan.dev">
+            <Mail /> HELLO@POZAN.DEV <ArrowUpRight />
           </a>
           <p className="contact-note">
             OPEN FOR FREELANCE, COLLABORATION & GOOD STORIES.
@@ -326,8 +476,8 @@ export default async function Home() {
       </main>
 
       <footer className="site-footer">
-        <span>© 2026 SORA STUDIO</span>
-        <span>DESIGNED WITH CURIOSITY / BUILT WITH HEART</span>
+        <span>© 2026 POZAN</span>
+        <span>ENGINEERED WITH LOGIC / CRAFTED WITH IMAGINATION</span>
         <Link href="/admin">STUDIO ADMIN ↗</Link>
       </footer>
     </ScrollStory>

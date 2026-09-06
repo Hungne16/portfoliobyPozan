@@ -22,7 +22,7 @@ export default async function AdminPage({
         <div className="admin-brand">
           <span>✳</span>
           <div>
-            <b>sora studio</b>
+            <b>pozan studio</b>
             <small>PORTFOLIO MANAGER</small>
           </div>
         </div>

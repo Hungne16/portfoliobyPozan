@@ -14,8 +14,10 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin, SplitText);
 const chapters = [
   ['home', 'Khởi hành'],
   ['about', 'Tín hiệu'],
+  ['experience', 'Kinh nghiệm'],
   ['projects', 'Tác phẩm'],
   ['skills', 'Năng lực'],
+  ['cv', 'CV'],
   ['contact', 'Kết nối'],
 ];
 
@@ -74,6 +76,47 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                 ease: 'power4.out',
               },
             );
+            gsap.to(q('.hero-copy-block'), {
+              yPercent: -20,
+              scale: 0.94,
+              opacity: 0.18,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom 25%',
+                scrub: 0.7,
+              },
+            });
+            gsap.utils
+              .toArray<HTMLElement>('.parallax-slow', el)
+              .forEach((layer) => {
+                gsap.to(layer, {
+                  yPercent: -14,
+                  ease: 'none',
+                  scrollTrigger: {
+                    trigger: layer.parentElement ?? layer,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 0.8,
+                  },
+                });
+              });
+            gsap.utils
+              .toArray<HTMLElement>('.parallax-fast', el)
+              .forEach((layer) => {
+                gsap.to(layer, {
+                  yPercent: -38,
+                  rotate: 5,
+                  ease: 'none',
+                  scrollTrigger: {
+                    trigger: layer.parentElement ?? layer,
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 0.55,
+                  },
+                });
+              });
             gsap.utils
               .toArray<HTMLElement>('.chapter-title', el)
               .forEach((heading) => {
@@ -97,7 +140,7 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                 });
               });
             gsap.utils
-              .toArray<HTMLElement>('.signal-card, .skill-orbit', el)
+              .toArray<HTMLElement>('.signal-card, .skills-orbit', el)
               .forEach((card, index) => {
                 gsap.from(card, {
                   y: 60,
@@ -113,6 +156,53 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                   },
                 });
               });
+            gsap.utils
+              .toArray<HTMLElement>('.experience-entry', el)
+              .forEach((entry, index) => {
+                gsap.from(entry, {
+                  xPercent: index % 2 ? 10 : -10,
+                  clipPath:
+                    index % 2 ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)',
+                  opacity: 0.15,
+                  ease: 'none',
+                  scrollTrigger: {
+                    trigger: entry,
+                    start: 'top 92%',
+                    end: 'top 52%',
+                    scrub: 0.55,
+                  },
+                });
+              });
+            gsap.from(q('.cv-panel'), {
+              clipPath: 'polygon(48% 0, 52% 0, 52% 100%, 48% 100%)',
+              scale: 0.88,
+              filter: 'blur(12px)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: '#cv',
+                start: 'top 88%',
+                end: 'top 24%',
+                scrub: 0.7,
+              },
+            });
+            gsap.from(q('.skills-orbit > div'), {
+              y: 45,
+              opacity: 0,
+              stagger: 0.12,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: '.skills-orbit',
+                start: 'top 84%',
+                once: true,
+              },
+            });
+            gsap.to(q('.cinema-flare'), {
+              xPercent: 85,
+              yPercent: -35,
+              rotate: 24,
+              ease: 'none',
+              scrollTrigger: { start: 0, end: 'max', scrub: 1.2 },
+            });
             gsap.utils
               .toArray<HTMLElement>('.project-orbit', el)
               .forEach((project, index) => {
@@ -202,6 +292,15 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
       <ImmersiveWorld />
       <div className="fx-noise" aria-hidden="true" />
       <div className="fx-vignette" aria-hidden="true" />
+      <div className="cinema-flare" aria-hidden="true" />
+      <div className="cinema-frame" aria-hidden="true">
+        <span className="cinema-bar cinema-bar-top" />
+        <span className="cinema-bar cinema-bar-bottom" />
+        <i className="frame-corner frame-tl" />
+        <i className="frame-corner frame-tr" />
+        <i className="frame-corner frame-bl" />
+        <i className="frame-corner frame-br" />
+      </div>
       <div className="story-progress" aria-hidden="true">
         <div className="story-progress-fill" />
       </div>

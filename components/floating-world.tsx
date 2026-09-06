@@ -283,7 +283,7 @@ export default function FloatingWorld() {
       </div>
       <div ref={host} className="floating-world" aria-hidden="true">
         <div className="scene-fallback">
-          SORA
+          POZAN
           <br />
           <span>A different point of view.</span>
         </div>

@@ -39,7 +39,7 @@ export default function ProjectEditor({
   } satisfies SaveState);
   const [published, setPublished] = useState(project?.status === 'published');
   return (
-    <form className="editor-form" action={action} encType="multipart/form-data">
+    <form className="editor-form" action={action}>
       <input type="hidden" name="id" value={project?.id ?? state.id ?? ''} />
       <input
         type="hidden"

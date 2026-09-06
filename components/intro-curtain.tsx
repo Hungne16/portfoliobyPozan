@@ -125,8 +125,8 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
       </div>
       <div className="curtain-title">
         <span>想像から、はじまる。</span>
-        <strong>✳ sora.</strong>
-        <p>Một thế giới nhỏ, sắp mở ra.</p>
+        <strong>✳ pozan.</strong>
+        <p>ENGINEERING IMAGINATION — SYSTEM BOOTING</p>
       </div>
       <button type="button" className="curtain-skip">
         Bỏ qua phần mở đầu ↗

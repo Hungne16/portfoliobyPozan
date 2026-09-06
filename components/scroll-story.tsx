@@ -173,18 +173,88 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                   },
                 });
               });
-            gsap.from(q('.cv-panel'), {
-              clipPath: 'polygon(48% 0, 52% 0, 52% 100%, 48% 100%)',
-              scale: 0.88,
-              filter: 'blur(12px)',
-              ease: 'none',
-              scrollTrigger: {
-                trigger: '#cv',
-                start: 'top 88%',
-                end: 'top 24%',
-                scrub: 0.7,
-              },
+            const cvPortal = q('.cv-portal');
+            const cvWindow = q('.cv-window');
+            const cvReveal = q('.cv-reveal');
+            const cvPanel = q('.cv-panel');
+            const cvCue = q('.cv-scroll-cue');
+
+            gsap.set(cvReveal, { autoAlpha: 0 });
+            gsap.set(cvPanel, {
+              y: 56,
+              scale: 0.94,
+              filter: 'blur(14px)',
             });
+
+            gsap
+              .timeline({
+                scrollTrigger: {
+                  trigger: '#cv',
+                  start: 'top top',
+                  end: desktop ? '+=240%' : '+=180%',
+                  pin: q('.cv-pin')[0],
+                  scrub: 0.8,
+                  anticipatePin: 1,
+                  invalidateOnRefresh: true,
+                  onUpdate: (self) => {
+                    if (self.isActive) activate(5);
+                  },
+                  onLeave: () => activate(6),
+                  onEnterBack: () => activate(5),
+                },
+              })
+              .fromTo(
+                cvWindow,
+                {
+                  scale: desktop ? 0.48 : 0.68,
+                  z: -700,
+                  rotateX: 7,
+                  rotateY: -3,
+                },
+                {
+                  scale: desktop ? 0.82 : 0.92,
+                  z: -180,
+                  rotateX: 2,
+                  rotateY: 0,
+                  duration: 0.28,
+                  ease: 'power1.out',
+                },
+              )
+              .to(
+                cvWindow,
+                {
+                  scale: desktop ? 4.8 : 7.2,
+                  z: 780,
+                  rotateX: 0,
+                  duration: 0.52,
+                  ease: 'power2.in',
+                },
+                0.28,
+              )
+              .to(cvCue, { autoAlpha: 0, y: 16, duration: 0.16 }, 0.25)
+              .to(cvPortal, { autoAlpha: 0, duration: 0.12 }, 0.7)
+              .to(cvReveal, { autoAlpha: 1, duration: 0.2 }, 0.69)
+              .to(
+                cvPanel,
+                {
+                  y: 0,
+                  scale: 1,
+                  filter: 'blur(0px)',
+                  duration: 0.27,
+                  ease: 'power3.out',
+                },
+                0.7,
+              )
+              .from(
+                q('.cv-intro, .cv-education, .cv-stats, .cv-foundation'),
+                {
+                  y: 24,
+                  autoAlpha: 0,
+                  stagger: 0.035,
+                  duration: 0.18,
+                },
+                0.74,
+              );
             gsap.from(q('.skills-orbit > div'), {
               y: 45,
               opacity: 0,

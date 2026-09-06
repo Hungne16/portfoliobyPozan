@@ -402,57 +402,88 @@ export default async function Home() {
         </section>
 
         <section className="cv-chapter" id="cv">
-          <div className="cv-watermark parallax-fast" aria-hidden="true">
-            CV
-          </div>
-          <div className="chapter-index">
-            <b>05</b>
-            <span>CURRICULUM VITAE / 履歴書</span>
-          </div>
-          <div className="cv-panel">
-            <div className="cv-intro">
-              <p className="micro-label">ENGINEER PROFILE / 2026</p>
-              <h2>POZAN</h2>
-              <p>
-                Software Engineering Student
-                <br />
-                Creative Developer
-              </p>
-            </div>
-            <div className="cv-education">
-              <GraduationCap />
-              <span>EDUCATION</span>
-              <h3>Trường Đại học Xây dựng Hà Nội</h3>
-              <p>HUCE · Công nghệ Phần mềm · Đang theo học</p>
-            </div>
-            <div className="cv-stats">
-              <div>
-                <b>10</b>
-                <span>Dự án đã triển khai</span>
-              </div>
-              <div>
-                <b>06</b>
-                <span>Nhóm năng lực kỹ sư</span>
-              </div>
-              <div>
-                <b>01</b>
-                <span>Tư duy sản phẩm xuyên suốt</span>
+          <div className="cv-pin">
+            <div className="cv-portal" aria-hidden="true">
+              <div className="cv-window">
+                <div className="cv-window-topbar">
+                  <span />
+                  <span />
+                  <span />
+                  <b>POZAN_PROFILE.EXE</b>
+                </div>
+                <div className="cv-window-view">
+                  <i className="cv-window-cross cv-window-cross-x" />
+                  <i className="cv-window-cross cv-window-cross-y" />
+                  <div className="cv-window-horizon" />
+                  <div className="cv-window-sun">05</div>
+                  <p>SCROLL TO ENTER</p>
+                </div>
+                <span className="cv-window-corner cv-window-corner-tl" />
+                <span className="cv-window-corner cv-window-corner-tr" />
+                <span className="cv-window-corner cv-window-corner-bl" />
+                <span className="cv-window-corner cv-window-corner-br" />
               </div>
             </div>
-            <div className="cv-foundation">
-              <span>ENGINEERING FOUNDATION</span>
-              <ul>
-                <li>Cấu trúc dữ liệu & giải thuật</li>
-                <li>Lập trình hướng đối tượng</li>
-                <li>Cơ sở dữ liệu & thiết kế hệ thống</li>
-                <li>Mạng máy tính & hệ điều hành</li>
-                <li>Phân tích yêu cầu & vòng đời phần mềm</li>
-                <li>Làm việc nhóm, Git workflow & giao tiếp kỹ thuật</li>
-              </ul>
+
+            <div className="cv-reveal">
+              <div className="cv-watermark" aria-hidden="true">
+                CV
+              </div>
+              <div className="chapter-index">
+                <b>05</b>
+                <span>CURRICULUM VITAE / 履歴書</span>
+              </div>
+              <div className="cv-panel">
+                <div className="cv-intro">
+                  <p className="micro-label">ENGINEER PROFILE / 2026</p>
+                  <h2>POZAN</h2>
+                  <p>
+                    Software Engineering Student
+                    <br />
+                    Creative Developer
+                  </p>
+                </div>
+                <div className="cv-education">
+                  <GraduationCap />
+                  <span>EDUCATION</span>
+                  <h3>Trường Đại học Xây dựng Hà Nội</h3>
+                  <p>HUCE · Công nghệ Phần mềm · Đang theo học</p>
+                </div>
+                <div className="cv-stats">
+                  <div>
+                    <b>10</b>
+                    <span>Dự án đã triển khai</span>
+                  </div>
+                  <div>
+                    <b>06</b>
+                    <span>Nhóm năng lực kỹ sư</span>
+                  </div>
+                  <div>
+                    <b>01</b>
+                    <span>Tư duy sản phẩm xuyên suốt</span>
+                  </div>
+                </div>
+                <div className="cv-foundation">
+                  <span>ENGINEERING FOUNDATION</span>
+                  <ul>
+                    <li>Cấu trúc dữ liệu & giải thuật</li>
+                    <li>Lập trình hướng đối tượng</li>
+                    <li>Cơ sở dữ liệu & thiết kế hệ thống</li>
+                    <li>Mạng máy tính & hệ điều hành</li>
+                    <li>Phân tích yêu cầu & vòng đời phần mềm</li>
+                    <li>Làm việc nhóm, Git workflow & giao tiếp kỹ thuật</li>
+                  </ul>
+                </div>
+                <a className="cv-cta" href="#contact">
+                  <Terminal /> TRAO ĐỔI CƠ HỘI <ArrowUpRight />
+                </a>
+              </div>
             </div>
-            <a className="cv-cta" href="#contact">
-              <Terminal /> TRAO ĐỔI CƠ HỘI <ArrowUpRight />
-            </a>
+            <div className="cv-scroll-cue" aria-hidden="true">
+              <span>SCROLL</span>
+              <i />
+              <b>ENTER THE PROFILE</b>
+            </div>
           </div>
         </section>
 

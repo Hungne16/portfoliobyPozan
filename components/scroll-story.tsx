@@ -400,41 +400,6 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                   '.project-signal',
                 ) as HTMLElement | null;
                 const reticle = project.querySelector('.project-reticle');
-                if (desktop) {
-                  const entryMask =
-                    index % 2
-                      ? 'polygon(0 99%, 100% 86%, 100% 100%, 0 100%)'
-                      : 'polygon(0 86%, 100% 99%, 100% 100%, 0 100%)';
-                  const openMask =
-                    index % 3 === 1
-                      ? 'polygon(0 0, 100% 4%, 100% 100%, 0 96%)'
-                      : 'polygon(0 3%, 100% 0, 100% 97%, 0 100%)';
-                  gsap.fromTo(
-                    project,
-                    { clipPath: entryMask },
-                    {
-                      clipPath: openMask,
-                      ease: 'power1.inOut',
-                      scrollTrigger: {
-                        trigger: project,
-                        start: 'top bottom',
-                        end: 'top 8%',
-                        scrub: 1.45,
-                      },
-                    },
-                  );
-                  gsap.to(copySurface, {
-                    yPercent: -12,
-                    opacity: 0.3,
-                    ease: 'none',
-                    scrollTrigger: {
-                      trigger: project,
-                      start: 'top top',
-                      end: 'bottom top',
-                      scrub: 0.8,
-                    },
-                  });
-                }
                 gsap
                   .timeline({
                     scrollTrigger: {
@@ -447,8 +412,8 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                   .from(visual, {
                     scale: 0.72,
                     rotate: index % 2 ? 8 : -8,
-                    filter: 'blur(10px)',
                     opacity: 0.15,
+                    force3D: true,
                   })
                   .from(
                     copy,
@@ -473,34 +438,52 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                     },
                   });
                 }
-                if (reticle) {
-                  gsap.to(reticle, {
-                    rotate: index % 2 ? -140 : 140,
-                    scale: 1.45,
-                    ease: 'none',
+                if (desktop) {
+                  const depthTimeline = gsap.timeline({
                     scrollTrigger: {
                       trigger: project,
                       start: 'top bottom',
                       end: 'bottom top',
-                      scrub: 1,
+                      scrub: 0.9,
                     },
                   });
-                }
-                if (image) {
-                  gsap.fromTo(
-                    image,
-                    { scale: 1.08, yPercent: -4 },
-                    {
-                      scale: 1.2,
-                      yPercent: 5,
-                      ease: 'none',
-                      scrollTrigger: {
-                        trigger: project,
-                        start: 'top bottom',
-                        end: 'bottom top',
-                        scrub: 0.8,
+                  if (image) {
+                    depthTimeline.fromTo(
+                      image,
+                      { scale: 1.08, yPercent: -4 },
+                      {
+                        scale: 1.18,
+                        yPercent: 4,
+                        duration: 2,
+                        force3D: true,
+                        ease: 'none',
                       },
+                      0,
+                    );
+                  }
+                  if (reticle) {
+                    depthTimeline.to(
+                      reticle,
+                      {
+                        rotate: index % 2 ? -120 : 120,
+                        scale: 1.35,
+                        duration: 2,
+                        force3D: true,
+                        ease: 'none',
+                      },
+                      0,
+                    );
+                  }
+                  depthTimeline.to(
+                    copySurface,
+                    {
+                      yPercent: -10,
+                      opacity: 0.35,
+                      duration: 1,
+                      force3D: true,
+                      ease: 'none',
                     },
+                    1,
                   );
                 }
               });

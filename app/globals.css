@@ -699,7 +699,6 @@ textarea {
     ),
     linear-gradient(145deg, #121522, #080910 62%);
   clip-path: polygon(0 3%, 100% 0, 100% 97%, 0 100%);
-  will-change: clip-path, transform;
 }
 .project-orbit:nth-child(3n + 2) {
   background:

@@ -30,7 +30,10 @@ export default function ImmersiveWorld() {
       container.appendChild(renderer.domElement);
 
       const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x090a12);
+      const background = new THREE.Color(0x090a12);
+      const deep = new THREE.Color(0x090a12);
+      const violet = new THREE.Color(0x180d22);
+      scene.background = background;
       scene.fog = new THREE.FogExp2(0x090a12, 0.045);
       const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 80);
       camera.position.set(0, 0, 15);
@@ -209,6 +212,8 @@ export default function ImmersiveWorld() {
       let scrollProgress = 0;
       let raf = 0;
       let last = performance.now();
+      let lastPaint = 0;
+      let projectMode = false;
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
       const onPointer = (event: PointerEvent) => {
         pointer.tx = (event.clientX / window.innerWidth - 0.5) * 2;
@@ -226,15 +231,16 @@ export default function ImmersiveWorld() {
         const height = container.clientHeight;
         camera.aspect = width / Math.max(1, height);
         camera.updateProjectionMatrix();
-        renderer.setPixelRatio(
-          Math.min(devicePixelRatio, width < 700 ? 1 : 1.5),
-        );
+        const pixelRatioCap = projectMode || width < 700 ? 1 : 1.35;
+        renderer.setPixelRatio(Math.min(devicePixelRatio, pixelRatioCap));
         renderer.setSize(width, height, false);
       };
 
       const render = (now: number) => {
         raf = requestAnimationFrame(render);
         if (document.hidden) return;
+        if (projectMode && now - lastPaint < 1000 / 20) return;
+        lastPaint = now;
         const dt = Math.min(0.05, (now - last) / 1000);
         last = now;
         const p = reduced.matches ? 0 : scrollProgress;
@@ -265,15 +271,21 @@ export default function ImmersiveWorld() {
           if (petal.position.y < -6) petal.position.y = 6;
         });
         stars.rotation.y = now * 0.000012 + p * 0.5;
-        const deep = new THREE.Color(0x090a12);
-        const violet = new THREE.Color(0x180d22);
-        scene.background = deep
-          .clone()
-          .lerp(violet, Math.sin(p * Math.PI) * 0.65);
-        if (scene.fog) scene.fog.color.copy(scene.background);
+        background.copy(deep).lerp(violet, Math.sin(p * Math.PI) * 0.65);
+        if (scene.fog) scene.fog.color.copy(background);
         renderer.render(scene, camera);
         container.classList.add('is-ready');
       };
+
+      const projects = document.querySelector('#projects');
+      const projectObserver = new IntersectionObserver(
+        ([entry]) => {
+          projectMode = entry.isIntersecting;
+          resize();
+        },
+        { rootMargin: '15% 0px' },
+      );
+      if (projects) projectObserver.observe(projects);
 
       window.addEventListener('pointermove', onPointer, { passive: true });
       window.addEventListener('scroll', onScroll, { passive: true });
@@ -287,6 +299,7 @@ export default function ImmersiveWorld() {
         window.removeEventListener('pointermove', onPointer);
         window.removeEventListener('scroll', onScroll);
         window.removeEventListener('resize', resize);
+        projectObserver.disconnect();
         geometries.forEach((item) => item.dispose());
         materials.forEach((item) => item.dispose());
         renderer.dispose();

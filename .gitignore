@@ -36,6 +36,8 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+.playwright-cli/
+/output-project*.png
 *.tsbuildinfo
 __pycache__/
 *.pyc

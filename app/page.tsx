@@ -19,6 +19,7 @@ type PortfolioProject = {
   role: string;
   process: string;
   result: string;
+  projectUrl: string | null;
   year: string;
   imageKey: string | null;
 };
@@ -33,6 +34,7 @@ const sampleProjects: PortfolioProject[] = [
     role: 'Thiết kế nhận diện & bao bì',
     process: 'Moodboard → phác thảo → bảng màu → ứng dụng bao bì.',
     result: 'Bộ nhận diện concept gồm logo, menu và bao bì.',
+    projectUrl: null,
     year: '2026',
     imageKey: null,
   },
@@ -44,6 +46,7 @@ const sampleProjects: PortfolioProject[] = [
     role: 'Thiết kế trải nghiệm & giao diện',
     process: 'Persona giả định → user flow → wireframe → prototype.',
     result: 'Prototype concept cho hành trình khám phá và lưu nhạc.',
+    projectUrl: null,
     year: '2026',
     imageKey: null,
   },
@@ -55,6 +58,7 @@ const sampleProjects: PortfolioProject[] = [
     role: 'Ý tưởng & minh họa',
     process: 'Quan sát đời sống → phác thảo → thử màu → hoàn thiện.',
     result: 'Định hướng mỹ thuật cho bộ postcard cá nhân.',
+    projectUrl: null,
     year: '2026',
     imageKey: null,
   },
@@ -75,6 +79,7 @@ export default async function Home() {
         role: project.role,
         process: project.process,
         result: project.result,
+        projectUrl: project.projectUrl,
         year: project.year,
         imageKey: project.imageKey,
       }));
@@ -200,7 +205,11 @@ export default async function Home() {
                 <div className={`project-visual visual-${index % 3}`}>
                   {project.imageKey ? (
                     <Image
-                      src={`/api/project-image?key=${encodeURIComponent(project.imageKey)}`}
+                      src={
+                        project.imageKey.startsWith('/')
+                          ? project.imageKey
+                          : `/api/project-image?key=${encodeURIComponent(project.imageKey)}`
+                      }
                       alt={`Ảnh dự án ${project.name}`}
                       fill
                       sizes="(max-width: 800px) 92vw, 58vw"
@@ -219,6 +228,16 @@ export default async function Home() {
                   <p className="micro-label">{project.type}</p>
                   <h3>{project.name}</h3>
                   <p className="project-sub">{project.sub}</p>
+                  {project.projectUrl && (
+                    <a
+                      className="project-live"
+                      href={project.projectUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Mở dự án thật <ArrowUpRight />
+                    </a>
+                  )}
                   <details>
                     <summary>
                       Xem case study <ArrowUpRight />

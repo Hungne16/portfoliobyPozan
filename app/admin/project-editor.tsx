@@ -105,6 +105,17 @@ export default function ProjectEditor({
             defaultValue={project?.subtitle}
           />
         </label>
+        <label className="wide" htmlFor="project-url">
+          Link dự án
+          <Input
+            name="projectUrl"
+            id="project-url"
+            type="url"
+            maxLength={500}
+            placeholder="https://..."
+            defaultValue={project?.projectUrl ?? ''}
+          />
+        </label>
         <label htmlFor="project-year">
           Năm *
           <Input

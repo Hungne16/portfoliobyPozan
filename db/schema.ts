@@ -16,6 +16,7 @@ export const projects = sqliteTable('projects', {
   role: text('role').notNull(),
   process: text('process').notNull(),
   result: text('result').notNull(),
+  projectUrl: text('project_url'),
   imageKey: text('image_key'),
   status: text('status', { enum: ['draft', 'published'] }).notNull(),
   sortOrder: integer('sort_order').notNull().default(0),

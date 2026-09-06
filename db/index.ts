@@ -10,6 +10,7 @@ export type ProjectRecord = {
   role: string;
   process: string;
   result: string;
+  projectUrl: string | null;
   imageKey: string | null;
   status: 'draft' | 'published';
   sortOrder: number;
@@ -30,7 +31,7 @@ export async function listProjects(
   const where = includeDrafts ? '' : "WHERE status = 'published'";
   const result = await getDatabase()
     .prepare(
-      `SELECT id,title,subtitle,category,year,brief,role,process,result,image_key AS imageKey,status,sort_order AS sortOrder,created_at AS createdAt,updated_at AS updatedAt FROM projects ${where} ORDER BY sort_order ASC,created_at DESC`,
+      `SELECT id,title,subtitle,category,year,brief,role,process,result,project_url AS projectUrl,image_key AS imageKey,status,sort_order AS sortOrder,created_at AS createdAt,updated_at AS updatedAt FROM projects ${where} ORDER BY sort_order ASC,created_at DESC`,
     )
     .all<ProjectRecord>();
   return result.results;
@@ -38,7 +39,7 @@ export async function listProjects(
 export async function getProject(id: string): Promise<ProjectRecord | null> {
   return getDatabase()
     .prepare(
-      'SELECT id,title,subtitle,category,year,brief,role,process,result,image_key AS imageKey,status,sort_order AS sortOrder,created_at AS createdAt,updated_at AS updatedAt FROM projects WHERE id=? LIMIT 1',
+      'SELECT id,title,subtitle,category,year,brief,role,process,result,project_url AS projectUrl,image_key AS imageKey,status,sort_order AS sortOrder,created_at AS createdAt,updated_at AS updatedAt FROM projects WHERE id=? LIMIT 1',
     )
     .bind(id)
     .first<ProjectRecord>();

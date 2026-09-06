@@ -41,6 +41,7 @@ function validate(form: FormData) {
     role: value(form, 'role', 500),
     process: value(form, 'process'),
     result: value(form, 'result'),
+    projectUrl: value(form, 'projectUrl', 500),
     status: value(form, 'status') === 'published' ? 'published' : 'draft',
     sortOrder: Number.parseInt(value(form, 'sortOrder', 6) || '0', 10),
   } as const;
@@ -55,6 +56,8 @@ function validate(form: FormData) {
     !data.result
   )
     throw new Error('Vui lòng điền đầy đủ các trường bắt buộc.');
+  if (data.projectUrl && !/^https?:\/\//i.test(data.projectUrl))
+    throw new Error('Link dự án phải bắt đầu bằng http:// hoặc https://.');
   return {
     ...data,
     sortOrder: Number.isFinite(data.sortOrder) ? data.sortOrder : 0,
@@ -93,7 +96,7 @@ export async function saveProject(
     const now = new Date().toISOString();
     await db
       .prepare(
-        `INSERT INTO projects (id,title,subtitle,category,year,brief,role,process,result,image_key,status,sort_order,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title,subtitle=excluded.subtitle,category=excluded.category,year=excluded.year,brief=excluded.brief,role=excluded.role,process=excluded.process,result=excluded.result,image_key=excluded.image_key,status=excluded.status,sort_order=excluded.sort_order,updated_at=excluded.updated_at`,
+        `INSERT INTO projects (id,title,subtitle,category,year,brief,role,process,result,project_url,image_key,status,sort_order,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title,subtitle=excluded.subtitle,category=excluded.category,year=excluded.year,brief=excluded.brief,role=excluded.role,process=excluded.process,result=excluded.result,project_url=excluded.project_url,image_key=excluded.image_key,status=excluded.status,sort_order=excluded.sort_order,updated_at=excluded.updated_at`,
       )
       .bind(
         id,
@@ -105,6 +108,7 @@ export async function saveProject(
         data.role,
         data.process,
         data.result,
+        data.projectUrl || null,
         imageKey,
         data.status,
         data.sortOrder,
@@ -112,7 +116,11 @@ export async function saveProject(
         now,
       )
       .run();
-    if (current?.imageKey && current.imageKey !== imageKey)
+    if (
+      current?.imageKey &&
+      !current.imageKey.startsWith('/') &&
+      current.imageKey !== imageKey
+    )
       await getFiles().delete(current.imageKey);
     revalidatePath('/');
     revalidatePath('/admin');
@@ -136,7 +144,8 @@ export async function deleteProject(form: FormData) {
   await requireAdmin();
   const id = value(form, 'id', 60);
   const current = await getProject(id);
-  if (current?.imageKey) await getFiles().delete(current.imageKey);
+  if (current?.imageKey && !current.imageKey.startsWith('/'))
+    await getFiles().delete(current.imageKey);
   await getDatabase().prepare('DELETE FROM projects WHERE id=?').bind(id).run();
   revalidatePath('/');
   revalidatePath('/admin');

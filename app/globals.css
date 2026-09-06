@@ -646,8 +646,34 @@ textarea {
   line-height: 1.65;
   font-size: 16px;
 }
+.project-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 46px;
+  margin-top: 10px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(9, 10, 18, 0.42);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    color 0.2s,
+    background 0.2s,
+    border-color 0.2s;
+}
+.project-live svg {
+  width: 15px;
+}
+.project-live:hover {
+  color: var(--night);
+  background: var(--cyan);
+  border-color: var(--cyan);
+}
 .project-copy details {
-  margin-top: 35px;
+  margin-top: 22px;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }

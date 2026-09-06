@@ -16,6 +16,7 @@ import {
   Terminal,
 } from 'lucide-react';
 import ScrollStory from '../components/scroll-story';
+import LanguageSwitcher from '../components/language-switcher';
 import { listProjects } from '@/db';
 
 type PortfolioProject = {
@@ -220,9 +221,12 @@ export default async function Home() {
         <div className="hud-status">
           <i /> SOFTWARE ENGINEER / CREATIVE DEVELOPER
         </div>
-        <a className="hud-contact" href="#contact">
-          CONTACT <ArrowUpRight />
-        </a>
+        <div className="hud-actions">
+          <LanguageSwitcher />
+          <a className="hud-contact" href="#contact">
+            CONTACT <ArrowUpRight />
+          </a>
+        </div>
       </header>
 
       <main id="main">

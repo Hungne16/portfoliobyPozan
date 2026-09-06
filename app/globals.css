@@ -226,11 +226,90 @@ textarea {
   animation: pulse 1.8s ease-in-out infinite;
 }
 .hud-contact {
-  justify-self: end;
   display: flex;
   gap: 9px;
   align-items: center;
   min-height: 44px;
+}
+.hud-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.language-switcher {
+  display: grid;
+  grid-template-columns: auto 14px auto;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding-inline: 11px;
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 999px;
+  background: rgba(9, 10, 18, 0.18);
+  backdrop-filter: blur(10px);
+}
+.language-switcher legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.language-switcher span {
+  position: relative;
+  width: 14px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.26);
+}
+.language-switcher span::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--pink);
+  box-shadow: 0 0 8px var(--pink);
+  transform: translate(-50%, -50%);
+}
+.language-switcher button {
+  min-width: 28px;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  color: rgba(255, 255, 255, 0.45);
+  background: transparent;
+  font: inherit;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    text-shadow 180ms ease;
+}
+.language-switcher button:hover,
+.language-switcher button:focus-visible,
+.language-switcher button.is-active {
+  color: #fff;
+}
+.language-switcher button.is-active {
+  text-shadow: 0 0 12px var(--cyan);
+}
+.language-switcher button:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 3px;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+  animation-timing-function: ease-out;
 }
 .hud-contact svg {
   width: 15px;
@@ -2458,6 +2537,23 @@ summary:focus-visible {
   }
   .hud-brand {
     font-size: 12px;
+  }
+  .hud-actions {
+    gap: 10px;
+  }
+  .language-switcher {
+    grid-template-columns: auto 8px auto;
+    gap: 4px;
+    min-height: 38px;
+    padding-inline: 8px;
+  }
+  .language-switcher button {
+    min-width: 24px;
+    min-height: 30px;
+    font-size: 8px;
+  }
+  .hud-contact {
+    gap: 5px;
   }
   .hud-contact svg {
     width: 13px;

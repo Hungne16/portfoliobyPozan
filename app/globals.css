@@ -880,6 +880,13 @@ textarea {
   transition:
     border-color 0.35s ease,
     box-shadow 0.35s ease;
+  perspective: 900px;
+}
+.project-visual-inner {
+  position: absolute;
+  inset: -1.5%;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 .project-visual::after {
   content: '';
@@ -926,7 +933,8 @@ textarea {
   display: block;
 }
 .signal-cursor-core,
-.signal-cursor-ring {
+.signal-cursor-ring,
+.signal-cursor-trail {
   position: fixed;
   left: 0;
   top: 0;
@@ -934,6 +942,30 @@ textarea {
   border-radius: 50%;
   will-change: transform;
   transition: opacity 0.18s ease;
+}
+.signal-cursor-trail {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 3px;
+  opacity: 0;
+  border-radius: 50%;
+  background: #fff;
+  will-change: transform;
+  transition: opacity 0.18s ease;
+}
+.signal-cursor-trail:nth-child(1) {
+  width: 5px;
+  height: 5px;
+}
+.signal-cursor-trail:nth-child(2),
+.signal-cursor-trail:nth-child(3) {
+  background: var(--cyan);
+}
+.signal-cursor-trail:nth-child(4),
+.signal-cursor-trail:nth-child(5) {
+  background: var(--pink);
 }
 .signal-cursor-core {
   width: 6px;
@@ -978,11 +1010,118 @@ textarea {
   text-align: center;
 }
 .signal-cursor.is-visible .signal-cursor-core,
-.signal-cursor.is-visible .signal-cursor-ring {
+.signal-cursor.is-visible .signal-cursor-ring,
+.signal-cursor.is-visible .signal-cursor-trail {
   opacity: 1;
+}
+.signal-cursor.is-visible .signal-cursor-trail:nth-child(2) {
+  opacity: 0.72;
+}
+.signal-cursor.is-visible .signal-cursor-trail:nth-child(3) {
+  opacity: 0.55;
+}
+.signal-cursor.is-visible .signal-cursor-trail:nth-child(4) {
+  opacity: 0.4;
+}
+.signal-cursor.is-visible .signal-cursor-trail:nth-child(5) {
+  opacity: 0.28;
+}
+.signal-cursor.is-visible .signal-cursor-trail:nth-child(6) {
+  opacity: 0.18;
 }
 .signal-cursor.is-interactive .signal-cursor-core {
   opacity: 0;
+}
+
+.cinematic-effects {
+  position: fixed;
+  z-index: 6;
+  inset: 0;
+  pointer-events: none;
+}
+.chapter-aura {
+  --aura-color: #ff557b;
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background:
+    radial-gradient(circle at 4% 42%, var(--aura-color), transparent 25%),
+    radial-gradient(circle at 96% 72%, var(--aura-color), transparent 22%);
+  mix-blend-mode: screen;
+  transition: opacity 0.3s ease;
+}
+.scroll-warp {
+  position: absolute;
+  inset: -12%;
+  opacity: 0;
+  background: repeating-linear-gradient(
+    104deg,
+    transparent 0,
+    transparent 22px,
+    rgba(255, 255, 255, 0.1) 23px,
+    transparent 24px,
+    transparent 58px
+  );
+  mask-image: radial-gradient(ellipse at center, #000 10%, transparent 72%);
+  transform-origin: center;
+  will-change: transform, opacity;
+  mix-blend-mode: overlay;
+}
+.chapter-transmission {
+  position: absolute;
+  left: 28px;
+  bottom: 25px;
+  width: 210px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  mix-blend-mode: difference;
+}
+.chapter-transmission-code {
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+}
+.chapter-transmission-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cyan), rgba(255, 255, 255, 0.12));
+  box-shadow: 0 0 9px var(--cyan);
+}
+.scroll-velocity {
+  position: absolute;
+  right: 28px;
+  bottom: 24px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.38);
+  font-family: 'DM Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.13em;
+  mix-blend-mode: difference;
+}
+.scroll-velocity b {
+  min-width: 33px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 900px), (prefers-reduced-motion: reduce) {
+  .chapter-transmission,
+  .scroll-velocity,
+  .scroll-warp {
+    display: none;
+  }
+  .chapter-aura {
+    opacity: 0.07;
+  }
 }
 @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
   html.signal-cursor-enabled,

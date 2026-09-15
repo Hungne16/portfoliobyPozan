@@ -9,6 +9,8 @@ gsap.registerPlugin(useGSAP);
 type SpotlightSetters = {
   x: (value: number) => gsap.core.Tween;
   y: (value: number) => gsap.core.Tween;
+  rotateX: (value: number) => gsap.core.Tween;
+  rotateY: (value: number) => gsap.core.Tween;
 };
 
 export default function SignalCursor() {
@@ -20,6 +22,9 @@ export default function SignalCursor() {
       const core = cursor.querySelector<HTMLElement>('.signal-cursor-core')!;
       const ring = cursor.querySelector<HTMLElement>('.signal-cursor-ring')!;
       const label = cursor.querySelector<HTMLElement>('.signal-cursor-label')!;
+      const trails = Array.from(
+        cursor.querySelectorAll<HTMLElement>('.signal-cursor-trail'),
+      );
       const media = gsap.matchMedia();
 
       media.add(
@@ -27,7 +32,7 @@ export default function SignalCursor() {
         () => {
           document.documentElement.classList.add('signal-cursor-enabled');
           cursor.classList.add('is-enabled');
-          gsap.set([core, ring], { xPercent: -50, yPercent: -50 });
+          gsap.set([core, ring, ...trails], { xPercent: -50, yPercent: -50 });
 
           const coreX = gsap.quickTo(core, 'x', {
             duration: 0.12,
@@ -45,6 +50,16 @@ export default function SignalCursor() {
             duration: 0.42,
             ease: 'power3.out',
           });
+          const trailSetters = trails.map((trail, index) => ({
+            x: gsap.quickTo(trail, 'x', {
+              duration: 0.16 + index * 0.055,
+              ease: 'power3.out',
+            }),
+            y: gsap.quickTo(trail, 'y', {
+              duration: 0.16 + index * 0.055,
+              ease: 'power3.out',
+            }),
+          }));
           const spotlightSetters = new WeakMap<HTMLElement, SpotlightSetters>();
           let activeVisual: HTMLElement | null = null;
           let activeTarget: Element | null = null;
@@ -61,6 +76,16 @@ export default function SignalCursor() {
                 duration: 0.28,
                 ease: 'power2.out',
               }),
+              rotateX: gsap.quickTo(
+                visual.querySelector('.project-visual-inner'),
+                'rotationX',
+                { duration: 0.5, ease: 'power3.out' },
+              ),
+              rotateY: gsap.quickTo(
+                visual.querySelector('.project-visual-inner'),
+                'rotationY',
+                { duration: 0.5, ease: 'power3.out' },
+              ),
             };
             spotlightSetters.set(visual, setters);
             return setters;
@@ -81,12 +106,22 @@ export default function SignalCursor() {
             coreY(event.clientY);
             ringX(event.clientX);
             ringY(event.clientY);
+            trailSetters.forEach((setters, index) => {
+              const drift = index * 1.2;
+              setters.x(event.clientX - drift);
+              setters.y(event.clientY + drift);
+            });
             cursor.classList.add('is-visible');
 
             const element = event.target as Element;
             const visual = element.closest<HTMLElement>('.project-visual');
             if (visual !== activeVisual) {
-              activeVisual?.classList.remove('is-pointer-active');
+              if (activeVisual) {
+                activeVisual.classList.remove('is-pointer-active');
+                const previousSetters = getSpotlightSetters(activeVisual);
+                previousSetters.rotateX(0);
+                previousSetters.rotateY(0);
+              }
               activeVisual = visual;
               activeVisual?.classList.add('is-pointer-active');
             }
@@ -105,6 +140,20 @@ export default function SignalCursor() {
                   0,
                   100,
                   ((event.clientY - rect.top) / rect.height) * 100,
+                ),
+              );
+              setters.rotateX(
+                gsap.utils.clamp(
+                  -4,
+                  4,
+                  -(((event.clientY - rect.top) / rect.height - 0.5) * 8),
+                ),
+              );
+              setters.rotateY(
+                gsap.utils.clamp(
+                  -5,
+                  5,
+                  ((event.clientX - rect.left) / rect.width - 0.5) * 10,
                 ),
               );
             }
@@ -129,6 +178,11 @@ export default function SignalCursor() {
           const leave = () => {
             cursor.classList.remove('is-visible', 'is-interactive');
             activeVisual?.classList.remove('is-pointer-active');
+            if (activeVisual) {
+              const setters = getSpotlightSetters(activeVisual);
+              setters.rotateX(0);
+              setters.rotateY(0);
+            }
             activeVisual = null;
             activeTarget = null;
           };
@@ -175,6 +229,9 @@ export default function SignalCursor() {
 
   return (
     <div ref={root} className="signal-cursor" aria-hidden="true">
+      {Array.from({ length: 6 }, (_, index) => (
+        <span className="signal-cursor-trail" key={index} />
+      ))}
       <span className="signal-cursor-core" />
       <span className="signal-cursor-ring">
         <i className="signal-cursor-label" />

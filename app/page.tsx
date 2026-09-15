@@ -461,33 +461,35 @@ export default async function Home() {
                 style={{ zIndex: index + 1 }}
               >
                 <div className={`project-visual visual-${index % 3}`}>
-                  {project.imageKey ? (
-                    <Image
-                      src={
-                        project.imageKey.startsWith('/')
-                          ? project.imageKey
-                          : `/api/project-image?key=${encodeURIComponent(project.imageKey)}`
-                      }
-                      alt={`Ảnh dự án ${project.name}`}
-                      fill
-                      sizes="(max-width: 800px) 92vw, 58vw"
-                      unoptimized
-                    />
-                  ) : (
-                    <div className="project-symbol" aria-hidden="true">
-                      <span>{['雲', '夜', '青'][index % 3]}</span>
-                      <i />
-                    </div>
-                  )}
-                  <span className="visual-index">PROJECT / 0{index + 1}</span>
-                  <span className="visual-year">{project.year}</span>
-                  <span
-                    className="project-signal"
-                    aria-label={`Tín hiệu dự án ${index + 1}`}
-                  >
-                    SIGNAL_{String(index + 1).padStart(2, '0')} / DATA_STREAM
-                  </span>
-                  <i className="project-reticle" aria-hidden="true" />
+                  <div className="project-visual-inner">
+                    {project.imageKey ? (
+                      <Image
+                        src={
+                          project.imageKey.startsWith('/')
+                            ? project.imageKey
+                            : `/api/project-image?key=${encodeURIComponent(project.imageKey)}`
+                        }
+                        alt={`Ảnh dự án ${project.name}`}
+                        fill
+                        sizes="(max-width: 800px) 92vw, 58vw"
+                        unoptimized
+                      />
+                    ) : (
+                      <div className="project-symbol" aria-hidden="true">
+                        <span>{['雲', '夜', '青'][index % 3]}</span>
+                        <i />
+                      </div>
+                    )}
+                    <span className="visual-index">PROJECT / 0{index + 1}</span>
+                    <span className="visual-year">{project.year}</span>
+                    <span
+                      className="project-signal"
+                      aria-label={`Tín hiệu dự án ${index + 1}`}
+                    >
+                      SIGNAL_{String(index + 1).padStart(2, '0')} / DATA_STREAM
+                    </span>
+                    <i className="project-reticle" aria-hidden="true" />
+                  </div>
                 </div>
                 <div className="project-copy">
                   <p className="micro-label">{project.type}</p>

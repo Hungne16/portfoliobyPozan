@@ -9,6 +9,7 @@ import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { SplitText } from 'gsap/SplitText';
 import IntroCurtain from './intro-curtain';
 import SignalCursor from './signal-cursor';
+import CinematicEffects from './cinematic-effects';
 import ImmersiveWorld from './immersive-world';
 
 gsap.registerPlugin(
@@ -554,6 +555,7 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
   return (
     <div ref={root} className="scroll-story">
       <SignalCursor />
+      <CinematicEffects />
       <IntroCurtain onReady={enter} />
       <ImmersiveWorld />
       <div className="fx-noise" aria-hidden="true" />

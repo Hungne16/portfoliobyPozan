@@ -74,7 +74,9 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
 
           if (motion) {
             gsap.from(
-              q('.hero-kicker, .hero-title, .hero-copy, .hero-actions'),
+              q(
+                '.hero-kicker, .hero-title, .hero-copy, .hero-actions, .hero-proof',
+              ),
               {
                 y: 35,
                 autoAlpha: 0,

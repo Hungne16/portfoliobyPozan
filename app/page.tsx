@@ -245,20 +245,51 @@ export default async function Home() {
           <div className="hero-copy-block">
             <p className="hero-kicker">PROLOGUE / THE FIRST SIGNAL</p>
             <h1 className="hero-title">
-              Bạn mang đến một ý tưởng.
+              <span
+                data-localized
+                data-vi="Bạn có một yêu cầu."
+                data-en="You have a brief."
+              >
+                Bạn có một yêu cầu.
+              </span>
               <br />
-              Mình xây thế giới để nó <em>sống.</em>
+              <span
+                data-localized
+                data-vi="Mình xây thành sản phẩm web"
+                data-en="I build it into a web product that"
+              >
+                Mình xây thành sản phẩm web
+              </span>{' '}
+              <em data-localized data-vi="chạy thật." data-en="works.">
+                chạy thật.
+              </em>
             </h1>
             <p className="hero-copy">
-              Đây là câu chuyện về cách tò mò trở thành ý tưởng, ý tưởng thành
-              sản phẩm, và sản phẩm trở thành trải nghiệm khiến người ta muốn ở
-              lại.
+              Từ yêu cầu đến sản phẩm chạy thật: mình thiết kế UI/UX, phát triển
+              frontend, kết nối dữ liệu và triển khai — với chuyển động giúp
+              thương hiệu đáng nhớ hơn.
             </p>
             <div className="hero-actions">
-              <a href="#about">
-                Bắt đầu câu chuyện <ArrowDown />
+              <a href="#projects">
+                Xem sản phẩm đã làm <ArrowDown />
               </a>
-              <span>SCROLL TO BEGIN / 物語</span>
+              <a className="hero-contact-link" href="#contact">
+                Trao đổi yêu cầu <ArrowUpRight />
+              </a>
+            </div>
+            <div className="hero-proof" aria-label="Năng lực nổi bật">
+              <div>
+                <b>10</b>
+                <span>SẢN PHẨM ĐÃ SHIP</span>
+              </div>
+              <div>
+                <b>1+</b>
+                <span>NĂM XÂY DỰNG WEB</span>
+              </div>
+              <div>
+                <b>END–TO–END</b>
+                <span>DESIGN · CODE · DEPLOY</span>
+              </div>
             </div>
           </div>
           <div className="coordinate coordinate-right">
@@ -280,9 +311,24 @@ export default async function Home() {
           <div className="signal-card">
             <p className="micro-label">EVERY PROJECT STARTS WITH WHY</p>
             <h2 className="chapter-title">
-              Trước khi viết code,
+              <span
+                data-localized
+                data-vi="Trước khi viết code,"
+                data-en="Before writing code,"
+              >
+                Trước khi viết code,
+              </span>
               <br />
-              mình tìm điều cần <em>thay đổi.</em>
+              <span
+                data-localized
+                data-vi="mình tìm điều cần"
+                data-en="I find what needs to"
+              >
+                mình tìm điều cần
+              </span>{' '}
+              <em data-localized data-vi="thay đổi." data-en="change.">
+                thay đổi.
+              </em>
             </h2>
             <div className="signal-copy">
               <p>
@@ -318,9 +364,21 @@ export default async function Home() {
           <div className="experience-heading parallax-slow">
             <p className="micro-label">FROM QUESTION TO WORKING PRODUCT</p>
             <h2 className="chapter-title">
-              Học bằng cách
+              <span
+                data-localized
+                data-vi="Học bằng cách"
+                data-en="Learning by"
+              >
+                Học bằng cách
+              </span>
               <br />
-              <em>xây thật.</em>
+              <em
+                data-localized
+                data-vi="xây thật."
+                data-en="building for real."
+              >
+                xây thật.
+              </em>
             </h2>
             <p>
               Kinh nghiệm của mình được tích lũy qua chu trình hoàn chỉnh: tìm
@@ -378,9 +436,20 @@ export default async function Home() {
               <span>THE EVIDENCE / 実績</span>
             </div>
             <h2 className="chapter-title">
-              Những tín hiệu
+              <span
+                data-localized
+                data-vi="Những tín hiệu"
+                data-en="The signals"
+              >
+                Những tín hiệu
+              </span>
               <br />
-              mình đã <em>gửi đi.</em>
+              <span data-localized data-vi="mình đã" data-en="I have">
+                mình đã
+              </span>{' '}
+              <em data-localized data-vi="gửi đi." data-en="sent out.">
+                gửi đi.
+              </em>
             </h2>
             <p>Mỗi dự án là một thế giới riêng. Cuộn để tiến sâu hơn.</p>
           </div>
@@ -491,9 +560,21 @@ export default async function Home() {
           </div>
           <div className="skills-copy">
             <h2 className="chapter-title">
-              Viết code để
+              <span
+                data-localized
+                data-vi="Viết code để"
+                data-en="Writing code to"
+              >
+                Viết code để
+              </span>
               <br />
-              <em>giải quyết vấn đề.</em>
+              <em
+                data-localized
+                data-vi="giải quyết vấn đề."
+                data-en="solve real problems."
+              >
+                giải quyết vấn đề.
+              </em>
             </h2>
             <p>
               Từ nền tảng khoa học máy tính đến sản phẩm chạy ổn định ngoài thực
@@ -764,9 +845,20 @@ export default async function Home() {
             <div className="contact-heading">
               <p className="micro-label">FINAL TRANSMISSION / 06</p>
               <h2 className="chapter-title">
-                Gửi một <em>tín hiệu.</em>
+                <span data-localized data-vi="Gửi một" data-en="Send a">
+                  Gửi một
+                </span>{' '}
+                <em data-localized data-vi="tín hiệu." data-en="signal.">
+                  tín hiệu.
+                </em>
                 <br />
-                Mình sẽ biến nó thành chuyển động.
+                <span
+                  data-localized
+                  data-vi="Mình sẽ biến nó thành chuyển động."
+                  data-en="I’ll turn it into motion."
+                >
+                  Mình sẽ biến nó thành chuyển động.
+                </span>
               </h2>
               <p>
                 Thực tập, dự án nghiên cứu sinh viên, sản phẩm web hoặc một ý
@@ -787,14 +879,32 @@ export default async function Home() {
                     <b>HÀ NỘI, VIỆT NAM</b>
                   </span>
                 </div>
-                <a className="contact-button" href="mailto:hello@pozan.dev">
-                  <span>
-                    <small>DIRECT CHANNEL</small>
-                    HELLO@POZAN.DEV
-                  </span>
-                  <Mail />
-                  <ArrowUpRight />
-                </a>
+                <div className="contact-links">
+                  <a
+                    className="contact-button"
+                    href="mailto:vumanhhung03012004@gmail.com"
+                  >
+                    <span>
+                      <small>DIRECT CHANNEL</small>
+                      vumanhhung03012004@gmail.com
+                    </span>
+                    <Mail />
+                    <ArrowUpRight />
+                  </a>
+                  <a
+                    className="contact-button contact-button-secondary"
+                    href="https://github.com/Hungne16"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <span>
+                      <small>CODE & REPOSITORIES</small>
+                      GITHUB.COM/HUNGNE16
+                    </span>
+                    <Code2 />
+                    <ArrowUpRight />
+                  </a>
+                </div>
                 <div className="contact-topics">
                   <span>INTERNSHIP</span>
                   <span>STUDENT RESEARCH</span>
@@ -814,7 +924,16 @@ export default async function Home() {
       <footer className="site-footer">
         <span>© 2026 POZAN</span>
         <span>ENGINEERED WITH LOGIC / CRAFTED WITH IMAGINATION</span>
-        <Link href="/admin">STUDIO ADMIN ↗</Link>
+        <div className="footer-links">
+          <a
+            href="https://github.com/Hungne16"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GITHUB ↗
+          </a>
+          <Link href="/admin">STUDIO ADMIN ↗</Link>
+        </div>
       </footer>
     </ScrollStory>
   );

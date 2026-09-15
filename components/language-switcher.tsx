@@ -12,7 +12,14 @@ const translations: Record<string, string> = {
   'sống.': 'come alive.',
   'Đây là câu chuyện về cách tò mò trở thành ý tưởng, ý tưởng thành sản phẩm, và sản phẩm trở thành trải nghiệm khiến người ta muốn ở lại.':
     'This is the story of how curiosity becomes an idea, an idea becomes a product, and a product becomes an experience people want to stay with.',
+  'Từ yêu cầu đến sản phẩm chạy thật: mình thiết kế UI/UX, phát triển frontend, kết nối dữ liệu và triển khai — với chuyển động giúp thương hiệu đáng nhớ hơn.':
+    'From brief to live product: I design UI/UX, build the frontend, connect data, and deploy — with motion that makes the brand more memorable.',
   'Bắt đầu câu chuyện': 'Begin the story',
+  'Xem sản phẩm đã làm': 'View shipped work',
+  'Trao đổi yêu cầu': 'Discuss your brief',
+  'SẢN PHẨM ĐÃ SHIP': 'PRODUCTS SHIPPED',
+  'NĂM XÂY DỰNG WEB': 'YEARS BUILDING WEB',
+  'Năng lực nổi bật': 'Key capabilities',
   'Trước khi viết code,': 'Before writing code,',
   'mình tìm điều cần': 'I find what needs to',
   'thay đổi.': 'change.',
@@ -222,7 +229,7 @@ function translatePage(language: Language) {
   const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, {
     acceptNode(node) {
       const parent = node.parentElement;
-      return parent?.closest('[data-language-control]') ||
+      return parent?.closest('[data-language-control], [data-localized]') ||
         parent?.closest('script, style')
         ? NodeFilter.FILTER_REJECT
         : NodeFilter.FILTER_ACCEPT;
@@ -233,6 +240,13 @@ function translatePage(language: Language) {
     replaceText(node as Text, language);
     node = walker.nextNode();
   }
+
+  content
+    .querySelectorAll<HTMLElement>('[data-localized]')
+    .forEach((element) => {
+      const value = element.dataset[language];
+      if (value) element.textContent = value;
+    });
 
   content
     .querySelectorAll<HTMLElement>('[aria-label], [alt], [title]')

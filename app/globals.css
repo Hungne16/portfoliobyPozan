@@ -243,12 +243,15 @@ textarea {
   align-items: center;
   gap: 7px;
   min-height: 44px;
-  padding-inline: 11px;
+  padding: 4px;
   margin: 0;
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  border: 1px solid rgba(111, 230, 225, 0.72);
   border-radius: 999px;
-  background: rgba(9, 10, 18, 0.18);
+  background: rgba(9, 10, 18, 0.78);
   backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 0 1px rgba(255, 85, 123, 0.18),
+    0 0 24px rgba(111, 230, 225, 0.16);
 }
 .language-switcher legend {
   position: absolute;
@@ -280,19 +283,23 @@ textarea {
   transform: translate(-50%, -50%);
 }
 .language-switcher button {
-  min-width: 28px;
-  min-height: 32px;
+  min-width: 36px;
+  min-height: 34px;
   padding: 0;
   border: 0;
-  color: rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.68);
   background: transparent;
   font: inherit;
-  font-size: 9px;
+  font-size: 10px;
+  font-weight: 700;
   letter-spacing: 0.08em;
   cursor: pointer;
   transition:
     color 180ms ease,
-    text-shadow 180ms ease;
+    background 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
 }
 .language-switcher button:hover,
 .language-switcher button:focus-visible,
@@ -300,7 +307,10 @@ textarea {
   color: #fff;
 }
 .language-switcher button.is-active {
-  text-shadow: 0 0 12px var(--cyan);
+  color: var(--night);
+  background: var(--white);
+  box-shadow: 0 0 18px rgba(111, 230, 225, 0.55);
+  transform: scale(1.03);
 }
 .language-switcher button:focus-visible {
   outline: 1px solid var(--cyan);
@@ -498,6 +508,49 @@ textarea {
 .hero-actions span {
   font-size: 9px;
   color: var(--muted);
+}
+.hero-actions .hero-contact-link {
+  border-color: rgba(111, 230, 225, 0.45);
+  color: var(--white);
+  background: rgba(111, 230, 225, 0.08);
+}
+.hero-actions .hero-contact-link:hover {
+  border-color: var(--cyan);
+  color: var(--white);
+  background: rgba(111, 230, 225, 0.18);
+}
+.hero-proof {
+  width: min(720px, 100%);
+  display: grid;
+  grid-template-columns: 0.75fr 0.9fr 1.35fr;
+  margin-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(9, 10, 18, 0.36);
+  backdrop-filter: blur(10px);
+}
+.hero-proof > div {
+  min-height: 74px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 12px 18px;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+.hero-proof > div:last-child {
+  border-right: 0;
+}
+.hero-proof b {
+  color: var(--white);
+  font-size: 18px;
+  line-height: 1;
+}
+.hero-proof span {
+  color: var(--cyan);
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
 }
 .hero-kanji {
   position: absolute;
@@ -2151,6 +2204,15 @@ body:has(.project-copy details[open]) {
   font-size: 12px;
   transition: 0.3s ease;
 }
+.contact-links {
+  display: grid;
+  gap: 10px;
+}
+.contact-button-secondary {
+  min-height: 68px;
+  border-color: rgba(111, 230, 225, 0.28);
+  background: rgba(111, 230, 225, 0.035);
+}
 .contact-button span {
   display: flex;
   flex-direction: column;
@@ -2289,6 +2351,11 @@ body:has(.project-copy details[open]) {
   display: flex;
   align-items: center;
   color: var(--white);
+}
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .intro-curtain {
@@ -2545,10 +2612,10 @@ summary:focus-visible {
     grid-template-columns: auto 8px auto;
     gap: 4px;
     min-height: 38px;
-    padding-inline: 8px;
+    padding: 3px;
   }
   .language-switcher button {
-    min-width: 24px;
+    min-width: 31px;
     min-height: 30px;
     font-size: 8px;
   }
@@ -2566,7 +2633,7 @@ summary:focus-visible {
     padding: 95px 20px;
   }
   .hero-chapter {
-    min-height: 145svh;
+    min-height: 175svh;
     padding-top: 95px;
   }
   .hero-art img {
@@ -2583,8 +2650,8 @@ summary:focus-visible {
     gap: 18px;
   }
   .hero-title {
-    font-size: clamp(61px, 20vw, 92px);
-    line-height: 0.82;
+    font-size: clamp(48px, 15vw, 70px);
+    line-height: 0.88;
   }
   .hero-copy {
     margin-left: 0;
@@ -2597,6 +2664,21 @@ summary:focus-visible {
     align-items: flex-start;
     flex-direction: column;
     gap: 16px;
+  }
+  .hero-proof {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 26px;
+  }
+  .hero-proof > div {
+    min-height: 64px;
+    padding: 10px 12px;
+  }
+  .hero-proof > div:nth-child(2) {
+    border-right: 0;
+  }
+  .hero-proof > div:last-child {
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
   }
   .coordinate-left {
     left: 20px;

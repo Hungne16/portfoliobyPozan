@@ -868,6 +868,8 @@ textarea {
   order: 2;
 }
 .project-visual {
+  --spot-x: 50%;
+  --spot-y: 50%;
   position: relative;
   width: 100%;
   aspect-ratio: 1.35;
@@ -875,19 +877,120 @@ textarea {
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0 40px 110px rgba(0, 0, 0, 0.52);
   clip-path: polygon(0 5%, 94% 0, 100% 92%, 5% 100%);
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
 }
 .project-visual::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.22),
-    transparent 48%
-  );
+  z-index: 2;
+  opacity: 0.3;
+  background:
+    radial-gradient(
+      circle 180px at var(--spot-x) var(--spot-y),
+      rgba(255, 255, 255, 0.44),
+      rgba(111, 230, 225, 0.14) 34%,
+      transparent 72%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.18),
+      transparent 48%
+    );
   mix-blend-mode: soft-light;
   pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.project-visual.is-pointer-active {
+  border-color: rgba(111, 230, 225, 0.68);
+  box-shadow:
+    0 45px 120px rgba(0, 0, 0, 0.58),
+    0 0 42px rgba(111, 230, 225, 0.12);
+}
+.project-visual.is-pointer-active::after {
+  opacity: 0.9;
+}
+
+.signal-cursor {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+.signal-cursor.is-enabled {
+  display: block;
+}
+.signal-cursor-core,
+.signal-cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  border-radius: 50%;
+  will-change: transform;
+  transition: opacity 0.18s ease;
+}
+.signal-cursor-core {
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  box-shadow: 0 0 14px #fff;
+}
+.signal-cursor-ring {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+.signal-cursor-ring::before,
+.signal-cursor-ring::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.7);
+}
+.signal-cursor-ring::before {
+  width: 8px;
+  height: 1px;
+  left: -4px;
+  top: 50%;
+}
+.signal-cursor-ring::after {
+  width: 1px;
+  height: 8px;
+  left: 50%;
+  top: -4px;
+}
+.signal-cursor-label {
+  max-width: 42px;
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+  font-size: 6px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+.signal-cursor.is-visible .signal-cursor-core,
+.signal-cursor.is-visible .signal-cursor-ring {
+  opacity: 1;
+}
+.signal-cursor.is-interactive .signal-cursor-core {
+  opacity: 0;
+}
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.signal-cursor-enabled,
+  html.signal-cursor-enabled a,
+  html.signal-cursor-enabled button,
+  html.signal-cursor-enabled summary {
+    cursor: none;
+  }
 }
 .project-visual::before {
   content: '';

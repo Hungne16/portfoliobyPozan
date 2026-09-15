@@ -16,6 +16,7 @@ import {
   Terminal,
 } from 'lucide-react';
 import ScrollStory from '../components/scroll-story';
+import AboutStory from '../components/about-story';
 import LanguageSwitcher from '../components/language-switcher';
 import { listProjects } from '@/db';
 
@@ -303,58 +304,7 @@ export default async function Home() {
           <span>POZAN_SYSTEM // EVERY STORY STARTS WITH A QUESTION</span>
         </div>
 
-        <section className="scene-chapter about-chapter" id="about">
-          <div className="chapter-index">
-            <b>01</b>
-            <span>THE QUESTION / 問い</span>
-          </div>
-          <div className="signal-card">
-            <p className="micro-label">EVERY PROJECT STARTS WITH WHY</p>
-            <h2 className="chapter-title">
-              <span
-                data-localized
-                data-vi="Trước khi viết code,"
-                data-en="Before writing code,"
-              >
-                Trước khi viết code,
-              </span>
-              <br />
-              <span
-                data-localized
-                data-vi="mình tìm điều cần"
-                data-en="I find what needs to"
-              >
-                mình tìm điều cần
-              </span>{' '}
-              <em data-localized data-vi="thay đổi." data-en="change.">
-                thay đổi.
-              </em>
-            </h2>
-            <div className="signal-copy">
-              <p>
-                Mình là Pozan, hiện theo học ngành Công nghệ Phần mềm tại Trường
-                Đại học Xây dựng Hà Nội — HUCE. Mình quan tâm đến cách một hệ
-                thống được thiết kế, xây dựng và vận hành trọn vẹn.
-              </p>
-              <p>
-                Thế mạnh của mình nằm ở giao điểm giữa kỹ thuật và sáng tạo:
-                kiến trúc giao diện rõ ràng, code có cấu trúc, trải nghiệm dễ
-                dùng và chuyển động có chủ đích.
-              </p>
-            </div>
-            <div className="signal-tags">
-              <span>CURIOUS</span>
-              <span>SYSTEM THINKER</span>
-              <span>PRODUCT-MINDED</span>
-              <span>SHIP-FOCUSED</span>
-            </div>
-          </div>
-          <p className="side-note">
-            EVERYTHING STARTS
-            <br />
-            WITH A WORKING SYSTEM ✦
-          </p>
-        </section>
+        <AboutStory />
 
         <section className="experience-chapter" id="experience">
           <div className="chapter-index">

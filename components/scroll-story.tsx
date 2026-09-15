@@ -75,6 +75,56 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
           });
 
           if (motion) {
+            gsap.utils
+              .toArray<HTMLElement>('.identity-scene', el)
+              .forEach((scene) => {
+                const timeline = gsap.timeline({
+                  scrollTrigger: {
+                    trigger: scene,
+                    start: 'top 75%',
+                    end: 'bottom 85%',
+                    scrub: 0.7,
+                  },
+                  defaults: { ease: 'none' },
+                });
+                timeline
+                  .fromTo(
+                    scene.querySelector('.identity-plane.plane-front'),
+                    { rotationY: -24, rotationX: 12, z: -140, y: 70 },
+                    { rotationY: 6, rotationX: -3, z: 40, y: -20 },
+                    0,
+                  )
+                  .fromTo(
+                    scene.querySelector('.plane-back'),
+                    { rotationZ: -12, y: 45 },
+                    { rotationZ: 8, y: -45 },
+                    0,
+                  )
+                  .fromTo(
+                    scene.querySelector('.identity-art img'),
+                    { scale: 1.15, yPercent: -5 },
+                    { scale: 1.02, yPercent: 5 },
+                    0,
+                  )
+                  .fromTo(
+                    scene.querySelector('.identity-number'),
+                    { y: 70 },
+                    { y: -60 },
+                    0,
+                  )
+                  .fromTo(
+                    scene.querySelector('.identity-copy'),
+                    { y: 40, opacity: 0.25 },
+                    { y: 0, opacity: 1, duration: 0.5 },
+                    0,
+                  )
+                  .fromTo(
+                    scene.querySelector('.identity-track i'),
+                    { scaleX: 0 },
+                    { scaleX: 1 },
+                    0,
+                  );
+              });
             gsap.from(
               q(
                 '.hero-kicker, .hero-title, .hero-copy, .hero-actions, .hero-proof',

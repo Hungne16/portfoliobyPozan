@@ -33,18 +33,25 @@ export default async function Home() {
   try {
     const saved = await listProjects();
     if (saved.length) {
-      projects = saved.map((project) => ({
-        name: project.title,
-        sub: project.subtitle,
-        type: project.category,
-        brief: project.brief,
-        role: project.role,
-        process: project.process,
-        result: project.result,
-        projectUrl: project.projectUrl,
-        year: project.year,
-        imageKey: project.imageKey,
-      }));
+      projects = saved.map((project) => {
+        const authored = sampleProjects.find(
+          (candidate) => candidate.name === project.title,
+        );
+
+        return {
+          ...authored,
+          name: project.title,
+          sub: project.subtitle,
+          type: project.category,
+          brief: project.brief,
+          role: project.role,
+          process: project.process,
+          result: project.result,
+          projectUrl: project.projectUrl,
+          year: project.year,
+          imageKey: project.imageKey,
+        };
+      });
     }
   } catch {
     /* The authored projects remain visible before the first database migration. */
@@ -85,6 +92,12 @@ export default async function Home() {
           </div>
           <div className="hero-copy-block">
             <p className="hero-kicker">PROLOGUE / THE FIRST SIGNAL</p>
+            <p className="hero-positioning">
+              <LocalText
+                vi="SINH VIÊN CÔNG NGHỆ PHẦN MỀM @ HUCE / CREATIVE FRONTEND DEVELOPER"
+                en="SOFTWARE ENGINEERING STUDENT @ HUCE / CREATIVE FRONTEND DEVELOPER"
+              />
+            </p>
             <h1 className="hero-title">
               <LocalText
                 vi="Từ ý tưởng đến trải nghiệm số chạy thật."
@@ -93,8 +106,8 @@ export default async function Home() {
             </h1>
             <p className="hero-copy">
               <LocalText
-                vi="Mình kết hợp UI/UX, visual direction và engineering để biến một ý tưởng thành sản phẩm số có thể nhìn, chạm, tương tác và sử dụng thật."
-                en="I combine UI/UX, visual direction and engineering to turn an idea into a digital product you can see, touch, interact with and use."
+                vi="Mình thiết kế và phát triển website tương tác từ UI/UX đến frontend và deployment."
+                en="I design and build interactive websites—from UI/UX through frontend implementation and deployment."
               />
             </p>
             <div className="hero-actions">
@@ -110,15 +123,26 @@ export default async function Home() {
             <div className="hero-proof" aria-label="Năng lực nổi bật">
               <div>
                 <b>10</b>
-                <span>SẢN PHẨM ĐÃ SHIP</span>
+                <span>
+                  <LocalText vi="SẢN PHẨM ĐÃ SHIP" en="SHIPPED PRODUCTS" />
+                </span>
               </div>
               <div>
-                <b>HUCE</b>
-                <span>SOFTWARE ENGINEERING</span>
+                <b>REACT + NEXT</b>
+                <span>CORE FRONTEND</span>
               </div>
               <div>
                 <b>END–TO–END</b>
                 <span>DESIGN · CODE · DEPLOY</span>
+              </div>
+              <div>
+                <b>OPEN</b>
+                <span>
+                  <LocalText
+                    vi="THỰC TẬP · WEB COLLAB"
+                    en="INTERNSHIP · WEB COLLAB"
+                  />
+                </span>
               </div>
             </div>
           </div>

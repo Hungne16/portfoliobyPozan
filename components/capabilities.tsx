@@ -2,49 +2,50 @@ import { LocalText, Tag } from './pozan-system';
 
 const groups = [
   {
-    title: 'Design',
-    text: 'Từ cấu trúc đến bản sắc.',
-    en: 'From structure to identity.',
+    title: 'Core',
+    level: 'READY TO SHIP',
+    text: 'Năng lực mình có thể tự chủ để đưa một giao diện từ ý tưởng đến production.',
+    en: 'Skills I can own to take an interface from idea to production.',
     skills: [
       'UI/UX',
-      'Visual Direction',
-      'Design Systems',
-      'Responsive Design',
-      'Interaction Design',
-      'Wireframing & Prototyping',
-      'Figma',
-      'Framer',
-    ],
-  },
-  {
-    title: 'Development',
-    text: 'Từ giao diện đến sản phẩm.',
-    en: 'From interface to product.',
-    skills: [
       'React',
       'Next.js',
       'TypeScript',
       'JavaScript',
       'HTML / CSS',
+      'Responsive UI',
+      'Git',
+    ],
+  },
+  {
+    title: 'Working with',
+    level: 'PROJECT EXPERIENCE',
+    text: 'Công cụ và phương pháp đã được mình áp dụng trong các dự án thực tế.',
+    en: 'Tools and methods I have applied across working projects.',
+    skills: [
       'Node.js',
       'REST APIs',
       'SQL',
-      'Git',
+      'GSAP',
+      'Figma',
+      'Framer',
+      'Design Systems',
       'Vercel',
       'Cloudflare',
     ],
   },
   {
-    title: 'Creative Technology',
-    text: 'Từ chuyển động đến cảm xúc.',
-    en: 'From motion to feeling.',
+    title: 'Exploring',
+    level: 'ACTIVE R&D',
+    text: 'Những hướng mình đang thử nghiệm để tạo trải nghiệm web có chiều sâu hơn.',
+    en: 'Areas I am actively exploring to create richer web experiences.',
     skills: [
-      'GSAP',
       'Three.js',
-      'Motion Design',
-      'Interactive Web',
+      'WebGL',
+      'CSS 3D',
+      'Generative Visuals',
+      'Shader Fundamentals',
       'AI-assisted Creative Workflow',
-      'Rapid Prototyping',
     ],
   },
 ];
@@ -58,14 +59,14 @@ export default function Capabilities() {
       <div className="section-heading">
         <h2 className="chapter-title">
           <LocalText
-            vi="Một tư duy. Ba góc nhìn."
-            en="One mindset. Three perspectives."
+            vi="Năng lực, theo mức độ sẵn sàng."
+            en="Skills, by readiness."
           />
         </h2>
         <p>
           <LocalText
-            vi="Thiết kế giúp giải pháp dễ hiểu. Kỹ thuật giúp nó hoạt động. Chuyển động tạo nên cá tính."
-            en="Design makes a solution clear. Engineering makes it work. Motion gives it character."
+            vi="Nhìn nhanh những gì mình có thể tự chủ, đã áp dụng trong dự án và đang tiếp tục đào sâu."
+            en="See what I can own, what I have used in projects and what I am actively developing next."
           />
         </p>
       </div>
@@ -74,6 +75,7 @@ export default function Capabilities() {
           <article className="capability-column" key={group.title}>
             <span className="micro-label">0{index + 1} /</span>
             <h3>{group.title}</h3>
+            <span className="capability-level">{group.level}</span>
             <p>
               <LocalText vi={group.text} en={group.en} />
             </p>
@@ -87,8 +89,8 @@ export default function Capabilities() {
       </div>
       <p className="capability-note">
         <LocalText
-          vi="Thực hành qua dự án cá nhân và quá trình học Công nghệ Phần mềm tại HUCE."
-          en="Practiced through personal projects and Software Engineering studies at HUCE."
+          vi="Năng lực được kiểm chứng qua 10 sản phẩm đã ship và quá trình học Công nghệ Phần mềm tại HUCE."
+          en="Validated through 10 shipped products and Software Engineering studies at HUCE."
         />
       </p>
     </section>

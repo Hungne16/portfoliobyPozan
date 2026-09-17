@@ -190,6 +190,16 @@ button {
   color: var(--pozan-lime);
   font: var(--text-meta)/1.6 var(--font-meta);
 }
+.hero-positioning {
+  width: fit-content;
+  max-width: 720px;
+  padding: 8px 12px;
+  border-left: 2px solid var(--pozan-lime);
+  background: rgb(199 255 61 / 0.06);
+  color: var(--white);
+  font: 11px/1.55 var(--font-meta);
+  letter-spacing: 0.08em;
+}
 .hero-copy {
   max-width: 640px;
   font-size: var(--text-large);
@@ -205,7 +215,8 @@ button {
   font-size: 13px;
 }
 .hero-proof {
-  max-width: 750px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 980px;
   margin-top: 64px;
 }
 .hero-proof b {
@@ -494,9 +505,15 @@ button {
   font-size: 16px;
 }
 .project-proof {
-  display: block;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
   margin: 24px 0;
   border-bottom: 0;
+}
+.project-proof > div {
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
 }
 .project-proof p {
   color: var(--muted);
@@ -563,6 +580,7 @@ button {
   font-size: 28px;
 }
 .archive-card .project-proof {
+  grid-template-columns: 1fr;
   padding: 0;
   border: 0;
   margin: 16px 0;
@@ -629,6 +647,35 @@ body:has(.project-dialog[open]) {
   color: var(--muted);
   font-size: 16px;
   line-height: 1.8;
+}
+.engineering-note {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 32px 48px;
+  margin-bottom: 48px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  background: rgb(255 255 255 / 0.025);
+}
+.engineering-note span {
+  color: var(--pozan-lime);
+  font: 11px/1.5 var(--font-meta);
+}
+.engineering-note h3 {
+  margin-top: 16px;
+  font-size: 28px;
+  line-height: 1.15;
+}
+.engineering-note > p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+.engineering-stack {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 .lab-grid {
   display: grid;
@@ -1126,6 +1173,9 @@ body:has(.project-dialog[open]) {
   border-top: 1px solid var(--line);
   min-width: 0;
 }
+.capability-column:first-child {
+  border-top-color: var(--pozan-lime);
+}
 .capability-column + .capability-column {
   padding-left: 24px;
   border-left: 1px solid var(--line);
@@ -1134,6 +1184,12 @@ body:has(.project-dialog[open]) {
   font-size: var(--text-h3);
   line-height: 1.2;
   margin: 24px 0;
+}
+.capability-level {
+  display: inline-flex;
+  color: var(--pozan-lime);
+  font: 10px/1.5 var(--font-meta);
+  letter-spacing: 0.12em;
 }
 .capability-column p,
 .capability-note {
@@ -1151,6 +1207,10 @@ body:has(.project-dialog[open]) {
   border-radius: 4px;
   background: none;
   color: var(--muted);
+}
+.capability-column:first-child .skill-chip-grid span {
+  border-color: rgb(199 255 61 / 0.35);
+  color: var(--white);
 }
 .capability-note {
   margin-top: 32px;
@@ -1410,7 +1470,17 @@ body:has(.project-dialog[open]) {
     top: 130px;
   }
   .hero-proof {
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
+  }
+  .hero-proof > div:nth-child(2) {
+    border-right: 0;
+  }
+  .hero-proof > div:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+  .hero-proof > div:last-child {
+    grid-column: auto;
   }
   .hero-proof b {
     font-size: 20px;
@@ -1522,6 +1592,13 @@ body:has(.project-dialog[open]) {
   }
   .case-grid {
     grid-template-columns: 1fr;
+  }
+  .engineering-note {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+  .engineering-stack {
+    grid-column: auto;
   }
   .case-heading {
     margin: 40px 0;

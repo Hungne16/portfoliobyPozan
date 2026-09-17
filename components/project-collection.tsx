@@ -18,6 +18,9 @@ function ProjectCard({
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const slug = projectSlug(project.name);
+  const stack = project.stack?.length
+    ? project.stack
+    : ['Design', 'Development'];
   const close = () => {
     dialog.current?.close();
     trigger.current?.focus();
@@ -78,13 +81,22 @@ function ProjectCard({
         <p className="project-sub">{project.sub}</p>
         <div className="project-proof">
           <div>
-            <span>MY ROLE</span>
+            <span>
+              <LocalText vi="VAI TRÒ" en="MY ROLE" />
+            </span>
             <p>{project.role}</p>
+          </div>
+          <div>
+            <span>
+              <LocalText vi="KẾT QUẢ" en="OUTCOME" />
+            </span>
+            <p>{project.result}</p>
           </div>
         </div>
         <div className="project-disciplines">
-          <Tag>DESIGN</Tag>
-          <Tag>DEVELOPMENT</Tag>
+          {stack.slice(0, 3).map((item) => (
+            <Tag key={item}>{item.toUpperCase()}</Tag>
+          ))}
         </div>
         <div className="project-actions">
           {project.projectUrl && (
@@ -136,6 +148,30 @@ function ProjectCard({
             </div>
           ))}
         </div>
+        {project.engineering && (
+          <section className="engineering-note">
+            <div>
+              <span>05 / ENGINEERING NOTES</span>
+              <h3>
+                <LocalText
+                  vi="Quyết định đứng sau trải nghiệm."
+                  en="Decisions behind the experience."
+                />
+              </h3>
+            </div>
+            <p>
+              <LocalText
+                vi={project.engineering.vi}
+                en={project.engineering.en}
+              />
+            </p>
+            <div className="engineering-stack" aria-label="Technology stack">
+              {stack.map((item) => (
+                <Tag key={item}>{item.toUpperCase()}</Tag>
+              ))}
+            </div>
+          </section>
+        )}
         {project.projectUrl && (
           <a
             className="system-button"

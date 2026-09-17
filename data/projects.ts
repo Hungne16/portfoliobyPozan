@@ -9,6 +9,11 @@ export type PortfolioProject = {
   projectUrl: string | null;
   year: string;
   imageKey: string | null;
+  stack?: string[];
+  engineering?: {
+    vi: string;
+    en: string;
+  };
 };
 
 const authoredProjects: PortfolioProject[] = [
@@ -164,6 +169,82 @@ const authoredProjects: PortfolioProject[] = [
   },
 ];
 
+const projectEvidence: Record<
+  string,
+  Pick<PortfolioProject, 'stack' | 'engineering'>
+> = {
+  'ULIS Eco': {
+    stack: ['Framer', 'Content architecture', 'Responsive UI'],
+    engineering: {
+      vi: 'Tổ chức nội dung thành các section tái sử dụng, giữ thứ bậc thông tin rõ trên nhiều kích thước màn hình và rút ngắn đường đi tới các hoạt động cộng đồng.',
+      en: 'Structured content into reusable sections, preserved a clear hierarchy across screen sizes and shortened the path to community activities.',
+    },
+  },
+  'U-RUN — Be ULISer, Be Runner': {
+    stack: ['Framer', 'Interaction design', 'Responsive UI'],
+    engineering: {
+      vi: 'Xây dựng hành trình đăng ký với CTA rõ, nhịp chuyển động nhất quán và bố cục responsive để thông tin giải chạy vẫn dễ quét trên thiết bị nhỏ.',
+      en: 'Built a registration journey with clear calls to action, consistent motion and a responsive layout that keeps race information scannable on small screens.',
+    },
+  },
+  'U-Life': {
+    stack: ['Product design', 'Prototyping', 'Responsive UI'],
+    engineering: {
+      vi: 'Chuyển nhóm nhu cầu sức khỏe thành user flow, prototype và bộ mẫu giao diện có thể mở rộng cho nhiều loại nội dung.',
+      en: 'Translated health needs into user flows, prototypes and reusable interface patterns that can support multiple content types.',
+    },
+  },
+  'WULIS — Workshop ULIS': {
+    stack: ['Information architecture', 'Component system', 'Responsive UI'],
+    engineering: {
+      vi: 'Thiết kế taxonomy cho workshop, chuẩn hóa thẻ nội dung thành component và tối ưu luồng khám phá theo khoa, chủ đề.',
+      en: 'Designed a workshop taxonomy, standardized content cards as components and optimized discovery by faculty and topic.',
+    },
+  },
+  'The BookBridge': {
+    stack: ['Content flow', 'Visual system', 'Responsive UI'],
+    engineering: {
+      vi: 'Dùng cấu trúc nội dung theo câu chuyện và các block tái sử dụng để giải thích giá trị cộng đồng trong một hành trình ngắn, dễ hiểu.',
+      en: 'Used a narrative content structure and reusable blocks to explain the community value in a short, clear journey.',
+    },
+  },
+  'ULIS Lost & Found': {
+    stack: ['User flows', 'Visual system', 'Responsive UI'],
+    engineering: {
+      vi: 'Tách các tình huống tìm đồ, trả đồ và trao đổi thành những luồng rõ ràng nhưng vẫn dùng chung một hệ giao diện thống nhất.',
+      en: 'Separated lost, found and exchange scenarios into clear flows while keeping them inside one consistent interface system.',
+    },
+  },
+  'Orbits DeFi': {
+    stack: ['Framer', 'Motion system', 'Responsive UI'],
+    engineering: {
+      vi: 'Thiết kế nhịp chuyển động theo thứ bậc nội dung, đóng gói các section có thể tái sử dụng và giữ trải nghiệm ổn định trên nhiều viewport.',
+      en: 'Designed motion around content hierarchy, packaged reusable sections and kept the experience stable across viewports.',
+    },
+  },
+  BeeTools: {
+    stack: ['Data model', 'Search & filter', 'Client state'],
+    engineering: {
+      vi: 'Mô hình hóa dữ liệu công cụ và xây dựng trạng thái tìm kiếm, phân loại, yêu thích để người dùng thu hẹp lựa chọn nhanh.',
+      en: 'Modeled tool data and built search, category and favorite states so users can narrow their choices quickly.',
+    },
+  },
+  Temsy: {
+    stack: ['Product UI', 'Collection state', 'Responsive UI'],
+    engineering: {
+      vi: 'Tổ chức trạng thái bộ sưu tập và khám phá bằng component tái sử dụng, đồng thời giữ trải nghiệm nhất quán trên desktop và mobile.',
+      en: 'Organized collection and discovery states with reusable components while keeping the experience consistent across desktop and mobile.',
+    },
+  },
+  'Arcade Học Đường': {
+    stack: ['Game state', 'Room flow', 'Responsive UI'],
+    engineering: {
+      vi: 'Thiết kế luồng mã phòng, trạng thái vòng chơi và phản hồi trực tiếp để giáo viên có thể vận hành trò chơi trong lớp với ít thao tác.',
+      en: 'Designed room-code flows, round states and direct feedback so teachers can run classroom games with fewer steps.',
+    },
+  },
+};
+
 export const featuredNames = [
   'Orbits DeFi',
   'U-Life',
@@ -180,6 +261,7 @@ export const projectSlug = (name: string) =>
 
 export const sampleProjects = authoredProjects.map((project) => ({
   ...project,
+  ...projectEvidence[project.name],
   id: projectSlug(project.name),
   slug: projectSlug(project.name),
   featured: featuredNames.includes(project.name),

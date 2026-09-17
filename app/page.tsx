@@ -23,6 +23,7 @@ import ScrollStory from '../components/scroll-story';
 import AboutStory from '../components/about-story';
 import LanguageSwitcher from '../components/language-switcher';
 import HeroVideo from '../components/hero-video';
+import ProcessVideo from '../components/process-video';
 import { listProjects } from '@/db';
 
 export const dynamic = 'force-dynamic';
@@ -139,12 +140,40 @@ export default async function Home() {
             02 / PROCESS{' '}
             <span>RESEARCH → STRUCTURE → DESIGN → BUILD → SHIP</span>
           </div>
-          <h2 className="chapter-title">
-            <LocalText
-              vi="Từ câu hỏi đến sản phẩm."
-              en="From question to working product."
-            />
-          </h2>
+          <div className="process-intro">
+            <div className="process-intro-copy">
+              <span>HOW I TURN AMBIGUITY INTO DIRECTION</span>
+              <h2 className="chapter-title">
+                <LocalText
+                  vi="Từ câu hỏi đến sản phẩm."
+                  en="From question to working product."
+                />
+              </h2>
+              <p>
+                <LocalText
+                  vi="Mỗi dự án đi qua một vòng lặp rõ ràng: hiểu đúng vấn đề, định hình hệ thống, tạo trải nghiệm và đưa nó vào sử dụng."
+                  en="Every project follows a clear loop: understand the problem, shape the system, create the experience and put it into use."
+                />
+              </p>
+            </div>
+            <figure className="process-visual">
+              <div className="process-visual-bar">
+                <span>POZAN_PROCESS.MONITOR</span>
+                <span>● LIVE LOOP</span>
+              </div>
+              <div className="process-video-frame">
+                <ProcessVideo />
+                <div className="process-video-grid" aria-hidden="true" />
+                <div className="process-video-readout" aria-hidden="true">
+                  <span>INPUT / IDEA</span>
+                  <span>OUTPUT / EXPERIENCE</span>
+                </div>
+              </div>
+              <figcaption>
+                RESEARCH → SYSTEM → INTERFACE → IMPLEMENTATION
+              </figcaption>
+            </figure>
+          </div>
           <div className="experience-timeline">
             {[
               ['DISCOVER', 'Problem · Context · Research · Requirements'],

@@ -1,43 +1,75 @@
-// These are details of existing projects, not standalone commissions or new work.
-export const visualLab = [
+export type VisualExperiment = {
+  id: string;
+  index: string;
+  title: string;
+  discipline: string;
+  year: string;
+  status: 'LIVE' | 'PROTOTYPE';
+  description: { vi: string; en: string };
+  stack: string[];
+  specimen: 'field' | 'type' | 'orbit' | 'interface';
+  size: 'wide' | 'compact' | 'medium' | 'large';
+};
+
+export const visualLab: VisualExperiment[] = [
   {
-    id: 'orbits-interface',
-    title: 'Orbits / Interface study',
-    discipline: 'UI SYSTEM',
+    id: 'signal-field',
+    index: 'L/01',
+    title: 'Signal Field',
+    discipline: 'GENERATIVE VISUAL',
     year: '2026',
-    image: '/projects/orbits-defi.png',
-    aspect: 'wide',
-    featured: true,
-    source: '#work-orbits-defi',
+    status: 'LIVE',
+    description: {
+      vi: 'Một trường tín hiệu được tạo bằng các biến CSS và nhịp chuyển động có kiểm soát. Mỗi lần tái tạo sẽ mở ra một cấu hình không gian mới.',
+      en: 'A signal field built from CSS variables and controlled motion. Every regeneration reveals a new spatial configuration.',
+    },
+    stack: ['CSS', 'REACT', 'GENERATIVE LOGIC'],
+    specimen: 'field',
+    size: 'wide',
   },
   {
-    id: 'urun-direction',
-    title: 'U-RUN / Visual rhythm',
-    discipline: 'VISUAL DIRECTION',
+    id: 'type-reactor',
+    index: 'L/02',
+    title: 'Type Reactor',
+    discipline: 'KINETIC TYPE',
     year: '2026',
-    image: '/projects/urun-be-uliser.png',
-    aspect: 'portrait',
-    featured: false,
-    source: '#work-u-run-be-uliser-be-runner',
+    status: 'LIVE',
+    description: {
+      vi: 'Thử nghiệm typography như một vật thể có nhịp, khối lượng và phản hồi thay vì chỉ là nội dung để đọc.',
+      en: 'An experiment that treats typography as an object with rhythm, weight and response instead of static copy.',
+    },
+    stack: ['TYPE SYSTEM', 'MOTION', 'ART DIRECTION'],
+    specimen: 'type',
+    size: 'compact',
   },
   {
-    id: 'temsy-detail',
-    title: 'Temsy / Collection detail',
-    discipline: 'PRODUCT INTERFACE',
+    id: 'orbital-form',
+    index: 'L/03',
+    title: 'Orbital Form',
+    discipline: 'SPATIAL INTERACTION',
     year: '2026',
-    image: '/projects/temsy.png',
-    aspect: 'square',
-    featured: false,
-    source: '#work-temsy',
+    status: 'PROTOTYPE',
+    description: {
+      vi: 'Một vật thể không gian dựng hoàn toàn bằng CSS 3D, phản ứng theo vị trí con trỏ để kiểm tra chiều sâu và cảm giác vật lý.',
+      en: 'A spatial object built entirely with CSS 3D, responding to pointer position to study depth and physical presence.',
+    },
+    stack: ['CSS 3D', 'POINTER INPUT', 'PERSPECTIVE'],
+    specimen: 'orbit',
+    size: 'medium',
   },
   {
-    id: 'eco-story',
-    title: 'ULIS Eco / Digital narrative',
-    discipline: 'WEB DESIGN',
+    id: 'interface-pulse',
+    index: 'L/04',
+    title: 'Interface Pulse',
+    discipline: 'MICRO-INTERACTION',
     year: '2026',
-    image: '/projects/ulis-eco.png',
-    aspect: 'wide',
-    featured: true,
-    source: '#work-ulis-eco',
+    status: 'LIVE',
+    description: {
+      vi: 'Một giao diện nhỏ chuyển đổi giữa trạng thái tập trung và khám phá để thử nghiệm hierarchy, phản hồi và nhịp điệu sản phẩm.',
+      en: 'A compact interface shifting between focus and explore modes to test hierarchy, feedback and product rhythm.',
+    },
+    stack: ['UI SYSTEM', 'STATE', 'MICRO MOTION'],
+    specimen: 'interface',
+    size: 'large',
   },
 ];

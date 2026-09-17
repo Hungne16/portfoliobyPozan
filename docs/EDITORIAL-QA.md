@@ -22,6 +22,7 @@ Executed using Playwright CLI against the local Next production build, with earl
 - EN/VIE headings update after SplitText animation and retain the selected language after resizing across the desktop breakpoint.
 - Mobile chapter menu opens, navigates to capabilities, closes and updates the URL hash.
 - Hero video loads behind the opening chapter, autoplays muted, loops back to the beginning and stays within the viewport on desktop and mobile. Reduced-motion mode pauses playback and retains the poster.
+- Visual Lab contains four self-initiated live studies with no reused project imagery: a regenerative signal field, kinetic type reactor, pointer-driven CSS 3D form and a stateful interface specimen. EN/VIE content, keyboard controls, mobile layout and reduced motion were verified.
 - About, Visual Lab, Capabilities and Contact navigation indicators match the visible chapter.
 - Reduced motion: intro released, no Three.js canvas created, CV visible, capability tags fully visible.
 - All local hash targets resolve. No broken loaded images observed.

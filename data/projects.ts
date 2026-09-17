@@ -14,6 +14,24 @@ export type PortfolioProject = {
     vi: string;
     en: string;
   };
+  quickFacts?: Array<{
+    labelVi: string;
+    labelEn: string;
+    valueVi: string;
+    valueEn: string;
+  }>;
+  flagship?: boolean;
+  deepDive?: {
+    titleVi: string;
+    titleEn: string;
+    introVi: string;
+    introEn: string;
+    points: Array<{
+      label: string;
+      vi: string;
+      en: string;
+    }>;
+  };
 };
 
 const authoredProjects: PortfolioProject[] = [
@@ -171,10 +189,33 @@ const authoredProjects: PortfolioProject[] = [
 
 const projectEvidence: Record<
   string,
-  Pick<PortfolioProject, 'stack' | 'engineering'>
+  Pick<
+    PortfolioProject,
+    'stack' | 'engineering' | 'quickFacts' | 'flagship' | 'deepDive'
+  >
 > = {
   'ULIS Eco': {
     stack: ['Framer', 'Content architecture', 'Responsive UI'],
+    quickFacts: [
+      {
+        labelVi: 'Phạm vi',
+        labelEn: 'Scope',
+        valueVi: 'Website cộng đồng responsive',
+        valueEn: 'Responsive community website',
+      },
+      {
+        labelVi: 'Đầu ra',
+        labelEn: 'Delivered',
+        valueVi: 'UI/UX · Visual · Build',
+        valueEn: 'UI/UX · Visual · Build',
+      },
+      {
+        labelVi: 'Trọng tâm',
+        labelEn: 'Core flow',
+        valueVi: 'Nội dung · Trao đổi · Kết nối',
+        valueEn: 'Content · Exchange · Community',
+      },
+    ],
     engineering: {
       vi: 'Tổ chức nội dung thành các section tái sử dụng, giữ thứ bậc thông tin rõ trên nhiều kích thước màn hình và rút ngắn đường đi tới các hoạt động cộng đồng.',
       en: 'Structured content into reusable sections, preserved a clear hierarchy across screen sizes and shortened the path to community activities.',
@@ -182,6 +223,26 @@ const projectEvidence: Record<
   },
   'U-RUN — Be ULISer, Be Runner': {
     stack: ['Framer', 'Interaction design', 'Responsive UI'],
+    quickFacts: [
+      {
+        labelVi: 'Phạm vi',
+        labelEn: 'Scope',
+        valueVi: 'Campaign landing page',
+        valueEn: 'Campaign landing page',
+      },
+      {
+        labelVi: 'Đầu ra',
+        labelEn: 'Delivered',
+        valueVi: 'UX · UI · Responsive build',
+        valueEn: 'UX · UI · Responsive build',
+      },
+      {
+        labelVi: 'Trọng tâm',
+        labelEn: 'Core flow',
+        valueVi: 'Thông tin · CTA · Đăng ký',
+        valueEn: 'Information · CTA · Sign-up',
+      },
+    ],
     engineering: {
       vi: 'Xây dựng hành trình đăng ký với CTA rõ, nhịp chuyển động nhất quán và bố cục responsive để thông tin giải chạy vẫn dễ quét trên thiết bị nhỏ.',
       en: 'Built a registration journey with clear calls to action, consistent motion and a responsive layout that keeps race information scannable on small screens.',
@@ -189,6 +250,26 @@ const projectEvidence: Record<
   },
   'U-Life': {
     stack: ['Product design', 'Prototyping', 'Responsive UI'],
+    quickFacts: [
+      {
+        labelVi: 'Phạm vi',
+        labelEn: 'Scope',
+        valueVi: 'Concept sản phẩm sức khỏe',
+        valueEn: 'Health product concept',
+      },
+      {
+        labelVi: 'Đầu ra',
+        labelEn: 'Delivered',
+        valueVi: 'Research · Flow · Prototype',
+        valueEn: 'Research · Flow · Prototype',
+      },
+      {
+        labelVi: 'Trọng tâm',
+        labelEn: 'Core flow',
+        valueVi: 'Theo dõi · Thói quen · Hỗ trợ',
+        valueEn: 'Tracking · Habits · Support',
+      },
+    ],
     engineering: {
       vi: 'Chuyển nhóm nhu cầu sức khỏe thành user flow, prototype và bộ mẫu giao diện có thể mở rộng cho nhiều loại nội dung.',
       en: 'Translated health needs into user flows, prototypes and reusable interface patterns that can support multiple content types.',
@@ -196,6 +277,26 @@ const projectEvidence: Record<
   },
   'WULIS — Workshop ULIS': {
     stack: ['Information architecture', 'Component system', 'Responsive UI'],
+    quickFacts: [
+      {
+        labelVi: 'Phạm vi',
+        labelEn: 'Scope',
+        valueVi: 'Nền tảng khám phá workshop',
+        valueEn: 'Workshop discovery platform',
+      },
+      {
+        labelVi: 'Đầu ra',
+        labelEn: 'Delivered',
+        valueVi: 'IA · UI system · Frontend',
+        valueEn: 'IA · UI system · Frontend',
+      },
+      {
+        labelVi: 'Trọng tâm',
+        labelEn: 'Core flow',
+        valueVi: 'Khoa · Chủ đề · Khám phá',
+        valueEn: 'Faculty · Topic · Discovery',
+      },
+    ],
     engineering: {
       vi: 'Thiết kế taxonomy cho workshop, chuẩn hóa thẻ nội dung thành component và tối ưu luồng khám phá theo khoa, chủ đề.',
       en: 'Designed a workshop taxonomy, standardized content cards as components and optimized discovery by faculty and topic.',
@@ -203,6 +304,26 @@ const projectEvidence: Record<
   },
   'The BookBridge': {
     stack: ['Content flow', 'Visual system', 'Responsive UI'],
+    quickFacts: [
+      {
+        labelVi: 'Phạm vi',
+        labelEn: 'Scope',
+        valueVi: 'Community marketplace concept',
+        valueEn: 'Community marketplace concept',
+      },
+      {
+        labelVi: 'Đầu ra',
+        labelEn: 'Delivered',
+        valueVi: 'Concept · Visual · Website',
+        valueEn: 'Concept · Visual · Website',
+      },
+      {
+        labelVi: 'Trọng tâm',
+        labelEn: 'Core flow',
+        valueVi: 'Sách cũ · Kết nối · Chia sẻ',
+        valueEn: 'Used books · Match · Share',
+      },
+    ],
     engineering: {
       vi: 'Dùng cấu trúc nội dung theo câu chuyện và các block tái sử dụng để giải thích giá trị cộng đồng trong một hành trình ngắn, dễ hiểu.',
       en: 'Used a narrative content structure and reusable blocks to explain the community value in a short, clear journey.',
@@ -210,6 +331,26 @@ const projectEvidence: Record<
   },
   'ULIS Lost & Found': {
     stack: ['User flows', 'Visual system', 'Responsive UI'],
+    quickFacts: [
+      {
+        labelVi: 'Phạm vi',
+        labelEn: 'Scope',
+        valueVi: 'Dịch vụ cộng đồng responsive',
+        valueEn: 'Responsive community service',
+      },
+      {
+        labelVi: 'Đầu ra',
+        labelEn: 'Delivered',
+        valueVi: 'User flow · Art direction · Build',
+        valueEn: 'User flow · Art direction · Build',
+      },
+      {
+        labelVi: 'Trọng tâm',
+        labelEn: 'Core flow',
+        valueVi: 'Tìm đồ · Trả đồ · Trao đổi',
+        valueEn: 'Lost · Found · Exchange',
+      },
+    ],
     engineering: {
       vi: 'Tách các tình huống tìm đồ, trả đồ và trao đổi thành những luồng rõ ràng nhưng vẫn dùng chung một hệ giao diện thống nhất.',
       en: 'Separated lost, found and exchange scenarios into clear flows while keeping them inside one consistent interface system.',
@@ -217,6 +358,26 @@ const projectEvidence: Record<
   },
   'Orbits DeFi': {
     stack: ['Framer', 'Motion system', 'Responsive UI'],
+    quickFacts: [
+      {
+        labelVi: 'Phạm vi',
+        labelEn: 'Scope',
+        valueVi: 'Fintech landing page',
+        valueEn: 'Fintech landing page',
+      },
+      {
+        labelVi: 'Đầu ra',
+        labelEn: 'Delivered',
+        valueVi: 'UI · Motion · Responsive build',
+        valueEn: 'UI · Motion · Responsive build',
+      },
+      {
+        labelVi: 'Trọng tâm',
+        labelEn: 'Core flow',
+        valueVi: 'Narrative · Tin cậy · Chuyển đổi',
+        valueEn: 'Narrative · Trust · Conversion',
+      },
+    ],
     engineering: {
       vi: 'Thiết kế nhịp chuyển động theo thứ bậc nội dung, đóng gói các section có thể tái sử dụng và giữ trải nghiệm ổn định trên nhiều viewport.',
       en: 'Designed motion around content hierarchy, packaged reusable sections and kept the experience stable across viewports.',
@@ -224,6 +385,52 @@ const projectEvidence: Record<
   },
   BeeTools: {
     stack: ['Data model', 'Search & filter', 'Client state'],
+    flagship: true,
+    quickFacts: [
+      {
+        labelVi: 'Phạm vi',
+        labelEn: 'Scope',
+        valueVi: 'Ứng dụng web khám phá công cụ',
+        valueEn: 'Tool discovery web application',
+      },
+      {
+        labelVi: 'Đầu ra',
+        labelEn: 'Delivered',
+        valueVi: 'Product design · Frontend · Deploy',
+        valueEn: 'Product design · Frontend · Deploy',
+      },
+      {
+        labelVi: 'Luồng cốt lõi',
+        labelEn: 'Core flow',
+        valueVi: 'Tìm kiếm · Lọc · Yêu thích',
+        valueEn: 'Search · Filter · Favorites',
+      },
+    ],
+    deepDive: {
+      titleVi: 'Từ danh sách công cụ thành một sản phẩm có thể mở rộng.',
+      titleEn: 'From a tool list to an extensible product.',
+      introVi:
+        'BeeTools là dự án thể hiện rõ nhất cách mình kết nối tư duy sản phẩm với cấu trúc frontend: dữ liệu phải dễ mở rộng, trạng thái phải dễ hiểu và người dùng phải thu hẹp lựa chọn nhanh.',
+      introEn:
+        'BeeTools best demonstrates how I connect product thinking with frontend structure: data must be extensible, states must be clear and users must narrow choices quickly.',
+      points: [
+        {
+          label: 'PRODUCT LOGIC',
+          vi: 'Tổ chức công cụ theo dữ liệu có cấu trúc để hỗ trợ tìm kiếm, danh mục và trạng thái yêu thích.',
+          en: 'Structured tool data to support search, categories and favorite states.',
+        },
+        {
+          label: 'INTERFACE SYSTEM',
+          vi: 'Chuẩn hóa thẻ công cụ, bộ lọc và trạng thái giao diện thành các mẫu có thể tái sử dụng.',
+          en: 'Standardized tool cards, filters and interface states into reusable patterns.',
+        },
+        {
+          label: 'DELIVERY',
+          vi: 'Đưa luồng từ thiết kế sản phẩm đến ứng dụng responsive đã triển khai trên môi trường thật.',
+          en: 'Carried the flow from product design to a responsive application deployed in production.',
+        },
+      ],
+    },
     engineering: {
       vi: 'Mô hình hóa dữ liệu công cụ và xây dựng trạng thái tìm kiếm, phân loại, yêu thích để người dùng thu hẹp lựa chọn nhanh.',
       en: 'Modeled tool data and built search, category and favorite states so users can narrow their choices quickly.',
@@ -231,6 +438,26 @@ const projectEvidence: Record<
   },
   Temsy: {
     stack: ['Product UI', 'Collection state', 'Responsive UI'],
+    quickFacts: [
+      {
+        labelVi: 'Phạm vi',
+        labelEn: 'Scope',
+        valueVi: 'Ứng dụng sưu tầm kỹ thuật số',
+        valueEn: 'Digital collecting application',
+      },
+      {
+        labelVi: 'Đầu ra',
+        labelEn: 'Delivered',
+        valueVi: 'Product UI · UI system · Build',
+        valueEn: 'Product UI · UI system · Build',
+      },
+      {
+        labelVi: 'Trọng tâm',
+        labelEn: 'Core flow',
+        valueVi: 'Khám phá · Bộ sưu tập · Trạng thái',
+        valueEn: 'Discover · Collect · States',
+      },
+    ],
     engineering: {
       vi: 'Tổ chức trạng thái bộ sưu tập và khám phá bằng component tái sử dụng, đồng thời giữ trải nghiệm nhất quán trên desktop và mobile.',
       en: 'Organized collection and discovery states with reusable components while keeping the experience consistent across desktop and mobile.',
@@ -238,6 +465,26 @@ const projectEvidence: Record<
   },
   'Arcade Học Đường': {
     stack: ['Game state', 'Room flow', 'Responsive UI'],
+    quickFacts: [
+      {
+        labelVi: 'Phạm vi',
+        labelEn: 'Scope',
+        valueVi: 'Ứng dụng game hóa lớp học',
+        valueEn: 'Gamified classroom application',
+      },
+      {
+        labelVi: 'Đầu ra',
+        labelEn: 'Delivered',
+        valueVi: 'Game UX · Frontend · Deploy',
+        valueEn: 'Game UX · Frontend · Deploy',
+      },
+      {
+        labelVi: 'Luồng cốt lõi',
+        labelEn: 'Core flow',
+        valueVi: 'Mã phòng · Vòng chơi · Phản hồi',
+        valueEn: 'Room code · Rounds · Feedback',
+      },
+    ],
     engineering: {
       vi: 'Thiết kế luồng mã phòng, trạng thái vòng chơi và phản hồi trực tiếp để giáo viên có thể vận hành trò chơi trong lớp với ít thao tác.',
       en: 'Designed room-code flows, round states and direct feedback so teachers can run classroom games with fewer steps.',
@@ -246,10 +493,10 @@ const projectEvidence: Record<
 };
 
 export const featuredNames = [
+  'BeeTools',
+  'Arcade Học Đường',
   'Orbits DeFi',
   'U-Life',
-  'U-RUN — Be ULISer, Be Runner',
-  'ULIS Eco',
 ];
 export const projectSlug = (name: string) =>
   name

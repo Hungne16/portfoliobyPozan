@@ -24,6 +24,7 @@ import AboutStory from '../components/about-story';
 import LanguageSwitcher from '../components/language-switcher';
 import HeroVideo from '../components/hero-video';
 import ProcessVideo from '../components/process-video';
+import ServicesOverview from '../components/services-overview';
 import { listProjects } from '@/db';
 
 export const dynamic = 'force-dynamic';
@@ -106,8 +107,8 @@ export default async function Home() {
             </h1>
             <p className="hero-copy">
               <LocalText
-                vi="Mình thiết kế và phát triển website tương tác từ UI/UX đến frontend và deployment."
-                en="I design and build interactive websites—from UI/UX through frontend implementation and deployment."
+                vi="Mình giúp thương hiệu và đội ngũ biến ý tưởng thành website tương tác rõ ràng, đáng nhớ và sẵn sàng đưa vào sử dụng — từ UI/UX đến frontend và deployment."
+                en="I help brands and teams turn ideas into clear, memorable interactive websites ready to use—from UI/UX through frontend and deployment."
               />
             </p>
             <div className="hero-actions">
@@ -223,16 +224,17 @@ export default async function Home() {
 
         <section className="projects-chapter system-section" id="projects">
           <div className="section-meta">
-            03 / SELECTED WORK <span>DESIGN × DEVELOPMENT</span>
+            03 / SERVICES & SELECTED WORK <span>DESIGN × DEVELOPMENT</span>
           </div>
+          <ServicesOverview />
           <div className="section-heading">
             <h2 className="chapter-title">
               <LocalText vi="Ý tưởng. Thành hình." en="Ideas. Made real." />
             </h2>
             <p>
               <LocalText
-                vi="Bốn dự án. Bốn cách kết nối thiết kế và công nghệ."
-                en="Four projects. Four ways to connect design and technology."
+                vi="Bốn bằng chứng về cách mình kết nối tư duy sản phẩm, thiết kế và công nghệ."
+                en="Four proofs of how I connect product thinking, design and technology."
               />
             </p>
           </div>
@@ -397,15 +399,17 @@ export default async function Home() {
                 </span>
               </h2>
               <p>
-                Thực tập, dự án nghiên cứu sinh viên, sản phẩm web hoặc một ý
-                tưởng chưa có tên — hãy bắt đầu bằng một lời chào.
+                <LocalText
+                  vi="Mình đang nhận cơ hội thực tập, freelance landing page, product website và creative web collaboration. Gửi brief, mục tiêu hoặc một ý tưởng chưa hoàn chỉnh — mình sẽ cùng bạn biến nó thành hướng đi rõ ràng."
+                  en="I’m open to internships, freelance landing pages, product websites and creative web collaborations. Send a brief, a goal or an unfinished idea — I’ll help turn it into a clear direction."
+                />
               </p>
             </div>
             <div className="contact-console">
               <div className="contact-console-bar">
                 <span />
                 <b>POZAN / COMMS_CHANNEL</b>
-                <small>● ONLINE</small>
+                <small>● AVAILABLE</small>
               </div>
               <div className="contact-console-body">
                 <div className="contact-location">
@@ -443,8 +447,8 @@ export default async function Home() {
                 </div>
                 <div className="contact-topics">
                   <span>INTERNSHIP</span>
-                  <span>STUDENT RESEARCH</span>
-                  <span>WEB PROJECT</span>
+                  <span>LANDING PAGE</span>
+                  <span>PRODUCT WEBSITE</span>
                   <span>CREATIVE COLLAB</span>
                 </div>
                 <p>

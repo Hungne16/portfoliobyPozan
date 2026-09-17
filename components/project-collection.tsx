@@ -60,6 +60,11 @@ function ProjectCard({
             {project.type}
           </span>
           <span className="visual-year">{project.year}</span>
+          {project.flagship && (
+            <span className="flagship-badge">
+              <LocalText vi="CASE STUDY NỔI BẬT" en="FLAGSHIP CASE STUDY" />
+            </span>
+          )}
           {featured && (
             <>
               <span
@@ -79,6 +84,20 @@ function ProjectCard({
         </p>
         <h3>{project.name}</h3>
         <p className="project-sub">{project.sub}</p>
+        {project.quickFacts && (
+          <dl className="project-facts">
+            {project.quickFacts.map((fact) => (
+              <div key={fact.labelEn}>
+                <dt>
+                  <LocalText vi={fact.labelVi} en={fact.labelEn} />
+                </dt>
+                <dd>
+                  <LocalText vi={fact.valueVi} en={fact.valueEn} />
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
         <div className="project-proof">
           <div>
             <span>
@@ -148,10 +167,41 @@ function ProjectCard({
             </div>
           ))}
         </div>
+        {project.deepDive && (
+          <section className="flagship-deep-dive">
+            <div className="flagship-deep-dive-heading">
+              <span>05 / PRODUCT & ENGINEERING DEEP DIVE</span>
+              <h3>
+                <LocalText
+                  vi={project.deepDive.titleVi}
+                  en={project.deepDive.titleEn}
+                />
+              </h3>
+              <p>
+                <LocalText
+                  vi={project.deepDive.introVi}
+                  en={project.deepDive.introEn}
+                />
+              </p>
+            </div>
+            <div className="flagship-deep-dive-grid">
+              {project.deepDive.points.map((point, index) => (
+                <div key={point.label}>
+                  <b>
+                    0{index + 1} / {point.label}
+                  </b>
+                  <p>
+                    <LocalText vi={point.vi} en={point.en} />
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
         {project.engineering && (
           <section className="engineering-note">
             <div>
-              <span>05 / ENGINEERING NOTES</span>
+              <span>{project.deepDive ? '06' : '05'} / ENGINEERING NOTES</span>
               <h3>
                 <LocalText
                   vi="Quyết định đứng sau trải nghiệm."

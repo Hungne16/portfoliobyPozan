@@ -21,6 +21,7 @@ Executed using Playwright CLI against the local Next production build, with earl
 - Reverse navigation exposed a stacked-card hit-target bug. Sticky positioning is now confined to the featured image, so later projects cannot cover earlier project buttons or hash targets.
 - EN/VIE headings update after SplitText animation and retain the selected language after resizing across the desktop breakpoint.
 - Mobile chapter menu opens, navigates to capabilities, closes and updates the URL hash.
+- Hero video loads behind the opening chapter, autoplays muted, loops back to the beginning and stays within the viewport on desktop and mobile. Reduced-motion mode pauses playback and retains the poster.
 - About, Visual Lab, Capabilities and Contact navigation indicators match the visible chapter.
 - Reduced motion: intro released, no Three.js canvas created, CV visible, capability tags fully visible.
 - All local hash targets resolve. No broken loaded images observed.

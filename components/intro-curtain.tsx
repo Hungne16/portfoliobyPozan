@@ -51,11 +51,16 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
       const safety = window.setTimeout(release, 4500);
       let waitTimer: ReturnType<typeof setTimeout>;
       let minimumTimer: ReturnType<typeof setTimeout>;
-      const image = content.querySelector<HTMLImageElement>('.hero-art img');
-      const assets = Promise.allSettled([
-        document.fonts.ready,
-        image?.decode() ?? Promise.resolve(),
-      ]);
+      const video = content.querySelector<HTMLVideoElement>('.hero-video');
+      const videoReady = new Promise<void>((resolve) => {
+        if (!video || video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+          resolve();
+          return;
+        }
+        video.addEventListener('loadeddata', () => resolve(), { once: true });
+        video.addEventListener('error', () => resolve(), { once: true });
+      });
+      const assets = Promise.allSettled([document.fonts.ready, videoReady]);
       const bounded = Promise.race([
         assets,
         new Promise((resolve) => {

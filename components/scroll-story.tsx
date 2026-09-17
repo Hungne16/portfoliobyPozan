@@ -152,6 +152,12 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                 ease: 'power4.out',
               },
             );
+            gsap.from(q('.hero-video'), {
+              scale: 1.12,
+              autoAlpha: 0,
+              duration: 1.8,
+              ease: 'power3.out',
+            });
             gsap.to(q('.hero-copy-block'), {
               yPercent: -20,
               scale: 0.94,
@@ -164,10 +170,10 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                 scrub: 0.7,
               },
             });
-            gsap.to(q('.hero-art img'), {
+            gsap.to(q('.hero-video'), {
               scale: 1.19,
               yPercent: 7,
-              filter: 'saturate(0.55) contrast(1.12) brightness(0.4)',
+              filter: 'saturate(0.5) contrast(1.12) brightness(0.3)',
               ease: 'none',
               scrollTrigger: {
                 trigger: '#home',

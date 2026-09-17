@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import {
   sampleProjects,
   featuredNames,
@@ -23,6 +22,7 @@ import {
 import ScrollStory from '../components/scroll-story';
 import AboutStory from '../components/about-story';
 import LanguageSwitcher from '../components/language-switcher';
+import HeroVideo from '../components/hero-video';
 import { listProjects } from '@/db';
 
 export const dynamic = 'force-dynamic';
@@ -72,13 +72,7 @@ export default async function Home() {
       <main id="main">
         <section className="scene-chapter hero-chapter" id="home">
           <div className="hero-art" aria-hidden="true">
-            <Image
-              src="/anime-studio.png"
-              alt=""
-              fill
-              priority
-              sizes="(max-width: 700px) 100vw, 45vw"
-            />
+            <HeroVideo />
           </div>
           <div className="hero-wordmark" aria-hidden="true">
             POZAN

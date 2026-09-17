@@ -1,0 +1,43 @@
+// These are details of existing projects, not standalone commissions or new work.
+export const visualLab = [
+  {
+    id: 'orbits-interface',
+    title: 'Orbits / Interface study',
+    discipline: 'UI SYSTEM',
+    year: '2026',
+    image: '/projects/orbits-defi.png',
+    aspect: 'wide',
+    featured: true,
+    source: '#work-orbits-defi',
+  },
+  {
+    id: 'urun-direction',
+    title: 'U-RUN / Visual rhythm',
+    discipline: 'VISUAL DIRECTION',
+    year: '2026',
+    image: '/projects/urun-be-uliser.png',
+    aspect: 'portrait',
+    featured: false,
+    source: '#work-u-run-be-uliser-be-runner',
+  },
+  {
+    id: 'temsy-detail',
+    title: 'Temsy / Collection detail',
+    discipline: 'PRODUCT INTERFACE',
+    year: '2026',
+    image: '/projects/temsy.png',
+    aspect: 'square',
+    featured: false,
+    source: '#work-temsy',
+  },
+  {
+    id: 'eco-story',
+    title: 'ULIS Eco / Digital narrative',
+    discipline: 'WEB DESIGN',
+    year: '2026',
+    image: '/projects/ulis-eco.png',
+    aspect: 'wide',
+    featured: true,
+    source: '#work-ulis-eco',
+  },
+];

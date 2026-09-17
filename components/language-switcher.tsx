@@ -277,15 +277,15 @@ function translatePage(language: Language) {
   document.documentElement.dataset.language = language;
   document.title =
     language === 'en'
-      ? 'Pozan — Software Engineer & Creative Developer'
-      : 'Pozan — Kỹ sư phần mềm & Creative Developer';
+      ? 'Pozan — Creative Developer, UI/UX Designer & Software Engineer'
+      : 'Pozan — Creative Developer, UI/UX Designer & Software Engineer';
   document
     .querySelector<HTMLMetaElement>('meta[name="description"]')
     ?.setAttribute(
       'content',
       language === 'en'
-        ? 'Pozan’s portfolio — a Software Engineering student at HUCE, software engineer, and creative developer.'
-        : 'Portfolio của Pozan — sinh viên Công nghệ Phần mềm tại HUCE, kỹ sư phần mềm và creative developer.',
+        ? 'Portfolio of Pozan — designing and building digital experiences through UI/UX, visual systems, creative development and software engineering.'
+        : 'Portfolio của Pozan — thiết kế và phát triển trải nghiệm số qua UI/UX, hệ thống hình ảnh, creative development và công nghệ phần mềm.',
     );
 }
 
@@ -307,7 +307,9 @@ export default function LanguageSwitcher() {
     const update = () => {
       setLanguage(next);
       localStorage.setItem('pozan-language', next);
+      window.dispatchEvent(new Event('pozan:before-language'));
       translatePage(next);
+      window.dispatchEvent(new Event('pozan:after-language'));
     };
     const transitionDocument = document as Document & {
       startViewTransition?: (callback: () => void) => void;

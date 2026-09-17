@@ -2,31 +2,13 @@ import Image from 'next/image';
 
 const scenes = [
   {
-    tag: '01 / THE PERSON',
+    tag: '01 / ABOUT POZAN',
     title: 'Mình là Pozan.',
     enTitle: 'I’m Pozan.',
-    text: 'Một người thích tìm hiểu cách mọi thứ hoạt động, rồi tự tay xây chúng. Mình theo học Công nghệ Phần mềm tại Trường Đại học Xây dựng Hà Nội — HUCE.',
-    en: 'I like understanding how things work, then building them myself. I study Software Engineering at Hanoi University of Civil Engineering — HUCE.',
+    text: 'Mình học Công nghệ Phần mềm tại HUCE và tập trung vào giao điểm giữa thiết kế, công nghệ và trải nghiệm số. Mình thích bắt đầu từ một vấn đề, tìm cách trực quan hóa nó, rồi biến giải pháp đó thành một sản phẩm chạy thật.',
+    en: 'I study Software Engineering at HUCE, exploring the intersection of design, technology and digital experiences. I like starting with a problem, making it tangible, then turning the solution into a working product.',
     mark: 'POZAN',
     note: 'HANOI / VIETNAM',
-  },
-  {
-    tag: '02 / THE FOUNDATION',
-    title: 'Tò mò. Học. Làm.',
-    enTitle: 'Explore. Learn. Build.',
-    text: 'Từ cấu trúc dữ liệu và lập trình hướng đối tượng đến giao diện người dùng, mình học bằng cách đưa kiến thức vào dự án. Mỗi sản phẩm là một cơ hội để hiểu sâu hơn về kỹ thuật và con người.',
-    en: 'From data structures and object-oriented programming to user interfaces, I learn by applying ideas to projects. Each product helps me understand both engineering and people a little better.',
-    mark: 'HUCE',
-    note: 'SOFTWARE ENGINEERING',
-  },
-  {
-    tag: '03 / THE CRAFT',
-    title: 'Logic có cá tính.',
-    enTitle: 'Logic with personality.',
-    text: 'Mình kết hợp code có cấu trúc với thiết kế và chuyển động có chủ đích. Từ nền tảng cộng đồng ULIS đến BeeTools, Temsy và Arcade Học Đường, mình muốn sản phẩm vừa hữu ích vừa có bản sắc.',
-    en: 'I combine structured code with thoughtful design and motion. From ULIS community platforms to BeeTools, Temsy, and Classroom Arcade, I want products to be useful and have a personality of their own.',
-    mark: 'CREATE',
-    note: 'DESIGN × CODE × MOTION',
   },
 ];
 
@@ -70,7 +52,7 @@ export default function AboutStory() {
               <p data-localized data-vi={scene.text} data-en={scene.en}>
                 {scene.text}
               </p>
-              {index === 2 && (
+              {index === 0 && (
                 <a href="#projects">
                   <span
                     data-localized
@@ -82,6 +64,9 @@ export default function AboutStory() {
                   ↗
                 </a>
               )}
+              <div className="identity-disciplines">
+                DESIGN / CODE / MOTION / SYSTEMS / EXPERIMENT
+              </div>
               <div className="identity-track" aria-hidden="true">
                 <i />
               </div>

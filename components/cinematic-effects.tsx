@@ -8,13 +8,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const chapters = [
-  ['home', '00', 'ORIGIN', '#ff557b'],
-  ['about', '01', 'SIGNAL', '#ffd576'],
-  ['experience', '02', 'PROCESS', '#6fe6e1'],
-  ['projects', '03', 'EVIDENCE', '#ff557b'],
-  ['skills', '04', 'TOOLKIT', '#6fe6e1'],
-  ['cv', '05', 'PROFILE', '#ffd576'],
-  ['contact', '06', 'TRANSMISSION', '#ff557b'],
+  ['home', '00', 'ORIGIN', '#c7ff3d'],
+  ['about', '01', 'SIGNAL', '#c7ff3d'],
+  ['experience', '02', 'PROCESS', '#c7ff3d'],
+  ['projects', '03', 'EVIDENCE', '#c7ff3d'],
+  ['visual-lab', '04', 'VISUAL LAB', '#c7ff3d'],
+  ['skills', '05', 'TOOLKIT', '#c7ff3d'],
+  ['cv', '06', 'PROFILE', '#c7ff3d'],
+  ['contact', '07', 'TRANSMISSION', '#c7ff3d'],
 ] as const;
 
 export default function CinematicEffects() {
@@ -82,9 +83,12 @@ export default function CinematicEffects() {
 
         chapters.forEach(([id, code, name, color]) => {
           ScrollTrigger.create({
-            trigger: `#${id}`,
+            trigger: document.getElementById(id),
             start: 'top center',
             end: 'bottom center',
+            onRefresh: (self) => {
+              if (self.isActive) showChapter(code, name, color);
+            },
             onEnter: () => showChapter(code, name, color),
             onEnterBack: () => showChapter(code, name, color),
           });
@@ -110,6 +114,16 @@ export default function CinematicEffects() {
           start: 0,
           end: 'max',
           onUpdate: (self) => {
+            let current: (typeof chapters)[number] = chapters[0];
+            chapters.forEach((chapter) => {
+              if (
+                (document.getElementById(chapter[0])?.getBoundingClientRect()
+                  .top ?? Infinity) <=
+                innerHeight * 0.5
+              )
+                current = chapter;
+            });
+            showChapter(current[1], current[2], current[3]);
             const rawVelocity = Math.abs(self.getVelocity());
             const intensity = gsap.utils.clamp(0, 1, rawVelocity / 2600);
             velocity.textContent = Math.round(rawVelocity)
@@ -129,7 +143,9 @@ export default function CinematicEffects() {
         '(pointer: fine) and (min-width: 901px) and (prefers-reduced-motion: no-preference)',
         () => {
           const magneticLinks = gsap.utils.toArray<HTMLElement>(
-            '.hero-actions a, .project-live, .cv-cta',
+            document.querySelectorAll<HTMLElement>(
+              '.hero-actions a, .project-live, .cv-cta',
+            ),
           );
           const cleanups: Array<() => void> = [];
 

@@ -9,6 +9,8 @@ export default function ImmersiveWorld() {
     let disposed = false;
     let cleanup: (() => void) | undefined;
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     void import('three').then((THREE) => {
       if (disposed || !host.current) return;
       const container = host.current;
@@ -238,7 +240,7 @@ export default function ImmersiveWorld() {
 
       const render = (now: number) => {
         raf = requestAnimationFrame(render);
-        if (document.hidden) return;
+        if (document.hidden || reduced.matches) return;
         if (projectMode && now - lastPaint < 1000 / 20) return;
         lastPaint = now;
         const dt = Math.min(0.05, (now - last) / 1000);

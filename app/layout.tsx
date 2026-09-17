@@ -1,9 +1,21 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import '../styles/tokens.css';
+import '../styles/editorial.css';
+export const viewport: Viewport = { themeColor: '#0B0B0D' };
 export const metadata: Metadata = {
-  title: 'Pozan — Software Engineer & Creative Developer',
+  metadataBase: new URL('https://portfoliobypozan.vercel.app'),
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: 'Pozan — Creative Developer, UI/UX Designer & Software Engineer',
+    description:
+      'Designing and building digital experiences through UI/UX, visual systems and software engineering.',
+    images: ['/anime-studio.png'],
+    type: 'website',
+  },
+  title: 'Pozan — Creative Developer, UI/UX Designer & Software Engineer',
   description:
-    'Portfolio của Pozan — sinh viên Công nghệ Phần mềm tại HUCE, kỹ sư phần mềm và creative developer.',
+    'Portfolio of Pozan — designing and building digital experiences through UI/UX, visual systems, creative development and software engineering.',
 };
 export default function RootLayout({
   children,

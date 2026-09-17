@@ -1,0 +1,66 @@
+:root {
+  --pozan-black: #0b0b0d;
+  --pozan-surface: #111114;
+  --pozan-surface-2: #18181c;
+  --pozan-white: #fafafa;
+  --pozan-gray-300: #b8b8bf;
+  --pozan-gray-500: #77777f;
+  --pozan-gray-700: #34343a;
+  --pozan-lime: #c7ff3d;
+  --pozan-blue: #5b7cff;
+  --pozan-violet: #9b7bff;
+  --font-display: 'Manrope', sans-serif;
+  --font-meta: 'DM Mono', monospace;
+  --text-display: clamp(64px, 9vw, 144px);
+  --text-h1: clamp(48px, 7vw, 96px);
+  --text-h2: clamp(40px, 5vw, 72px);
+  --text-h3: clamp(28px, 3vw, 40px);
+  --text-large: clamp(18px, 1.5vw, 20px);
+  --text-body: 16px;
+  --text-meta: 12px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --space-40: 160px;
+  --grid-max: 1360px;
+  --grid-gap: 24px;
+  --grid-columns: 12;
+  --page-gutter: clamp(24px, 5vw, 80px);
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --motion-fast: 160ms;
+  --motion-base: 280ms;
+  --motion-slow: 480ms;
+  --motion-reveal: 700ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  /* Compatibility aliases keep existing animation selectors and timing intact. */
+  --night: var(--pozan-black);
+  --white: var(--pozan-white);
+  --muted: var(--pozan-gray-300);
+  --line: var(--pozan-gray-700);
+  --pink: var(--pozan-lime);
+  --cyan: var(--pozan-lime);
+  --yellow: var(--pozan-lime);
+}
+@media (max-width: 1024px) {
+  :root {
+    --grid-columns: 8;
+  }
+}
+@media (max-width: 700px) {
+  :root {
+    --grid-columns: 4;
+    --page-gutter: 20px;
+  }
+}

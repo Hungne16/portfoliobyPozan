@@ -93,7 +93,7 @@ export default function SignalCursor() {
 
           const resolveLabel = (target: Element | null) => {
             if (!target) return '';
-            if (target.matches('.project-visual')) return 'VIEW PROJECT';
+            if (target.matches('.project-visual')) return 'EXPLORE';
             if (target.matches('summary')) return 'EXPAND';
             if (target.matches('.language-switcher button')) return 'SELECT';
             if (target.matches('a')) return 'OPEN';
@@ -196,7 +196,7 @@ export default function SignalCursor() {
                 opacity: 1,
                 duration: 0.38,
                 ease: 'back.out(2.2)',
-                overwrite: true,
+                overwrite: 'auto',
               },
             );
           };

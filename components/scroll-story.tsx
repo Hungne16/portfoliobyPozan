@@ -21,13 +21,14 @@ gsap.registerPlugin(
 );
 
 const chapters = [
-  ['home', 'Khởi hành'],
-  ['about', 'Tín hiệu'],
-  ['experience', 'Kinh nghiệm'],
-  ['projects', 'Tác phẩm'],
-  ['skills', 'Năng lực'],
+  ['home', 'Origin'],
+  ['about', 'About'],
+  ['experience', 'Process'],
+  ['projects', 'Work'],
+  ['visual-lab', 'Visual Lab'],
+  ['skills', 'Capabilities'],
   ['cv', 'CV'],
-  ['contact', 'Kết nối'],
+  ['contact', 'Contact'],
 ];
 
 export default function ScrollStory({ children }: { children: ReactNode }) {
@@ -49,21 +50,35 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
         },
         (context) => {
           const { motion, desktop } = context.conditions!;
-          const chapterLinks = q('.story-chapters a') as HTMLAnchorElement[];
-          const activate = (index: number) => {
+          let headingCleanup = () => {};
+          const chapterLinks = q(
+            '.story-chapters a, .mobile-chapters nav a',
+          ) as HTMLAnchorElement[];
+          const activate = () => {
+            let index = 0;
+            chapters.forEach(([id], i) => {
+              if (
+                (document.getElementById(id)?.getBoundingClientRect().top ??
+                  Infinity) <=
+                innerHeight * 0.5
+              )
+                index = i;
+            });
             chapterLinks.forEach((link, i) => {
-              if (i === index) link.setAttribute('aria-current', 'step');
+              if (i % chapters.length === index)
+                link.setAttribute('aria-current', 'step');
               else link.removeAttribute('aria-current');
             });
           };
 
-          chapters.forEach(([id], index) => {
+          chapters.forEach(([id]) => {
             ScrollTrigger.create({
               trigger: `#${id}`,
               start: 'top center',
               end: 'bottom center',
-              onEnter: () => activate(index),
-              onEnterBack: () => activate(index),
+              onRefresh: activate,
+              onEnter: () => activate(),
+              onEnterBack: () => activate(),
               toggleClass: { targets: `#${id}`, className: 'is-active' },
             });
           });
@@ -202,28 +217,62 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                   },
                 });
               });
-            gsap.utils
-              .toArray<HTMLElement>('.chapter-title', el)
-              .forEach((heading) => {
-                const split = SplitText.create(heading, {
-                  type: 'words',
-                  wordsClass: 'chapter-word',
-                  aria: 'auto',
-                });
-                gsap.from(split.words, {
-                  yPercent: 110,
-                  opacity: 0,
-                  rotateX: -55,
-                  stagger: 0.08,
-                  ease: 'power3.out',
-                  scrollTrigger: {
-                    trigger: heading,
-                    start: 'top 84%',
-                    end: 'top 46%',
-                    scrub: 0.6,
-                  },
-                });
+            const headingAnimations: {
+              split: SplitText;
+              tween: gsap.core.Tween;
+            }[] = [];
+            const clearHeadings = () => {
+              headingAnimations.splice(0).forEach(({ split, tween }) => {
+                tween.scrollTrigger?.kill();
+                tween.kill();
+                split.revert();
               });
+            };
+            const buildHeadings = () => {
+              el.querySelectorAll<HTMLElement>(
+                '.chapter-title [data-localized]',
+              ).forEach((node) => {
+                const text =
+                  node.dataset[
+                    document.documentElement.lang === 'en' ? 'en' : 'vi'
+                  ];
+                if (text) node.textContent = text;
+              });
+              gsap.utils
+                .toArray<HTMLElement>('.chapter-title', el)
+                .forEach((heading) => {
+                  const split = SplitText.create(heading, {
+                    type: 'words',
+                    wordsClass: 'chapter-word',
+                    aria: 'auto',
+                  });
+                  const tween = gsap.from(split.words, {
+                    yPercent: 110,
+                    opacity: 0,
+                    rotateX: -55,
+                    stagger: 0.08,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                      trigger: heading,
+                      start: 'top 84%',
+                      end: 'top 46%',
+                      scrub: 0.6,
+                    },
+                  });
+                  headingAnimations.push({ split, tween });
+                });
+            };
+            buildHeadings();
+            window.addEventListener('pozan:before-language', clearHeadings);
+            window.addEventListener('pozan:after-language', buildHeadings);
+            headingCleanup = () => {
+              window.removeEventListener(
+                'pozan:before-language',
+                clearHeadings,
+              );
+              window.removeEventListener('pozan:after-language', buildHeadings);
+              clearHeadings();
+            };
             gsap.utils
               .toArray<HTMLElement>('.signal-card, .skills-orbit', el)
               .forEach((card, index) => {
@@ -282,10 +331,10 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                   anticipatePin: 1,
                   invalidateOnRefresh: true,
                   onUpdate: (self) => {
-                    if (self.isActive) activate(5);
+                    if (self.isActive) activate();
                   },
-                  onLeave: () => activate(6),
-                  onEnterBack: () => activate(5),
+                  onLeave: () => activate(),
+                  onEnterBack: () => activate(),
                 },
               })
               .fromTo(
@@ -373,7 +422,7 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
               );
             gsap.to(q('.contact-core'), {
               scale: 1.18,
-              boxShadow: '0 0 160px rgba(255, 85, 123, 0.42)',
+              boxShadow: '0 0 160px rgba(199, 255, 61, 0.12)',
               repeat: -1,
               yoyo: true,
               duration: 1.8,
@@ -395,21 +444,6 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                 duration: 0.9,
                 ease: 'power3.out',
               })
-              .from(
-                q('.language-row'),
-                { x: 28, opacity: 0, stagger: 0.07, ease: 'power2.out' },
-                '-=0.5',
-              )
-              .from(
-                q('.skill-meter i.is-active'),
-                {
-                  scaleX: 0,
-                  transformOrigin: 'left center',
-                  stagger: 0.025,
-                  ease: 'power2.out',
-                },
-                '-=0.55',
-              )
               .fromTo(
                 q('.skill-chip-grid span, .tool-cloud span'),
                 { y: 12, opacity: 0 },
@@ -421,18 +455,7 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                   clearProps: 'transform,opacity',
                 },
                 '-=0.25',
-              )
-              .from(
-                q('.competency-grid article'),
-                { y: 24, opacity: 0, stagger: 0.09, ease: 'power2.out' },
-                '-=0.2',
               );
-            gsap.to(q('.skills-marquee > div'), {
-              xPercent: -50,
-              duration: 22,
-              repeat: -1,
-              ease: 'none',
-            });
             gsap.to(q('.cinema-flare'), {
               xPercent: 85,
               yPercent: -35,
@@ -476,7 +499,8 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
                   )
                   .from(proof, { y: 20, opacity: 0, stagger: 0.08 }, '<0.18');
                 if (signal) {
-                  const finalSignal = signal.textContent || '';
+                  const finalSignal =
+                    signal.dataset.signal || signal.textContent || '';
                   signal.textContent = 'INITIALIZING / 000000';
                   gsap.to(signal, {
                     scrambleText: {
@@ -575,6 +599,9 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
               event.altKey
             )
               return;
+            el.querySelector<HTMLDetailsElement>(
+              '.mobile-chapters',
+            )?.removeAttribute('open');
             const target = el.querySelector<HTMLElement>(link.hash);
             if (!target) return;
             event.preventDefault();
@@ -582,11 +609,19 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
               scrollTo: { y: target, offsetY: 0, autoKill: true },
               duration: motion ? 1.05 : 0,
               ease: 'power3.inOut',
-              onComplete: () => history.pushState(null, '', link.hash),
+              onComplete: () => {
+                history.pushState(null, '', link.hash);
+                if (!target.hasAttribute('tabindex'))
+                  target.setAttribute('tabindex', '-1');
+                target.focus({ preventScroll: true });
+              },
             });
           };
           el.addEventListener('click', navigate);
-          return () => el.removeEventListener('click', navigate);
+          return () => {
+            el.removeEventListener('click', navigate);
+            headingCleanup();
+          };
         },
         root,
       );
@@ -625,11 +660,21 @@ export default function ScrollStory({ children }: { children: ReactNode }) {
       <nav className="story-chapters" aria-label="Các chương của portfolio">
         {chapters.map(([id, label], index) => (
           <a key={id} href={`#${id}`}>
-            <span>0{index + 1}</span>
+            <span>0{index}</span>
             <span>{label}</span>
           </a>
         ))}
       </nav>
+      <details className="mobile-chapters">
+        <summary>MENU / CHAPTERS</summary>
+        <nav aria-label="Mobile chapters">
+          {chapters.map(([id, label], index) => (
+            <a key={id} href={`#${id}`}>
+              0{index} / {label}
+            </a>
+          ))}
+        </nav>
+      </details>
       <div className="story-content">{children}</div>
     </div>
   );

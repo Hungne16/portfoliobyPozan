@@ -1,17 +1,22 @@
 import Image from 'next/image';
+import {
+  sampleProjects,
+  featuredNames,
+  type PortfolioProject,
+} from '@/data/projects';
+import { LocalText } from '@/components/pozan-system';
+import ProjectCollection from '@/components/project-collection';
+import VisualLab from '@/components/visual-lab';
+import Capabilities from '@/components/capabilities';
 import Link from 'next/link';
 import {
   ArrowDown,
   ArrowUpRight,
   Code2,
-  Database,
-  GitBranch,
   GraduationCap,
   Mail,
   MapPin,
   Radio,
-  Server,
-  ShieldCheck,
   Sparkles,
   Terminal,
 } from 'lucide-react';
@@ -20,176 +25,10 @@ import AboutStory from '../components/about-story';
 import LanguageSwitcher from '../components/language-switcher';
 import { listProjects } from '@/db';
 
-type PortfolioProject = {
-  name: string;
-  sub: string;
-  type: string;
-  brief: string;
-  role: string;
-  process: string;
-  result: string;
-  projectUrl: string | null;
-  year: string;
-  imageKey: string | null;
-};
-
-const sampleProjects: PortfolioProject[] = [
-  {
-    name: 'ULIS Eco',
-    sub: 'Sống xanh bắt đầu từ những thay đổi nhỏ trong cộng đồng sinh viên.',
-    type: 'COMMUNITY PLATFORM',
-    brief:
-      'Một nền tảng giúp sinh viên ULIS chia sẻ mẹo tái chế, trao đổi đồ dùng cũ và kết nối quanh lối sống bền vững.',
-    role: 'Thiết kế UI/UX, định hướng hình ảnh và phát triển website.',
-    process:
-      'Phân tích vấn đề lãng phí trong trường học → xây dựng kiến trúc nội dung → thiết kế giao diện → hoàn thiện trải nghiệm responsive.',
-    result:
-      'Website truyền tải rõ câu chuyện sống xanh và tạo điểm chạm trực quan cho hoạt động cộng đồng.',
-    projectUrl: 'https://uliseco.framer.website/about',
-    year: '2026',
-    imageKey: '/projects/ulis-eco.png',
-  },
-  {
-    name: 'U-RUN — Be ULISer, Be Runner',
-    sub: 'Đường đua số dành riêng cho cộng đồng sinh viên ULIS.',
-    type: 'CAMPAIGN WEBSITE',
-    brief:
-      'Xây dựng điểm đến số cho giải chạy sinh viên, giúp người tham gia hiểu chương trình và đăng ký nhanh.',
-    role: 'Thiết kế trải nghiệm, giao diện và phát triển website.',
-    process:
-      'Xác định hành trình đăng ký → xây dựng visual direction năng động → thiết kế responsive → triển khai.',
-    result:
-      'Một landing page giàu năng lượng, giúp thông tin giải chạy dễ tiếp cận và thúc đẩy đăng ký.',
-    projectUrl: 'https://urunbeuliser.framer.website/',
-    year: '2026',
-    imageKey: '/projects/urun-be-uliser.png',
-  },
-  {
-    name: 'U-Life',
-    sub: 'Chăm sóc sức khỏe thể chất và tinh thần cho sinh viên ĐHQGHN.',
-    type: 'HEALTH PRODUCT',
-    brief:
-      'Concept nền tảng giúp sinh viên theo dõi sức khỏe, xây dựng thói quen và tiếp cận nội dung hỗ trợ phù hợp.',
-    role: 'Nghiên cứu sản phẩm, thiết kế UI/UX và phát triển website giới thiệu.',
-    process:
-      'Nghiên cứu nhu cầu → xác định nhóm tính năng → user flow → prototype → landing page.',
-    result:
-      'Concept sản phẩm kết nối theo dõi thể chất, tinh thần và hỗ trợ xây dựng thói quen tích cực.',
-    projectUrl: 'https://ulife.framer.website/',
-    year: '2026',
-    imageKey: '/projects/ulife.png',
-  },
-  {
-    name: 'WULIS — Workshop ULIS',
-    sub: 'Một điểm đến tập trung cho workshop và sự kiện học thuật.',
-    type: 'EDTECH PLATFORM',
-    brief:
-      'Giải quyết tình trạng thông tin workshop phân tán bằng một nền tảng tập trung, dễ tìm kiếm và khám phá.',
-    role: 'Thiết kế sản phẩm, UI/UX và phát triển giao diện.',
-    process:
-      'Phân nhóm nội dung → thiết kế kiến trúc thông tin → component system → responsive implementation.',
-    result:
-      'Nền tảng tổng hợp workshop theo khoa và chủ đề, giúp sinh viên tìm cơ hội phát triển nhanh hơn.',
-    projectUrl: 'https://wulis.framer.website/',
-    year: '2026',
-    imageKey: '/projects/wulis.png',
-  },
-  {
-    name: 'The BookBridge',
-    sub: 'Cầu nối giáo trình đáng tin cậy cho cộng đồng ULIS.',
-    type: 'COMMUNITY MARKETPLACE',
-    brief:
-      'Tạo không gian kết nối sách cũ với sinh viên đang cần, giảm chi phí và kéo dài vòng đời tài liệu.',
-    role: 'Xây dựng concept, thiết kế visual và phát triển website.',
-    process:
-      'Xác định giá trị cộng đồng → content flow → visual storytelling → responsive build.',
-    result:
-      'Một nền tảng kể câu chuyện rõ ràng về việc kết nối sách cũ với người đang cần chúng.',
-    projectUrl: 'https://thebookbridge.framer.website/',
-    year: '2025',
-    imageKey: '/projects/the-book-bridge.png',
-  },
-  {
-    name: 'ULIS Lost & Found',
-    sub: 'Nơi đồ thất lạc tìm đường về, đồ cũ bắt đầu hành trình mới.',
-    type: 'COMMUNITY SERVICE',
-    brief:
-      'Kết nối nhu cầu tìm đồ thất lạc và trao đổi đồ cũ trong một hành trình cộng đồng thống nhất.',
-    role: 'Thiết kế trải nghiệm, art direction và phát triển website.',
-    process:
-      'Phân tích tình huống sử dụng → phân luồng nội dung → thiết kế visual → triển khai.',
-    result:
-      'Một trải nghiệm kết nối hoạt động tìm đồ, trao đổi đồ cũ và tinh thần chia sẻ bền vững.',
-    projectUrl: 'https://ulislostandfound.framer.website/',
-    year: '2026',
-    imageKey: '/projects/ulis-lost-found.png',
-  },
-  {
-    name: 'Orbits DeFi',
-    sub: 'Cánh cửa trực quan bước vào tài chính phi tập trung.',
-    type: 'FINTECH LANDING PAGE',
-    brief:
-      'Biến một sản phẩm DeFi phức tạp thành câu chuyện số dễ tiếp cận và có định hướng chuyển đổi.',
-    role: 'Thiết kế UI, motion direction và phát triển landing page.',
-    process:
-      'Xây dựng narrative → dark visual system → motion prototype → responsive implementation.',
-    result:
-      'Landing page đậm chất công nghệ với hệ màu tối, ánh sáng và nhịp chuyển động tập trung vào chuyển đổi.',
-    projectUrl: 'https://orbitsdefi.framer.website/',
-    year: '2026',
-    imageKey: '/projects/orbits-defi.png',
-  },
-  {
-    name: 'BeeTools',
-    sub: 'Kho công cụ AI và tiện ích được tuyển chọn cho công việc hằng ngày.',
-    type: 'WEB APPLICATION',
-    brief:
-      'Thiết kế một thư viện giúp người dùng tìm, lọc và lưu các công cụ số phù hợp với công việc.',
-    role: 'Thiết kế sản phẩm và phát triển ứng dụng web.',
-    process:
-      'Data model → search & category flow → component architecture → deployment.',
-    result:
-      'Ứng dụng thư viện công cụ với tìm kiếm nhanh, danh mục, yêu thích và giao diện tối nhất quán.',
-    projectUrl: 'https://beetls.vercel.app/',
-    year: '2026',
-    imageKey: '/projects/beetls.png',
-  },
-  {
-    name: 'Temsy',
-    sub: 'Biến từng khoảnh khắc thành một con tem kỷ niệm.',
-    type: 'DIGITAL COLLECTIBLES',
-    brief:
-      'Tạo trải nghiệm sưu tầm kỹ thuật số mang cảm giác gần gũi thay vì kỹ thuật và xa cách.',
-    role: 'Thiết kế sản phẩm, giao diện và phát triển ứng dụng.',
-    process:
-      'Concept exploration → collection flow → UI system → responsive development.',
-    result:
-      'Ứng dụng sưu tầm tem kỹ thuật số với không gian khám phá tối giản và gần gũi.',
-    projectUrl: 'https://temsy.vercel.app/',
-    year: '2026',
-    imageKey: '/projects/temsy.png',
-  },
-  {
-    name: 'Arcade Học Đường',
-    sub: 'Biến tiết học thành một sân chơi tương tác kiểu arcade.',
-    type: 'EDTECH GAME',
-    brief:
-      'Tạo công cụ giúp giáo viên biến hoạt động trên lớp thành trò chơi có nhịp độ và phản hồi trực tiếp.',
-    role: 'Thiết kế trải nghiệm trò chơi và phát triển ứng dụng web.',
-    process:
-      'Classroom flow → game mechanics → realtime room states → responsive interface.',
-    result:
-      'Một lớp học tương tác theo thời gian thực với mã phòng, vòng quay may mắn và ngôn ngữ arcade vui nhộn.',
-    projectUrl: 'https://arcadeschool.vercel.app/index.html',
-    year: '2026',
-    imageKey: '/projects/arcade-school.png',
-  },
-];
-
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  let projects = sampleProjects;
+  let projects: PortfolioProject[] = sampleProjects;
   try {
     const saved = await listProjects();
     if (saved.length) {
@@ -220,7 +59,7 @@ export default async function Home() {
           <span>✳</span> POZAN/創
         </a>
         <div className="hud-status">
-          <i /> SOFTWARE ENGINEER / CREATIVE DEVELOPER
+          <i /> CREATIVE DEVELOPER / UI/UX DESIGNER / SOFTWARE ENGINEER
         </div>
         <div className="hud-actions">
           <LanguageSwitcher />
@@ -233,7 +72,13 @@ export default async function Home() {
       <main id="main">
         <section className="scene-chapter hero-chapter" id="home">
           <div className="hero-art" aria-hidden="true">
-            <Image src="/anime-studio.png" alt="" fill priority sizes="100vw" />
+            <Image
+              src="/anime-studio.png"
+              alt=""
+              fill
+              priority
+              sizes="(max-width: 700px) 100vw, 45vw"
+            />
           </div>
           <div className="hero-wordmark" aria-hidden="true">
             POZAN
@@ -246,36 +91,25 @@ export default async function Home() {
           <div className="hero-copy-block">
             <p className="hero-kicker">PROLOGUE / THE FIRST SIGNAL</p>
             <h1 className="hero-title">
-              <span
-                data-localized
-                data-vi="Bạn có một yêu cầu."
-                data-en="You have a brief."
-              >
-                Bạn có một yêu cầu.
-              </span>
-              <br />
-              <span
-                data-localized
-                data-vi="Mình xây thành sản phẩm web"
-                data-en="I build it into a web product that"
-              >
-                Mình xây thành sản phẩm web
-              </span>{' '}
-              <em data-localized data-vi="chạy thật." data-en="works.">
-                chạy thật.
-              </em>
+              <LocalText
+                vi="Từ ý tưởng đến trải nghiệm số chạy thật."
+                en="From idea to a digital experience that works."
+              />
             </h1>
             <p className="hero-copy">
-              Từ yêu cầu đến sản phẩm chạy thật: mình thiết kế UI/UX, phát triển
-              frontend, kết nối dữ liệu và triển khai — với chuyển động giúp
-              thương hiệu đáng nhớ hơn.
+              <LocalText
+                vi="Mình kết hợp UI/UX, visual direction và engineering để biến một ý tưởng thành sản phẩm số có thể nhìn, chạm, tương tác và sử dụng thật."
+                en="I combine UI/UX, visual direction and engineering to turn an idea into a digital product you can see, touch, interact with and use."
+              />
             </p>
             <div className="hero-actions">
               <a href="#projects">
-                Xem sản phẩm đã làm <ArrowDown />
+                <LocalText vi="Xem Selected Work" en="View Selected Work" />{' '}
+                <ArrowDown />
               </a>
-              <a className="hero-contact-link" href="#contact">
-                Trao đổi yêu cầu <ArrowUpRight />
+              <a className="hero-contact-link" href="#visual-lab">
+                <LocalText vi="Khám phá Visual Lab" en="Explore Visual Lab" />{' '}
+                <ArrowUpRight />
               </a>
             </div>
             <div className="hero-proof" aria-label="Năng lực nổi bật">
@@ -284,8 +118,8 @@ export default async function Home() {
                 <span>SẢN PHẨM ĐÃ SHIP</span>
               </div>
               <div>
-                <b>1+</b>
-                <span>NĂM XÂY DỰNG WEB</span>
+                <b>HUCE</b>
+                <span>SOFTWARE ENGINEERING</span>
               </div>
               <div>
                 <b>END–TO–END</b>
@@ -306,72 +140,33 @@ export default async function Home() {
 
         <AboutStory />
 
-        <section className="experience-chapter" id="experience">
-          <div className="chapter-index">
-            <b>02</b>
-            <span>THE PROCESS / 過程</span>
+        <section className="experience-chapter system-section" id="experience">
+          <div className="section-meta">
+            02 / PROCESS{' '}
+            <span>RESEARCH → STRUCTURE → DESIGN → BUILD → SHIP</span>
           </div>
-          <div className="experience-heading parallax-slow">
-            <p className="micro-label">FROM QUESTION TO WORKING PRODUCT</p>
-            <h2 className="chapter-title">
-              <span
-                data-localized
-                data-vi="Học bằng cách"
-                data-en="Learning by"
-              >
-                Học bằng cách
-              </span>
-              <br />
-              <em
-                data-localized
-                data-vi="xây thật."
-                data-en="building for real."
-              >
-                xây thật.
-              </em>
-            </h2>
-            <p>
-              Kinh nghiệm của mình được tích lũy qua chu trình hoàn chỉnh: tìm
-              vấn đề, thiết kế giải pháp, phát triển, kiểm thử và đưa sản phẩm
-              lên môi trường thực tế.
-            </p>
-          </div>
+          <h2 className="chapter-title">
+            <LocalText
+              vi="Từ câu hỏi đến sản phẩm."
+              en="From question to working product."
+            />
+          </h2>
           <div className="experience-timeline">
-            <article className="experience-entry">
-              <span>01 / PRODUCT</span>
-              <div>
-                <h3>Product Engineering</h3>
-                <p>BeeTools · Temsy · Arcade Học Đường</p>
-              </div>
-              <p>
-                Xây dựng ứng dụng web từ luồng người dùng đến giao diện hoạt
-                động, bao gồm tìm kiếm, phân loại, phòng tương tác và trạng thái
-                dữ liệu.
-              </p>
-            </article>
-            <article className="experience-entry">
-              <span>02 / COMMUNITY</span>
-              <div>
-                <h3>Community Platforms</h3>
-                <p>ULIS Eco · WULIS · BookBridge · Lost & Found</p>
-              </div>
-              <p>
-                Chuyển các vấn đề trong đời sống sinh viên thành nền tảng có cấu
-                trúc nội dung rõ ràng, hành trình sử dụng dễ hiểu và bản sắc thị
-                giác riêng.
-              </p>
-            </article>
-            <article className="experience-entry">
-              <span>03 / DIGITAL</span>
-              <div>
-                <h3>Interactive Web Experiences</h3>
-                <p>Orbits DeFi · U-Life · U-RUN</p>
-              </div>
-              <p>
-                Thiết kế và phát triển website responsive, kết hợp animation, hệ
-                thống component và tối ưu trải nghiệm trên nhiều thiết bị.
-              </p>
-            </article>
+            {[
+              ['DISCOVER', 'Problem · Context · Research · Requirements'],
+              [
+                'DEFINE',
+                'Information Architecture · User Flow · Product Direction',
+              ],
+              ['DESIGN', 'UI/UX · Visual System · Prototype · Motion'],
+              ['BUILD', 'Frontend · Interaction · Data · Deploy'],
+            ].map(([title, text], index) => (
+              <article className="experience-entry" key={title}>
+                <span>0{index + 1} /</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
           </div>
         </section>
 
@@ -379,303 +174,45 @@ export default async function Home() {
           <span>作品集 // TEN PRODUCTS SHIPPED</span>
         </div>
 
-        <section className="projects-chapter" id="projects">
-          <div className="projects-intro">
-            <div className="chapter-index">
-              <b>03</b>
-              <span>THE EVIDENCE / 実績</span>
-            </div>
+        <section className="projects-chapter system-section" id="projects">
+          <div className="section-meta">
+            03 / SELECTED WORK <span>DESIGN × DEVELOPMENT</span>
+          </div>
+          <div className="section-heading">
             <h2 className="chapter-title">
-              <span
-                data-localized
-                data-vi="Những tín hiệu"
-                data-en="The signals"
-              >
-                Những tín hiệu
-              </span>
-              <br />
-              <span data-localized data-vi="mình đã" data-en="I have">
-                mình đã
-              </span>{' '}
-              <em data-localized data-vi="gửi đi." data-en="sent out.">
-                gửi đi.
-              </em>
-            </h2>
-            <p>Mỗi dự án là một thế giới riêng. Cuộn để tiến sâu hơn.</p>
-          </div>
-          <div className="project-stack">
-            {projects.map((project, index) => (
-              <article
-                className="project-orbit"
-                key={`${project.name}-${index}`}
-                style={{ zIndex: index + 1 }}
-              >
-                <div className={`project-visual visual-${index % 3}`}>
-                  <div className="project-visual-inner">
-                    {project.imageKey ? (
-                      <Image
-                        src={
-                          project.imageKey.startsWith('/')
-                            ? project.imageKey
-                            : `/api/project-image?key=${encodeURIComponent(project.imageKey)}`
-                        }
-                        alt={`Ảnh dự án ${project.name}`}
-                        fill
-                        sizes="(max-width: 800px) 92vw, 58vw"
-                        unoptimized
-                      />
-                    ) : (
-                      <div className="project-symbol" aria-hidden="true">
-                        <span>{['雲', '夜', '青'][index % 3]}</span>
-                        <i />
-                      </div>
-                    )}
-                    <span className="visual-index">PROJECT / 0{index + 1}</span>
-                    <span className="visual-year">{project.year}</span>
-                    <span
-                      className="project-signal"
-                      aria-label={`Tín hiệu dự án ${index + 1}`}
-                    >
-                      SIGNAL_{String(index + 1).padStart(2, '0')} / DATA_STREAM
-                    </span>
-                    <i className="project-reticle" aria-hidden="true" />
-                  </div>
-                </div>
-                <div className="project-copy">
-                  <p className="micro-label">{project.type}</p>
-                  <h3>{project.name}</h3>
-                  <p className="project-sub">{project.sub}</p>
-                  <div className="project-proof">
-                    <div>
-                      <span>MY ROLE</span>
-                      <p>{project.role}</p>
-                    </div>
-                    <div>
-                      <span>DELIVERED</span>
-                      <p>{project.result}</p>
-                    </div>
-                  </div>
-                  {project.projectUrl && (
-                    <a
-                      className="project-live"
-                      href={project.projectUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Mở dự án thật <ArrowUpRight />
-                    </a>
-                  )}
-                  <details>
-                    <summary>
-                      <span>Xem case study</span> <ArrowUpRight />
-                    </summary>
-                    <div className="case-heading">
-                      <span>
-                        CASE STUDY / {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <h4>{project.name}</h4>
-                      <p>{project.sub}</p>
-                    </div>
-                    <div className="case-grid">
-                      <div>
-                        <b>Bối cảnh</b>
-                        <p>{project.brief}</p>
-                      </div>
-                      <div>
-                        <b>Vai trò</b>
-                        <p>{project.role}</p>
-                      </div>
-                      <div>
-                        <b>Quá trình</b>
-                        <p>{project.process}</p>
-                      </div>
-                      <div>
-                        <b>Kết quả</b>
-                        <p>{project.result}</p>
-                      </div>
-                    </div>
-                  </details>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <div className="glitch-cut" aria-hidden="true">
-          <span>CAPABILITY_MATRIX // ONLINE</span>
-        </div>
-
-        <section className="scene-chapter skills-chapter" id="skills">
-          <div className="chapter-index">
-            <b>04</b>
-            <span>THE TOOLKIT / 技術</span>
-          </div>
-          <div className="skills-copy">
-            <h2 className="chapter-title">
-              <span
-                data-localized
-                data-vi="Viết code để"
-                data-en="Writing code to"
-              >
-                Viết code để
-              </span>
-              <br />
-              <em
-                data-localized
-                data-vi="giải quyết vấn đề."
-                data-en="solve real problems."
-              >
-                giải quyết vấn đề.
-              </em>
+              <LocalText vi="Ý tưởng. Thành hình." en="Ideas. Made real." />
             </h2>
             <p>
-              Từ nền tảng khoa học máy tính đến sản phẩm chạy ổn định ngoài thực
-              tế.
+              <LocalText
+                vi="Bốn dự án. Bốn cách kết nối thiết kế và công nghệ."
+                en="Four projects. Four ways to connect design and technology."
+              />
             </p>
-            <div className="capability-proof">
-              <div>
-                <b>1+ NĂM</b>
-                <span>Xây dựng sản phẩm web thực tế · 2025 — nay</span>
-              </div>
-              <div>
-                <b>10</b>
-                <span>Sản phẩm đã đưa lên môi trường thật</span>
-              </div>
-              <div>
-                <b>END–TO–END</b>
-                <span>Từ bài toán, UI đến triển khai</span>
-              </div>
-              <div>
-                <b>CODE × DESIGN</b>
-                <span>Một quy trình, hai góc nhìn</span>
-              </div>
-            </div>
           </div>
-          <div className="skills-marquee" aria-hidden="true">
-            <div>
-              <span>
-                REACT ✦ NEXT.JS ✦ TYPESCRIPT ✦ NODE.JS ✦ SQL ✦ GSAP ✦ THREE.JS ✦
-                FIGMA ✦ CLOUDFLARE ✦ VERCEL ✦ ACCESSIBILITY ✦ PRODUCT THINKING ✦
-              </span>
-              <span>
-                REACT ✦ NEXT.JS ✦ TYPESCRIPT ✦ NODE.JS ✦ SQL ✦ GSAP ✦ THREE.JS ✦
-                FIGMA ✦ CLOUDFLARE ✦ VERCEL ✦ ACCESSIBILITY ✦ PRODUCT THINKING ✦
-              </span>
-            </div>
+          <ProjectCollection
+            projects={[...projects]
+              .filter((p) => featuredNames.includes(p.name))
+              .sort(
+                (a, b) =>
+                  featuredNames.indexOf(a.name) - featuredNames.indexOf(b.name),
+              )}
+            featured
+          />
+          <div className="archive-heading">
+            <h3>PROJECT ARCHIVE</h3>
+            <span>
+              {String(
+                projects.filter((p) => !featuredNames.includes(p.name)).length,
+              ).padStart(2, '0')}{' '}
+              / MORE EXPLORATIONS
+            </span>
           </div>
-          <div className="skills-resume">
-            <div className="skills-resume-head">
-              <div>
-                <span className="status-dot" />
-                TECHNICAL PROFILE / 2026
-              </div>
-              <b>SOFTWARE ENGINEERING · HUCE</b>
-            </div>
-
-            <div className="experience-stamp">
-              <span>EXPERIENCE</span>
-              <strong>1+ năm Frontend & Product Development</strong>
-              <p>10 sản phẩm thực tế · Community · EdTech · Web App · Web3</p>
-              <i>2025 — PRESENT</i>
-            </div>
-
-            <div className="skill-panel language-panel">
-              <div className="skill-panel-title">
-                <Code2 />
-                <span>01 / PROGRAMMING LANGUAGES</span>
-              </div>
-              <div className="language-list">
-                {[
-                  ['JavaScript / TypeScript', 'ADVANCED', 5],
-                  ['HTML / CSS', 'ADVANCED', 5],
-                  ['SQL', 'PROFICIENT', 4],
-                  ['Java', 'ACADEMIC', 3],
-                  ['C / C++', 'FOUNDATION', 3],
-                  ['Python', 'FOUNDATION', 3],
-                ].map(([name, level, score]) => (
-                  <div className="language-row" key={String(name)}>
-                    <strong>{name}</strong>
-                    <div
-                      className="skill-meter"
-                      aria-label={`${name}: ${level}`}
-                    >
-                      {[1, 2, 3, 4, 5].map((step) => (
-                        <i
-                          className={step <= Number(score) ? 'is-active' : ''}
-                          key={step}
-                        />
-                      ))}
-                    </div>
-                    <small>{level}</small>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="skill-panel stack-panel">
-              <div className="skill-panel-title">
-                <Server />
-                <span>02 / FRAMEWORKS & DATA</span>
-              </div>
-              <div className="skill-chip-grid">
-                <span>React</span>
-                <span>Next.js</span>
-                <span>Node.js</span>
-                <span>REST API</span>
-                <span>Drizzle ORM</span>
-                <span>SQLite / D1</span>
-                <span>GSAP</span>
-                <span>Three.js</span>
-              </div>
-            </div>
-
-            <div className="skill-panel tools-panel">
-              <div className="skill-panel-title">
-                <Terminal />
-                <span>03 / TOOLS I WORK WITH</span>
-              </div>
-              <div className="tool-cloud">
-                <span>Git</span>
-                <span>GitHub</span>
-                <span>VS Code</span>
-                <span>Figma</span>
-                <span>Framer</span>
-                <span>Postman</span>
-                <span>Vercel</span>
-                <span>Cloudflare</span>
-              </div>
-            </div>
-
-            <div className="competency-grid">
-              <article>
-                <GitBranch />
-                <b>ANALYSIS & DESIGN</b>
-                <p>Requirements · UML · User flows · System design</p>
-                <small>Chuyển bài toán thành đặc tả và kiến trúc rõ ràng</small>
-              </article>
-              <article>
-                <Database />
-                <b>IMPLEMENTATION</b>
-                <p>OOP · Data structures · REST · Component architecture</p>
-                <small>
-                  Xây dựng frontend, API và luồng dữ liệu end-to-end
-                </small>
-              </article>
-              <article>
-                <ShieldCheck />
-                <b>QUALITY & SECURITY</b>
-                <p>Testing · Debugging · Validation · Performance</p>
-                <small>Kiểm soát lỗi, accessibility và security basics</small>
-              </article>
-              <article>
-                <ArrowUpRight />
-                <b>DELIVERY & TEAMWORK</b>
-                <p>Git · Agile/Scrum · Documentation · CI/CD concepts</p>
-                <small>Làm việc theo vòng đời phát triển phần mềm</small>
-              </article>
-            </div>
-          </div>
+          <ProjectCollection
+            projects={projects.filter((p) => !featuredNames.includes(p.name))}
+          />
         </section>
+        <VisualLab />
+        <Capabilities />
 
         <section className="cv-chapter" id="cv">
           <div className="cv-pin">
@@ -691,7 +228,7 @@ export default async function Home() {
                   <i className="cv-window-cross cv-window-cross-x" />
                   <i className="cv-window-cross cv-window-cross-y" />
                   <div className="cv-window-horizon" />
-                  <div className="cv-window-sun">05</div>
+                  <div className="cv-window-sun">06</div>
                   <p>SCROLL TO ENTER</p>
                 </div>
                 <span className="cv-window-corner cv-window-corner-tl" />
@@ -706,7 +243,7 @@ export default async function Home() {
                 CV
               </div>
               <div className="chapter-index">
-                <b>05</b>
+                <b>06</b>
                 <span>THE PERSON / 履歴書</span>
               </div>
               <div className="cv-panel">
@@ -718,7 +255,7 @@ export default async function Home() {
                   <p>
                     B.Eng. Software Engineering Student
                     <br />
-                    Creative Developer
+                    Creative Developer / UI/UX Designer
                   </p>
                 </div>
                 <div className="cv-education">
@@ -795,7 +332,7 @@ export default async function Home() {
           </div>
           <div className="contact-layout">
             <div className="contact-heading">
-              <p className="micro-label">FINAL TRANSMISSION / 06</p>
+              <p className="micro-label">FINAL TRANSMISSION / 07</p>
               <h2 className="chapter-title">
                 <span data-localized data-vi="Gửi một" data-en="Send a">
                   Gửi một
@@ -806,10 +343,10 @@ export default async function Home() {
                 <br />
                 <span
                   data-localized
-                  data-vi="Mình sẽ biến nó thành chuyển động."
-                  data-en="I’ll turn it into motion."
+                  data-vi="Cùng tạo điều tiếp theo."
+                  data-en="Let’s make what’s next."
                 >
-                  Mình sẽ biến nó thành chuyển động.
+                  Cùng tạo điều tiếp theo.
                 </span>
               </h2>
               <p>
@@ -884,6 +421,7 @@ export default async function Home() {
           >
             GITHUB ↗
           </a>
+          <Link href="/design-system">POZAN SYSTEM ↗</Link>
           <Link href="/admin">STUDIO ADMIN ↗</Link>
         </div>
       </footer>

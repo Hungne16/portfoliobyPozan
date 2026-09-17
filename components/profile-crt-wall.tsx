@@ -113,10 +113,12 @@ export const profileArchiveData = {
 function CRTMonitor({
   type,
   label,
+  href,
   children,
 }: {
   type: CRTType;
   label: string;
+  href?: string;
   children: ReactNode;
 }) {
   const [isActive, setIsActive] = useState(false);
@@ -126,29 +128,27 @@ function CRTMonitor({
       className={`profile-crt-monitor profile-crt-${type}${isActive ? ' is-active' : ''}`}
       aria-label={label}
     >
-      <div className="profile-crt-shell">
-        <div className="profile-crt-screen">
-          <div className="profile-crt-screen-content">{children}</div>
-          <span className="profile-crt-scanlines" aria-hidden="true" />
-          <span className="profile-crt-reflection" aria-hidden="true" />
-          <span className="profile-crt-static-flash" aria-hidden="true" />
-          <span className="profile-crt-boot-mask" aria-hidden="true" />
-        </div>
-        <div className="profile-crt-controls">
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-          <i aria-hidden="true" />
-          <b>POZAN_SIGNAL</b>
-          <button
-            type="button"
-            aria-expanded={isActive}
-            onClick={() => setIsActive((current) => !current)}
-          >
-            {isActive ? 'CLOSE' : 'FOCUS'}
-          </button>
-        </div>
-      </div>
-      <div className="profile-crt-foot" aria-hidden="true" />
+      <div className="profile-crt-screen-content">{children}</div>
+      <span className="profile-crt-rgb-shift" aria-hidden="true" />
+      <span className="profile-crt-scanlines" aria-hidden="true" />
+      <span className="profile-crt-reflection" aria-hidden="true" />
+      <span className="profile-crt-static-flash" aria-hidden="true" />
+      <span className="profile-crt-boot-mask" aria-hidden="true" />
+      {href ? (
+        <Link className="profile-crt-hotspot" href={href} aria-label={label}>
+          <span>OPEN</span>
+        </Link>
+      ) : (
+        <button
+          className="profile-crt-hotspot"
+          type="button"
+          aria-label={`${label}: reveal details`}
+          aria-pressed={isActive}
+          onClick={() => setIsActive((current) => !current)}
+        >
+          <span>{isActive ? 'CLOSE' : 'FOCUS'}</span>
+        </button>
+      )}
     </article>
   );
 }
@@ -301,9 +301,9 @@ function DesignSystemScreen() {
         <div>
           <span>POZAN</span>
           <h3>DESIGN SYSTEM</h3>
-          <Link href={designSystem.url} className="crt-system-link">
+          <span className="crt-system-link">
             <LocalText vi="MỞ DESIGN SYSTEM" en="OPEN DESIGN SYSTEM" /> ↗
-          </Link>
+          </span>
         </div>
         <ul>
           {designSystem.modules.map((module) => (
@@ -457,13 +457,14 @@ export default function ProfileCRTWall() {
       </div>
 
       <div className="profile-crt-stage">
-        <div className="profile-crt-ambient" aria-hidden="true">
-          <span className="crt-ambient-terminal">DESIGN / CODE / BUILD_</span>
-          <span className="crt-ambient-rec">● REC</span>
-          <span className="crt-ambient-signal">SIGNAL // 03.01.04</span>
-          <i className="crt-ambient-wave" />
-          <i className="crt-ambient-orbit" />
-        </div>
+        <Image
+          className="profile-crt-scene-image"
+          src="/media/profile-crt-scene.png"
+          alt="Illustrated anime cyberpunk room filled with retro CRT monitors"
+          fill
+          sizes="(max-width: 700px) 100vw, 1360px"
+        />
+        <div className="profile-crt-scene-shade" aria-hidden="true" />
 
         <div className="profile-crt-wall">
           <CRTMonitor type="identity" label={monitorLabels.identity}>
@@ -478,7 +479,11 @@ export default function ProfileCRTWall() {
           <CRTMonitor type="education" label={monitorLabels.education}>
             <EducationScreen />
           </CRTMonitor>
-          <CRTMonitor type="system" label={monitorLabels.system}>
+          <CRTMonitor
+            type="system"
+            label={monitorLabels.system}
+            href={profileArchiveData.designSystem.url}
+          >
             <DesignSystemScreen />
           </CRTMonitor>
         </div>

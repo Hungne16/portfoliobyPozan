@@ -5,6 +5,7 @@ import '../styles/editorial.css';
 export const viewport: Viewport = { themeColor: '#0B0B0D' };
 export const metadata: Metadata = {
   metadataBase: new URL('https://portfoliobypozan.vercel.app'),
+  icons: { icon: '/favicon.svg' },
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Pozan — Creative Developer, UI/UX Designer & Software Engineer',

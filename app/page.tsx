@@ -25,6 +25,7 @@ import LanguageSwitcher from '../components/language-switcher';
 import HeroVideo from '../components/hero-video';
 import ProcessVideo from '../components/process-video';
 import ServicesOverview from '../components/services-overview';
+import ProfileCRTWall from '../components/profile-crt-wall';
 import { listProjects } from '@/db';
 
 export const dynamic = 'force-dynamic';
@@ -159,6 +160,8 @@ export default async function Home() {
         </div>
 
         <AboutStory />
+
+        <ProfileCRTWall />
 
         <section className="experience-chapter system-section" id="experience">
           <div className="section-meta">

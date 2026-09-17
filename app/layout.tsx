@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import '../styles/tokens.css';
 import '../styles/editorial.css';
+import '../styles/profile-crt.css';
 export const viewport: Viewport = { themeColor: '#0B0B0D' };
 export const metadata: Metadata = {
   metadataBase: new URL('https://portfoliobypozan.vercel.app'),

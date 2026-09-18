@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -113,42 +113,31 @@ export const profileArchiveData = {
 function CRTMonitor({
   type,
   label,
-  href,
+  onOpen,
   children,
 }: {
   type: CRTType;
   label: string;
-  href?: string;
+  onOpen: () => void;
   children: ReactNode;
 }) {
-  const [isActive, setIsActive] = useState(false);
-
   return (
-    <article
-      className={`profile-crt-monitor profile-crt-${type}${isActive ? ' is-active' : ''}`}
-      aria-label={label}
-    >
+    <article className={`profile-crt-monitor profile-crt-${type}`}>
       <div className="profile-crt-screen-content">{children}</div>
       <span className="profile-crt-rgb-shift" aria-hidden="true" />
       <span className="profile-crt-scanlines" aria-hidden="true" />
       <span className="profile-crt-reflection" aria-hidden="true" />
       <span className="profile-crt-static-flash" aria-hidden="true" />
       <span className="profile-crt-boot-mask" aria-hidden="true" />
-      {href ? (
-        <Link className="profile-crt-hotspot" href={href} aria-label={label}>
-          <span>OPEN</span>
-        </Link>
-      ) : (
-        <button
-          className="profile-crt-hotspot"
-          type="button"
-          aria-label={`${label}: reveal details`}
-          aria-pressed={isActive}
-          onClick={() => setIsActive((current) => !current)}
-        >
-          <span>{isActive ? 'CLOSE' : 'FOCUS'}</span>
-        </button>
-      )}
+      <button
+        className="profile-crt-hotspot"
+        type="button"
+        aria-label={`${label}: open enlarged view`}
+        aria-haspopup="dialog"
+        onClick={onOpen}
+      >
+        <span>EXPAND</span>
+      </button>
     </article>
   );
 }
@@ -289,7 +278,7 @@ function EducationScreen() {
   );
 }
 
-function DesignSystemScreen() {
+function DesignSystemScreen({ expanded = false }: { expanded?: boolean }) {
   const designSystem = profileArchiveData.designSystem;
   return (
     <div className="crt-system-screen">
@@ -301,9 +290,15 @@ function DesignSystemScreen() {
         <div>
           <span>POZAN</span>
           <h3>DESIGN SYSTEM</h3>
-          <span className="crt-system-link">
-            <LocalText vi="MỞ DESIGN SYSTEM" en="OPEN DESIGN SYSTEM" /> ↗
-          </span>
+          {expanded ? (
+            <Link href={designSystem.url} className="crt-system-link">
+              <LocalText vi="MỞ DESIGN SYSTEM" en="OPEN DESIGN SYSTEM" /> ↗
+            </Link>
+          ) : (
+            <span className="crt-system-link">
+              <LocalText vi="MỞ DESIGN SYSTEM" en="OPEN DESIGN SYSTEM" /> ↗
+            </span>
+          )}
         </div>
         <ul>
           {designSystem.modules.map((module) => (
@@ -330,8 +325,39 @@ const monitorLabels: Record<CRTType, string> = {
   system: 'Pozan Design System monitor',
 };
 
+function MonitorContent({
+  type,
+  expanded = false,
+}: {
+  type: CRTType;
+  expanded?: boolean;
+}) {
+  switch (type) {
+    case 'identity':
+      return <IdentityScreen />;
+    case 'timeline':
+      return <TimelineScreen />;
+    case 'skills':
+      return <SkillsScreen />;
+    case 'education':
+      return <EducationScreen />;
+    case 'system':
+      return <DesignSystemScreen expanded={expanded} />;
+  }
+}
+
 export default function ProfileCRTWall() {
   const root = useRef<HTMLElement>(null);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const [expandedMonitor, setExpandedMonitor] = useState<CRTType | null>(null);
+
+  useEffect(() => {
+    if (expandedMonitor && dialog.current && !dialog.current.open) {
+      dialog.current.showModal();
+    }
+  }, [expandedMonitor]);
+
+  const closeExpandedMonitor = () => dialog.current?.close();
 
   useGSAP(
     () => {
@@ -467,27 +493,75 @@ export default function ProfileCRTWall() {
         <div className="profile-crt-scene-shade" aria-hidden="true" />
 
         <div className="profile-crt-wall">
-          <CRTMonitor type="identity" label={monitorLabels.identity}>
-            <IdentityScreen />
+          <CRTMonitor
+            type="identity"
+            label={monitorLabels.identity}
+            onOpen={() => setExpandedMonitor('identity')}
+          >
+            <MonitorContent type="identity" />
           </CRTMonitor>
-          <CRTMonitor type="timeline" label={monitorLabels.timeline}>
-            <TimelineScreen />
+          <CRTMonitor
+            type="timeline"
+            label={monitorLabels.timeline}
+            onOpen={() => setExpandedMonitor('timeline')}
+          >
+            <MonitorContent type="timeline" />
           </CRTMonitor>
-          <CRTMonitor type="skills" label={monitorLabels.skills}>
-            <SkillsScreen />
+          <CRTMonitor
+            type="skills"
+            label={monitorLabels.skills}
+            onOpen={() => setExpandedMonitor('skills')}
+          >
+            <MonitorContent type="skills" />
           </CRTMonitor>
-          <CRTMonitor type="education" label={monitorLabels.education}>
-            <EducationScreen />
+          <CRTMonitor
+            type="education"
+            label={monitorLabels.education}
+            onOpen={() => setExpandedMonitor('education')}
+          >
+            <MonitorContent type="education" />
           </CRTMonitor>
           <CRTMonitor
             type="system"
             label={monitorLabels.system}
-            href={profileArchiveData.designSystem.url}
+            onOpen={() => setExpandedMonitor('system')}
           >
-            <DesignSystemScreen />
+            <MonitorContent type="system" />
           </CRTMonitor>
         </div>
       </div>
+
+      <dialog
+        className="profile-crt-dialog"
+        ref={dialog}
+        aria-label={
+          expandedMonitor
+            ? `${monitorLabels[expandedMonitor]} details`
+            : undefined
+        }
+        onClose={() => setExpandedMonitor(null)}
+      >
+        {expandedMonitor && (
+          <div
+            className={`profile-crt-dialog-panel profile-crt-dialog-${expandedMonitor}`}
+          >
+            <div className="profile-crt-dialog-toolbar">
+              <span>
+                POZAN_PROFILE / {expandedMonitor.toUpperCase()} / EXPANDED
+              </span>
+              <button type="button" onClick={closeExpandedMonitor} autoFocus>
+                <LocalText vi="ĐÓNG" en="CLOSE" /> ×
+              </button>
+            </div>
+            <div className="profile-crt-dialog-screen">
+              <MonitorContent type={expandedMonitor} expanded />
+              <span className="profile-crt-rgb-shift" aria-hidden="true" />
+              <span className="profile-crt-scanlines" aria-hidden="true" />
+              <span className="profile-crt-reflection" aria-hidden="true" />
+            </div>
+          </div>
+        )}
+      </dialog>
     </section>
   );
 }

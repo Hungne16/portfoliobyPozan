@@ -52,6 +52,11 @@ export const systemNavigation = [
         label: 'Accessibility',
         keywords: 'keyboard focus contrast touch target',
       },
+      {
+        id: 'iconography',
+        label: 'Iconography',
+        keywords: 'icons lucide stroke size label decorative',
+      },
     ],
   },
   {
@@ -73,6 +78,16 @@ export const systemNavigation = [
         id: 'dialog',
         label: 'Dialog',
         keywords: 'modal case study escape focus',
+      },
+      {
+        id: 'forms',
+        label: 'Form controls',
+        keywords: 'input field label error disabled focus validation',
+      },
+      {
+        id: 'feedback',
+        label: 'Feedback',
+        keywords: 'status alert success warning error loading empty',
       },
     ],
   },
@@ -113,6 +128,21 @@ export const systemNavigation = [
         id: 'microcopy',
         label: 'Interface copy',
         keywords: 'labels calls to action metadata',
+      },
+    ],
+  },
+  {
+    label: 'Resources',
+    items: [
+      {
+        id: 'resources',
+        label: 'Downloads',
+        keywords: 'download tokens css json starter files assets',
+      },
+      {
+        id: 'templates',
+        label: 'Templates',
+        keywords: 'case study component spec accessibility checklist markdown',
       },
     ],
   },
@@ -235,6 +265,16 @@ export const componentStatuses = [
     name: 'Case dialog',
     status: 'Stable',
     description: 'Accessible project detail overlay',
+  },
+  {
+    name: 'Form field',
+    status: 'Stable',
+    description: 'Label, help, validation and disabled states',
+  },
+  {
+    name: 'Feedback message',
+    status: 'Stable',
+    description: 'Info, success, warning and error communication',
   },
   {
     name: 'Motion scene',

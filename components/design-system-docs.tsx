@@ -7,11 +7,14 @@ import {
   CheckCircle2,
   Clipboard,
   Contrast,
+  Download,
+  FileCode2,
   Focus,
   Grid3X3,
   Languages,
   Menu,
   MousePointer2,
+  PackageOpen,
   Search,
   Sparkles,
   X,
@@ -116,6 +119,30 @@ function SectionHeading({
   );
 }
 
+function ResourceCard({
+  eyebrow,
+  title,
+  description,
+  href,
+  format,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+  format: string;
+}) {
+  return (
+    <a className="docs-resource-card" href={href} download>
+      <span>{eyebrow}</span>
+      <FileCode2 aria-hidden="true" />
+      <h3>{title}</h3>
+      <p>{description}</p>
+      <b>{format} <Download aria-hidden="true" /></b>
+    </a>
+  );
+}
+
 function DocsNavigation({
   active,
   onNavigate,
@@ -208,7 +235,7 @@ export default function DesignSystemDocs() {
           </Link>
           <i />
           <span>SYSTEM</span>
-          <small>01.1</small>
+          <small>02.0</small>
         </div>
         <div className="docs-search-wrap">
           <label className="docs-search">
@@ -258,7 +285,7 @@ export default function DesignSystemDocs() {
       <aside className="docs-sidebar">
         <DocsNavigation active={active} />
         <div className="docs-sidebar-meta">
-          <span>VERSION 01.1</span>
+          <span>VERSION 02.0</span>
           <span>UPDATED SEP 2026</span>
           <Link href="/">VIEW LIVE SYSTEM ↗</Link>
         </div>
@@ -300,15 +327,15 @@ export default function DesignSystemDocs() {
           <dl className="docs-facts">
             <div>
               <dt>VERSION</dt>
-              <dd>01.1</dd>
+              <dd>02.0</dd>
             </div>
             <div>
               <dt>FOUNDATIONS</dt>
-              <dd>06</dd>
+              <dd>07</dd>
             </div>
             <div>
               <dt>COMPONENTS</dt>
-              <dd>05</dd>
+              <dd>07</dd>
             </div>
             <div>
               <dt>PATTERNS</dt>
@@ -620,12 +647,51 @@ export default function DesignSystemDocs() {
           </div>
         </section>
 
+        <section id="iconography" className="docs-section docs-anchor">
+          <SectionHeading
+            eyebrow="09 / FOUNDATIONS"
+            title="Icons clarify, never decorate."
+            description="Lucide provides the shared icon language. Consistent stroke, optical size and accessible labeling keep symbols readable across editorial and product contexts."
+          />
+          <div className="docs-icon-grid">
+            {[
+              [ArrowUpRight, 'Direction', 'Links and destination changes'],
+              [Search, 'Discovery', 'Search and find actions'],
+              [CheckCircle2, 'Success', 'Completed and verified states'],
+              [Contrast, 'Accessibility', 'System and access guidance'],
+              [PackageOpen, 'Resource', 'Assets, kits and downloads'],
+              [Sparkles, 'Experiment', 'Exploration and emerging patterns'],
+            ].map(([Icon, label, use]) => {
+              const SystemIcon = Icon as typeof ArrowUpRight;
+              return (
+                <article key={label as string}>
+                  <SystemIcon aria-hidden="true" />
+                  <b>{label as string}</b>
+                  <span>{use as string}</span>
+                </article>
+              );
+            })}
+          </div>
+          <div className="docs-guidance-grid">
+            <Guidance type="do" title="Pair unfamiliar icons with labels">
+              A symbol may support a label, but must not force visitors to guess an important action.
+            </Guidance>
+            <Guidance type="avoid" title="Avoid mixed icon styles">
+              Do not combine filled, outlined and hand-drawn icon families in one interface.
+            </Guidance>
+          </div>
+          <CodeBlock
+            label="REACT / ICON"
+            code={`<ArrowUpRight aria-hidden="true" />\n<span>Open project</span>`}
+          />
+        </section>
+
         <section
           id="button"
           className="docs-section docs-anchor docs-component-section"
         >
           <SectionHeading
-            eyebrow="09 / COMPONENTS"
+            eyebrow="10 / COMPONENTS"
             title="Button"
             description="Buttons initiate an action. Choose emphasis from the importance of that action, not from visual preference."
           />
@@ -675,7 +741,7 @@ export default function DesignSystemDocs() {
           className="docs-section docs-anchor docs-component-section"
         >
           <SectionHeading
-            eyebrow="10 / COMPONENTS"
+            eyebrow="11 / COMPONENTS"
             title="Tag"
             description="Tags classify content. They are compact, neutral and readable without interaction."
           />
@@ -700,7 +766,7 @@ export default function DesignSystemDocs() {
           className="docs-section docs-anchor docs-component-section"
         >
           <SectionHeading
-            eyebrow="11 / COMPONENTS"
+            eyebrow="12 / COMPONENTS"
             title="Meta link"
             description="Meta links move between destinations while keeping a quiet place in the hierarchy."
           />
@@ -723,7 +789,7 @@ export default function DesignSystemDocs() {
           className="docs-section docs-anchor docs-component-section"
         >
           <SectionHeading
-            eyebrow="12 / COMPONENTS"
+            eyebrow="13 / COMPONENTS"
             title="Project card"
             description="The project card is the core evidence component. Image leads; title, role and direct actions make the work easy to assess."
           />
@@ -747,7 +813,7 @@ export default function DesignSystemDocs() {
           className="docs-section docs-anchor docs-component-section"
         >
           <SectionHeading
-            eyebrow="13 / COMPONENTS"
+            eyebrow="14 / COMPONENTS"
             title="Case dialog"
             description="A focused reading surface for deeper project context without losing the collection position."
           />
@@ -776,9 +842,66 @@ export default function DesignSystemDocs() {
           </div>
         </section>
 
+        <section id="forms" className="docs-section docs-anchor docs-component-section">
+          <SectionHeading
+            eyebrow="15 / COMPONENTS"
+            title="Form controls"
+            description="Fields make the expected input, current state and recovery path visible. Labels remain present after a value is entered."
+          />
+          <div className="docs-component-meta">
+            <Status status="Stable" />
+            <span>LABEL + HELP + VALIDATION</span>
+          </div>
+          <div className="docs-form-specimen">
+            <label className="docs-field">
+              <span>PROJECT EMAIL</span>
+              <input type="email" placeholder="name@studio.com" />
+              <small>Used only to reply to this enquiry.</small>
+            </label>
+            <label className="docs-field is-error">
+              <span>PROJECT URL</span>
+              <input type="url" defaultValue="portfolio" aria-invalid="true" aria-describedby="url-error" />
+              <small id="url-error">Enter a complete URL beginning with https://</small>
+            </label>
+            <label className="docs-field">
+              <span>REFERENCE ID</span>
+              <input type="text" value="POZAN-2026" disabled readOnly />
+              <small>Generated automatically.</small>
+            </label>
+          </div>
+          <div className="docs-anatomy">
+            <span>01 PERSISTENT LABEL</span><span>02 INPUT</span><span>03 HELP OR ERROR</span><span>04 VISIBLE FOCUS</span>
+          </div>
+          <CodeBlock
+            label="HTML / FIELD"
+            code={`<label>\n  <span>Project email</span>\n  <input type="email" aria-describedby="email-help" />\n  <small id="email-help">Used only to reply.</small>\n</label>`}
+          />
+        </section>
+
+        <section id="feedback" className="docs-section docs-anchor docs-component-section">
+          <SectionHeading
+            eyebrow="16 / COMPONENTS"
+            title="Feedback messages"
+            description="Feedback identifies what happened, what it affects and what the visitor can do next. Color reinforces meaning but never carries it alone."
+          />
+          <div className="docs-component-meta">
+            <Status status="Stable" />
+            <span>INLINE + REGION STATUS</span>
+          </div>
+          <div className="docs-feedback-grid">
+            <article className="is-success"><CheckCircle2 /><div><b>Project saved</b><p>Your latest changes are ready to review.</p></div></article>
+            <article className="is-info"><Sparkles /><div><b>Preview mode</b><p>These changes are visible only to you.</p></div></article>
+            <article className="is-warning"><Zap /><div><b>Motion reduced</b><p>Nonessential animation follows your device setting.</p></div></article>
+            <article className="is-error"><X /><div><b>Upload failed</b><p>Check the file type and try again.</p></div></article>
+          </div>
+          <Guidance type="note" title="Announce state changes">
+            Use an appropriate live region for asynchronous feedback, without repeating messages already connected to a field.
+          </Guidance>
+        </section>
+
         <section id="storytelling" className="docs-section docs-anchor">
           <SectionHeading
-            eyebrow="14 / PATTERNS"
+            eyebrow="17 / PATTERNS"
             title="Scroll storytelling"
             description="Build a sequence of clear chapters. Each scroll scene advances the argument instead of simply adding spectacle."
           />
@@ -806,7 +929,7 @@ export default function DesignSystemDocs() {
 
         <section id="case-study" className="docs-section docs-anchor">
           <SectionHeading
-            eyebrow="15 / PATTERNS"
+            eyebrow="18 / PATTERNS"
             title="Case study structure"
             description="Every project uses the same evidence model so recruiters and clients can compare work without decoding a new layout."
           />
@@ -828,7 +951,7 @@ export default function DesignSystemDocs() {
 
         <section id="localization" className="docs-section docs-anchor">
           <SectionHeading
-            eyebrow="16 / PATTERNS"
+            eyebrow="19 / PATTERNS"
             title="Localization"
             description="Vietnamese and English express the same intent while allowing natural phrasing in each language."
           />
@@ -851,7 +974,7 @@ export default function DesignSystemDocs() {
 
         <section id="responsive" className="docs-section docs-anchor">
           <SectionHeading
-            eyebrow="17 / PATTERNS"
+            eyebrow="20 / PATTERNS"
             title="Responsive behavior"
             description="Layouts adapt by priority. Content order stays meaningful even when composition changes."
           />
@@ -876,7 +999,7 @@ export default function DesignSystemDocs() {
 
         <section id="voice" className="docs-section docs-anchor">
           <SectionHeading
-            eyebrow="18 / CONTENT"
+            eyebrow="21 / CONTENT"
             title="Confident, precise, human."
             description="The voice shows technical ability without hiding behind jargon. It is direct enough for a recruiter and expressive enough for a creative collaborator."
           />
@@ -905,7 +1028,7 @@ export default function DesignSystemDocs() {
 
         <section id="microcopy" className="docs-section docs-anchor">
           <SectionHeading
-            eyebrow="19 / CONTENT"
+            eyebrow="22 / CONTENT"
             title="Interface copy moves people."
             description="Labels should predict the result of an action and remain understandable outside the surrounding visual."
           />
@@ -919,9 +1042,41 @@ export default function DesignSystemDocs() {
           </div>
         </section>
 
+        <section id="resources" className="docs-section docs-anchor">
+          <SectionHeading
+            eyebrow="23 / RESOURCES"
+            title="The system, ready to use."
+            description="Portable source files turn guidance into a practical starting point. Each resource mirrors the documented production values."
+          />
+          <div className="docs-resource-grid">
+            <ResourceCard eyebrow="TOKENS / WEB" title="CSS custom properties" description="Color, type, spacing, radius and motion variables for implementation." href="/design-system/pozan-tokens.css" format="CSS / DOWNLOAD" />
+            <ResourceCard eyebrow="TOKENS / PORTABLE" title="Design token source" description="A tool-neutral JSON token set following the Design Tokens format." href="/design-system/pozan-tokens.json" format="JSON / DOWNLOAD" />
+            <ResourceCard eyebrow="QUALITY / ACCESS" title="Accessibility checklist" description="Keyboard, structure, media, visual and responsive verification." href="/design-system/accessibility-checklist.md" format="MD / DOWNLOAD" />
+          </div>
+          <CodeBlock
+            label="CSS / INSTALL"
+            code={`@import url('/design-system/pozan-tokens.css');\n\n.component {\n  color: var(--pozan-white);\n  background: var(--pozan-surface);\n}`}
+          />
+        </section>
+
+        <section id="templates" className="docs-section docs-anchor">
+          <SectionHeading
+            eyebrow="24 / RESOURCES"
+            title="Templates for consistent decisions."
+            description="Start from a shared structure, then adapt it to the evidence and constraints of the work. Templates are prompts, not mandatory filler."
+          />
+          <div className="docs-resource-grid is-templates">
+            <ResourceCard eyebrow="DOCUMENTATION" title="Component spec" description="Purpose, anatomy, states, behavior, content rules and acceptance criteria." href="/design-system/component-spec-template.md" format="MD / DOWNLOAD" />
+            <ResourceCard eyebrow="STORYTELLING" title="Case study outline" description="A concise evidence-led structure from context through learning." href="/design-system/case-study-template.md" format="MD / DOWNLOAD" />
+          </div>
+          <Guidance type="note" title="Keep empty sections out">
+            A template creates consistency, but unsupported sections should be removed rather than filled with vague copy.
+          </Guidance>
+        </section>
+
         <section id="governance" className="docs-section docs-anchor">
           <SectionHeading
-            eyebrow="20 / CONTRIBUTE"
+            eyebrow="25 / CONTRIBUTE"
             title="A living system, with rules."
             description="Components move through visible maturity states. A new pattern earns system status only after it solves a recurring need and passes quality checks."
           />
@@ -953,7 +1108,7 @@ export default function DesignSystemDocs() {
 
         <section id="release-checklist" className="docs-section docs-anchor">
           <SectionHeading
-            eyebrow="21 / CONTRIBUTE"
+            eyebrow="26 / CONTRIBUTE"
             title="Ready means verified."
             description="A component is ready when design intent, code behavior and accessibility agree across supported viewports."
           />
@@ -976,7 +1131,7 @@ export default function DesignSystemDocs() {
 
         <footer className="docs-footer">
           <div>
-            <span>POZAN SYSTEM / 01.1</span>
+            <span>POZAN SYSTEM / 02.0</span>
             <h2>
               Designed to evolve.
               <br />

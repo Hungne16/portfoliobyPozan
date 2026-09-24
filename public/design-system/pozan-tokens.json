@@ -1,0 +1,26 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "color": {
+    "background": { "$value": "#0B0B0D", "$type": "color" },
+    "surface": { "$value": "#111114", "$type": "color" },
+    "surfaceInteractive": { "$value": "#18181C", "$type": "color" },
+    "text": { "$value": "#FAFAFA", "$type": "color" },
+    "textMuted": { "$value": "#B8B8BF", "$type": "color" },
+    "border": { "$value": "#34343A", "$type": "color" },
+    "action": { "$value": "#C7FF3D", "$type": "color" },
+    "info": { "$value": "#5B7CFF", "$type": "color" },
+    "experiment": { "$value": "#9B7BFF", "$type": "color" }
+  },
+  "radius": {
+    "xs": { "$value": "4px", "$type": "dimension" },
+    "sm": { "$value": "8px", "$type": "dimension" },
+    "md": { "$value": "12px", "$type": "dimension" },
+    "lg": { "$value": "20px", "$type": "dimension" }
+  },
+  "duration": {
+    "fast": { "$value": "160ms", "$type": "duration" },
+    "base": { "$value": "280ms", "$type": "duration" },
+    "slow": { "$value": "480ms", "$type": "duration" },
+    "reveal": { "$value": "700ms", "$type": "duration" }
+  }
+}

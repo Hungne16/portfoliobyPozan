@@ -2,50 +2,30 @@ import { LocalText, Tag } from './pozan-system';
 
 const groups = [
   {
-    title: 'Core',
-    level: 'READY TO SHIP',
-    text: 'Năng lực mình có thể tự chủ để đưa một giao diện từ ý tưởng đến production.',
-    en: 'Skills I can own to take an interface from idea to production.',
+    title: 'Design',
+    level: 'DESIGN PRACTICE',
+    text: 'Các năng lực dùng để định hình sản phẩm và trải nghiệm số.',
+    en: 'Skills used to shape products and digital experiences.',
     skills: [
-      'UI/UX',
-      'React',
-      'Next.js',
-      'TypeScript',
-      'JavaScript',
-      'HTML / CSS',
-      'Responsive UI',
-      'Git',
+      'Figma', 'Framer', 'UI Design', 'UX Design', 'Design Systems', 'Prototyping',
     ],
   },
   {
-    title: 'Working with',
-    level: 'PROJECT EXPERIENCE',
-    text: 'Công cụ và phương pháp đã được mình áp dụng trong các dự án thực tế.',
-    en: 'Tools and methods I have applied across working projects.',
+    title: 'Visual / Social',
+    level: 'VISUAL EXPLORATION',
+    text: 'Những hướng thiết kế hình ảnh và truyền thông mình đang phát triển qua dự án và thử nghiệm.',
+    en: 'Visual and communication directions I am developing through projects and experiments.',
     skills: [
-      'Node.js',
-      'REST APIs',
-      'SQL',
-      'GSAP',
-      'Figma',
-      'Framer',
-      'Design Systems',
-      'Vercel',
-      'Cloudflare',
+      'Social Media Design', 'Art Direction', 'Typography', 'Campaign Design', 'Branding', 'Visual Storytelling',
     ],
   },
   {
-    title: 'Exploring',
-    level: 'ACTIVE R&D',
-    text: 'Những hướng mình đang thử nghiệm để tạo trải nghiệm web có chiều sâu hơn.',
-    en: 'Areas I am actively exploring to create richer web experiences.',
+    title: 'Development',
+    level: 'CREATIVE BUILD',
+    text: 'Công nghệ mình sử dụng để biến hệ thống thiết kế và tương tác thành trải nghiệm chạy thật.',
+    en: 'Technology I use to turn design systems and interaction into working experiences.',
     skills: [
-      'Three.js',
-      'WebGL',
-      'CSS 3D',
-      'Generative Visuals',
-      'Shader Fundamentals',
-      'AI-assisted Creative Workflow',
+      'React', 'Next.js', 'JavaScript / TypeScript', 'GSAP', 'Three.js', 'Frontend Development', 'Git', 'Vercel', 'Design-to-Code', 'AI-assisted Workflow',
     ],
   },
 ];
@@ -59,14 +39,14 @@ export default function Capabilities() {
       <div className="section-heading">
         <h2 className="chapter-title">
           <LocalText
-            vi="Năng lực, theo mức độ sẵn sàng."
-            en="Skills, by readiness."
+            vi="Năng lực, theo lĩnh vực thực hành."
+            en="Skills, by practice area."
           />
         </h2>
         <p>
           <LocalText
-            vi="Nhìn nhanh những gì mình có thể tự chủ, đã áp dụng trong dự án và đang tiếp tục đào sâu."
-            en="See what I can own, what I have used in projects and what I am actively developing next."
+            vi="Nhìn nhanh những công cụ và hướng làm việc mình sử dụng để kết nối ý tưởng, hình ảnh và sản phẩm số."
+            en="A quick view of the tools and practices I use to connect ideas, visuals and digital products."
           />
         </p>
       </div>
@@ -89,8 +69,8 @@ export default function Capabilities() {
       </div>
       <p className="capability-note">
         <LocalText
-          vi="Năng lực được kiểm chứng qua 10 sản phẩm đã ship và quá trình học Công nghệ Phần mềm tại HUCE."
-          en="Validated through 10 shipped products and Software Engineering studies at HUCE."
+          vi="Các nhóm kỹ năng thể hiện phạm vi thực hành hiện tại, không phải tuyên bố về cấp độ chuyên môn."
+          en="These skill groups describe my current practice areas, not a claim of professional seniority."
         />
       </p>
     </section>

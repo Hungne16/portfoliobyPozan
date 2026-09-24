@@ -10,8 +10,9 @@ export default function HeroVideo() {
     if (!video) return;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let inViewport = true;
     const syncPlayback = () => {
-      if (reducedMotion.matches || document.hidden) {
+      if (reducedMotion.matches || document.hidden || !inViewport) {
         video.pause();
         return;
       }
@@ -21,11 +22,17 @@ export default function HeroVideo() {
     };
 
     syncPlayback();
+    const observer = new IntersectionObserver(([entry]) => {
+      inViewport = entry.isIntersecting;
+      syncPlayback();
+    }, { threshold: 0.01 });
+    observer.observe(video);
     reducedMotion.addEventListener('change', syncPlayback);
     document.addEventListener('visibilitychange', syncPlayback);
     return () => {
       reducedMotion.removeEventListener('change', syncPlayback);
       document.removeEventListener('visibilitychange', syncPlayback);
+      observer.disconnect();
     };
   }, []);
 

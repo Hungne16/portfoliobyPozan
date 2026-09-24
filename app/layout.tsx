@@ -9,15 +9,15 @@ export const metadata: Metadata = {
   icons: { icon: '/favicon.svg' },
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'Pozan — Creative Developer, UI/UX Designer & Software Engineer',
+    title: 'Pozan — Multidisciplinary Designer & Creative Developer',
     description:
-      'Designing and building digital experiences through UI/UX, visual systems and software engineering.',
+      'Designing digital products, social campaigns and interactive visual experiences.',
     images: ['/anime-studio.png'],
     type: 'website',
   },
-  title: 'Pozan — Creative Developer, UI/UX Designer & Software Engineer',
+  title: 'Pozan — Multidisciplinary Designer & Creative Developer',
   description:
-    'Portfolio of Pozan — designing and building digital experiences through UI/UX, visual systems, creative development and software engineering.',
+    'Portfolio of Pozan — UI/UX, social media design, branding and creative development.',
 };
 export default function RootLayout({
   children,

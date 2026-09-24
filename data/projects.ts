@@ -9,6 +9,10 @@ export type PortfolioProject = {
   projectUrl: string | null;
   year: string;
   imageKey: string | null;
+  /** A project may belong to more than one practice area. */
+  disciplines?: ProjectDiscipline[];
+  /** Reserved for real campaign work added through the project data later. */
+  socialCampaign?: SocialCampaignContent;
   stack?: string[];
   engineering?: {
     vi: string;
@@ -32,6 +36,25 @@ export type PortfolioProject = {
       en: string;
     }>;
   };
+};
+
+export type ProjectDiscipline =
+  | 'UI/UX'
+  | 'Social'
+  | 'Branding'
+  | 'Creative Dev';
+
+export type SocialCampaignContent = {
+  brand?: string;
+  objective?: string;
+  audience?: string;
+  artDirection?: string;
+  outcome?: string;
+  media?: Array<{
+    kind: 'key visual' | 'static post' | 'carousel' | 'story' | 'ad' | 'motion' | 'feed' | 'mockup';
+    src: string;
+    alt: string;
+  }>;
 };
 
 const authoredProjects: PortfolioProject[] = [
@@ -512,7 +535,7 @@ export const sampleProjects = authoredProjects.map((project) => ({
   id: projectSlug(project.name),
   slug: projectSlug(project.name),
   featured: featuredNames.includes(project.name),
-  disciplines: ['Design', 'Development'],
+  disciplines: getProjectDisciplines(project.name),
   caseStudy: {
     problem: project.brief,
     role: project.role,
@@ -520,3 +543,21 @@ export const sampleProjects = authoredProjects.map((project) => ({
     outcome: project.result,
   },
 }));
+
+/** Keep classification in one place so homepage, previews and future campaign work stay aligned. */
+export function getProjectDisciplines(name: string): ProjectDiscipline[] {
+  const classifications: Record<string, ProjectDiscipline[]> = {
+    BeeTools: ['UI/UX'],
+    'Arcade Học Đường': ['Creative Dev'],
+    'Orbits DeFi': ['UI/UX', 'Creative Dev'],
+    'U-Life': ['UI/UX'],
+    'ULIS Eco': ['UI/UX'],
+    'U-RUN — Be ULISer, Be Runner': ['Social', 'Creative Dev'],
+    UniLoop: ['UI/UX'],
+    'WULIS — Workshop ULIS': ['Branding', 'UI/UX'],
+    'The BookBridge': ['UI/UX', 'Branding'],
+    'ULIS Lost & Found': ['UI/UX'],
+    Temsy: ['UI/UX'],
+  };
+  return classifications[name] ?? ['UI/UX'];
+}

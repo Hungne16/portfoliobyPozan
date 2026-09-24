@@ -5,6 +5,7 @@ import {
 } from '@/data/projects';
 import { LocalText } from '@/components/pozan-system';
 import ProjectCollection from '@/components/project-collection';
+import FeaturedWorkPreview from '@/components/featured-work-preview';
 import VisualLab from '@/components/visual-lab';
 import Capabilities from '@/components/capabilities';
 import Link from 'next/link';
@@ -69,7 +70,7 @@ export default async function Home() {
           <span>✳</span> POZAN/創
         </a>
         <div className="hud-status">
-          <i /> CREATIVE DEVELOPER / UI/UX DESIGNER / SOFTWARE ENGINEER
+          <i /> MULTIDISCIPLINARY DESIGNER & CREATIVE DEVELOPER
         </div>
         <div className="hud-actions">
           <LanguageSwitcher />
@@ -96,20 +97,20 @@ export default async function Home() {
             <p className="hero-kicker">PROLOGUE / THE FIRST SIGNAL</p>
             <p className="hero-positioning">
               <LocalText
-                vi="SINH VIÊN CÔNG NGHỆ PHẦN MỀM @ HUCE / CREATIVE FRONTEND DEVELOPER"
-                en="SOFTWARE ENGINEERING STUDENT @ HUCE / CREATIVE FRONTEND DEVELOPER"
+                vi="UI/UX · SOCIAL MEDIA · BRANDING · CREATIVE DEVELOPMENT"
+                en="UI/UX · SOCIAL MEDIA · BRANDING · CREATIVE DEVELOPMENT"
               />
             </p>
             <h1 className="hero-title">
               <LocalText
-                vi="Từ ý tưởng đến trải nghiệm số chạy thật."
-                en="From idea to a digital experience that works."
+                vi="MULTIDISCIPLINARY DESIGNER & CREATIVE DEVELOPER"
+                en="MULTIDISCIPLINARY DESIGNER & CREATIVE DEVELOPER"
               />
             </h1>
             <p className="hero-copy">
               <LocalText
-                vi="Mình giúp thương hiệu và đội ngũ biến ý tưởng thành website tương tác rõ ràng, đáng nhớ và sẵn sàng đưa vào sử dụng — từ UI/UX đến frontend và deployment."
-                en="I help brands and teams turn ideas into clear, memorable interactive websites ready to use—from UI/UX through frontend and deployment."
+                vi="Mình tạo digital products, social campaigns và interactive visual experiences."
+                en="I create digital products, social campaigns and interactive visual experiences."
               />
             </p>
             <div className="hero-actions">
@@ -126,7 +127,7 @@ export default async function Home() {
               <div>
                 <b>10</b>
                 <span>
-                  <LocalText vi="SẢN PHẨM ĐÃ SHIP" en="SHIPPED PRODUCTS" />
+                  <LocalText vi="DỰ ÁN ĐÃ THIẾT KẾ & XÂY DỰNG" en="PROJECTS DESIGNED & BUILT" />
                 </span>
               </div>
               <div>
@@ -158,6 +159,12 @@ export default async function Home() {
         <div className="glitch-cut" aria-hidden="true">
           <span>POZAN_SYSTEM // EVERY STORY STARTS WITH A QUESTION</span>
         </div>
+
+        <FeaturedWorkPreview
+          projects={[...projects]
+            .filter((project) => ['BeeTools', 'Arcade Học Đường', 'Orbits DeFi'].includes(project.name))
+            .sort((a, b) => ['BeeTools', 'Arcade Học Đường', 'Orbits DeFi'].indexOf(a.name) - ['BeeTools', 'Arcade Học Đường', 'Orbits DeFi'].indexOf(b.name))}
+        />
 
         <AboutStory />
 
@@ -227,7 +234,7 @@ export default async function Home() {
 
         <section className="projects-chapter system-section" id="projects">
           <div className="section-meta">
-            03 / SERVICES & SELECTED WORK <span>DESIGN × DEVELOPMENT</span>
+            03 / SERVICES & SELECTED WORK <span>DESIGN × SOCIAL × CREATIVE DEV</span>
           </div>
           <ServicesOverview />
           <div className="section-heading">
@@ -236,8 +243,8 @@ export default async function Home() {
             </h2>
             <p>
               <LocalText
-                vi="Bốn bằng chứng về cách mình kết nối tư duy sản phẩm, thiết kế và công nghệ."
-                en="Four proofs of how I connect product thinking, design and technology."
+                vi="Các dự án được tổ chức theo lĩnh vực để bạn xem đúng loại công việc mình có thể đóng góp."
+                en="Projects organized by practice area, so you can quickly find the kind of work I can contribute."
               />
             </p>
           </div>
@@ -307,7 +314,7 @@ export default async function Home() {
                   <p>
                     B.Eng. Software Engineering Student
                     <br />
-                    Creative Developer / UI/UX Designer
+                    Multidisciplinary Designer & Creative Developer
                   </p>
                 </div>
                 <div className="cv-education">
@@ -403,8 +410,8 @@ export default async function Home() {
               </h2>
               <p>
                 <LocalText
-                  vi="Mình đang nhận cơ hội thực tập, freelance landing page, product website và creative web collaboration. Gửi brief, mục tiêu hoặc một ý tưởng chưa hoàn chỉnh — mình sẽ cùng bạn biến nó thành hướng đi rõ ràng."
-                  en="I’m open to internships, freelance landing pages, product websites and creative web collaborations. Send a brief, a goal or an unfinished idea — I’ll help turn it into a clear direction."
+                  vi="Mình mở cho các cơ hội UI/UX, Social Media Design, Creative Design và Creative Development. Gửi brief, mục tiêu hoặc một ý tưởng chưa hoàn chỉnh — mình sẽ cùng bạn biến nó thành hướng đi rõ ràng."
+                  en="Open to UI/UX, Social Media Design, Creative Design and Creative Development opportunities. Send a brief, a goal or an unfinished idea — I’ll help turn it into a clear direction."
                 />
               </p>
             </div>
@@ -449,10 +456,10 @@ export default async function Home() {
                   </a>
                 </div>
                 <div className="contact-topics">
-                  <span>INTERNSHIP</span>
-                  <span>LANDING PAGE</span>
-                  <span>PRODUCT WEBSITE</span>
-                  <span>CREATIVE COLLAB</span>
+                  <span>UI/UX</span>
+                  <span>SOCIAL DESIGN</span>
+                  <span>CREATIVE DESIGN</span>
+                  <span>CREATIVE DEV</span>
                 </div>
                 <p>
                   <Sparkles /> CHANNEL READY — YOUR MESSAGE STARTS THE NEXT

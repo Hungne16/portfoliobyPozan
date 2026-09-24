@@ -16,7 +16,7 @@ export const visualLab: VisualExperiment[] = [
     id: 'signal-field',
     index: 'L/01',
     title: 'Signal Field',
-    discipline: 'GENERATIVE VISUAL',
+    discipline: 'GENERATIVE DESIGN',
     year: '2026',
     status: 'LIVE',
     description: {
@@ -31,7 +31,7 @@ export const visualLab: VisualExperiment[] = [
     id: 'type-reactor',
     index: 'L/02',
     title: 'Type Reactor',
-    discipline: 'KINETIC TYPE',
+    discipline: 'TYPOGRAPHY',
     year: '2026',
     status: 'LIVE',
     description: {
@@ -46,7 +46,7 @@ export const visualLab: VisualExperiment[] = [
     id: 'orbital-form',
     index: 'L/03',
     title: 'Orbital Form',
-    discipline: 'SPATIAL INTERACTION',
+    discipline: '3D / INTERACTIVE',
     year: '2026',
     status: 'PROTOTYPE',
     description: {
@@ -61,7 +61,7 @@ export const visualLab: VisualExperiment[] = [
     id: 'interface-pulse',
     index: 'L/04',
     title: 'Interface Pulse',
-    discipline: 'MICRO-INTERACTION',
+    discipline: 'MOTION',
     year: '2026',
     status: 'LIVE',
     description: {

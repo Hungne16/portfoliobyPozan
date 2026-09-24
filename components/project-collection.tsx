@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import type { PortfolioProject } from '@/data/projects';
 import { projectSlug } from '@/data/projects';
 import { LocalText, Tag } from './pozan-system';
@@ -80,7 +80,7 @@ function ProjectCard({
       </div>
       <div className="project-copy">
         <p className="micro-label">
-          {project.type} / {project.year}
+          {project.disciplines?.join(' + ') ?? project.type} / {project.year}
         </p>
         <h3>{project.name}</h3>
         <p className="project-sub">{project.sub}</p>
@@ -113,6 +113,9 @@ function ProjectCard({
           </div>
         </div>
         <div className="project-disciplines">
+          {project.disciplines?.map((item) => (
+            <Tag key={item}>{item.toUpperCase()}</Tag>
+          ))}
           {stack.slice(0, 3).map((item) => (
             <Tag key={item}>{item.toUpperCase()}</Tag>
           ))}
@@ -152,13 +155,24 @@ function ProjectCard({
           <h2 id={`case-${slug}`}>{project.name}</h2>
           <p>{project.sub}</p>
         </div>
+        {project.imageKey && (
+          <figure className="case-hero-media">
+            <Image
+              src={project.imageKey}
+              alt={`${project.name} final design`}
+              fill
+              sizes="(max-width: 760px) 92vw, 760px"
+            />
+            <figcaption>FINAL DESIGN / PROJECT EVIDENCE</figcaption>
+          </figure>
+        )}
         <div className="case-grid">
           {[
-            ['Bối cảnh', 'Problem', project.brief],
+            ['Bối cảnh', 'Problem / Context', project.brief],
             ['Vai trò', 'My role', project.role],
-            ['Quá trình', 'Process', project.process],
+            ['Hướng triển khai', 'Design direction', project.process],
             ['Kết quả', 'Outcome', project.result],
-          ].map(([vi, en, value], i) => (
+          ].filter(([, , value]) => Boolean(value)).map(([vi, en, value], i) => (
             <div key={en}>
               <b>
                 0{i + 1} / <LocalText vi={vi} en={en} />
@@ -244,9 +258,39 @@ export default function ProjectCollection({
   projects: PortfolioProject[];
   featured?: boolean;
 }) {
+  const [activeDiscipline, setActiveDiscipline] = useState('ALL');
+  const disciplines = ['ALL', 'UI/UX', 'SOCIAL', 'BRANDING', 'CREATIVE DEV'];
+  const visibleProjects = useMemo(
+    () =>
+      activeDiscipline === 'ALL'
+        ? projects
+        : projects.filter((project) =>
+            project.disciplines?.some(
+              (discipline) => discipline.toUpperCase() === activeDiscipline,
+            ),
+          ),
+    [activeDiscipline, projects],
+  );
+
   return (
-    <div className={featured ? 'project-stack' : 'archive-grid'}>
-      {projects.map((project, index) => (
+    <div className={featured ? 'project-stack' : 'work-collection'}>
+      {!featured && (
+        <nav className="work-filter" aria-label="Filter work by discipline">
+          {disciplines.map((discipline) => (
+            <button
+              key={discipline}
+              type="button"
+              className={activeDiscipline === discipline ? 'is-active' : ''}
+              onClick={() => setActiveDiscipline(discipline)}
+              aria-pressed={activeDiscipline === discipline}
+            >
+              {discipline}
+            </button>
+          ))}
+        </nav>
+      )}
+      <div className={featured ? 'project-stack' : 'archive-grid'} aria-live="polite">
+      {visibleProjects.map((project, index) => (
         <ProjectCard
           key={project.name}
           project={project}
@@ -254,6 +298,10 @@ export default function ProjectCollection({
           featured={featured}
         />
       ))}
+      {!visibleProjects.length && (
+        <p className="work-filter-empty">No published work in this discipline yet.</p>
+      )}
+      </div>
     </div>
   );
 }

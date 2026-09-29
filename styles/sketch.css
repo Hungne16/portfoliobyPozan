@@ -108,7 +108,15 @@
 }
 /* Separate the paper cards from the canvas, and keep type inside its frame. */
 .sketch-theme .sketch-story { overflow-x: clip; }
-.sketch-theme .sketch-nav { position: absolute; top: 94px; bottom: auto; }
+.sketch-theme .sketch-nav { position: fixed; top: auto; bottom: max(20px, env(safe-area-inset-bottom)); max-width: calc(100vw - 24px); }
+.sketch-theme { scroll-padding-block: 100px; }
+.sketch-theme .site-footer { padding-bottom: calc(110px + env(safe-area-inset-bottom)); }
+.sketch-theme .language-switcher { background: #f0efea; border: 1px solid #373732; border-radius: 4px 8px 3px 6px; padding: 3px; gap: 4px; box-shadow: 2px 2px 0 #373732; }
+.sketch-theme .language-switcher > span { display: none; }
+.sketch-theme .language-switcher { grid-template-columns: repeat(2, minmax(44px, 1fr)); flex-shrink: 0; }
+.sketch-theme .language-switcher button { min-width: 44px; min-height: 40px; padding: 8px 10px; color: #30302c; background: transparent; text-shadow: none; }
+.sketch-theme .language-switcher button:is(:hover, :focus-visible) { background: #dcdad3; color: #20201f; }
+.sketch-theme .language-switcher button.is-active { background: #292926; color: #fff; }
 .sketch-theme .hero-chapter { padding-top: 200px; }
 .sketch-theme .hero-chapter {
   background-color: #e9e8e3;
@@ -164,7 +172,7 @@
 .sketch-theme .flagship-badge { position: static; grid-column: 1 / -1; margin: 0; }
 .sketch-theme :is(.project-signal, .project-reticle) { display: none; }
 @media (max-width: 700px) {
-  .sketch-theme .sketch-nav { top: 84px; bottom: auto; }
+  .sketch-theme .sketch-nav { top: auto; bottom: max(12px, env(safe-area-inset-bottom)); }
   .sketch-theme .hero-chapter { padding-top: 180px; }
   .sketch-doodles { top: 160px; }
   .sketch-theme .archive-card { padding: 8px; }

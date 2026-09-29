@@ -1,7 +1,6 @@
 'use client';
 
 import { useLayoutEffect, useState } from 'react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 type Language = 'vi' | 'en';
 
@@ -223,7 +222,7 @@ function replaceText(node: Text, language: Language) {
 }
 
 function translatePage(language: Language) {
-  const content = document.querySelector<HTMLElement>('.scroll-story');
+  const content = document.querySelector<HTMLElement>('.sketch-story, .scroll-story');
   if (!content) return;
 
   const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, {
@@ -293,35 +292,34 @@ export default function LanguageSwitcher() {
   const [language, setLanguage] = useState<Language>('vi');
 
   useLayoutEffect(() => {
-    const saved = localStorage.getItem('pozan-language');
+    let saved: string | null = null;
+    try { saved = localStorage.getItem('pozan-language'); } catch { /* Storage may be disabled. */ }
     const initial: Language = saved === 'en' ? 'en' : 'vi';
     translatePage(initial);
     if (initial === 'en') {
       requestAnimationFrame(() => setLanguage('en'));
     }
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+    const content = document.querySelector('.sketch-story, .scroll-story');
+    if (!content) return;
+    const observer = new MutationObserver(() => {
+      observer.disconnect();
+      translatePage(document.documentElement.dataset.language === 'en' ? 'en' : 'vi');
+      observer.observe(content, { childList: true, subtree: true });
+    });
+    observer.observe(content, { childList: true, subtree: true });
+    return () => observer.disconnect();
   }, []);
 
   const selectLanguage = (next: Language) => {
     if (next === language) return;
     const update = () => {
       setLanguage(next);
-      localStorage.setItem('pozan-language', next);
+      try { localStorage.setItem('pozan-language', next); } catch { /* Switching still works without persistence. */ }
       window.dispatchEvent(new Event('pozan:before-language'));
       translatePage(next);
       window.dispatchEvent(new Event('pozan:after-language'));
     };
-    const transitionDocument = document as Document & {
-      startViewTransition?: (callback: () => void) => void;
-    };
-    if (transitionDocument.startViewTransition) {
-      transitionDocument.startViewTransition(update);
-    } else {
-      update();
-    }
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => ScrollTrigger.refresh()),
-    );
+    update();
   };
 
   return (

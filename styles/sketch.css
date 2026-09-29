@@ -106,4 +106,69 @@
  .sketch-nav a { padding: 12px 14px; }
  .sketch-theme .cv-pin { padding: 45px 20px; }
 }
+/* Separate the paper cards from the canvas, and keep type inside its frame. */
+.sketch-theme .sketch-story { overflow-x: clip; }
+.sketch-theme .sketch-nav { position: absolute; top: 94px; bottom: auto; }
+.sketch-theme .hero-chapter { padding-top: 200px; }
+.sketch-theme .hero-chapter {
+  background-color: #e9e8e3;
+  background-image: radial-gradient(#a5a49d 0.65px, transparent 0.65px);
+  background-size: 22px 22px;
+}
+.sketch-theme :is(.projects-chapter, .cv-chapter) { background: #e4e3dd; }
+.sketch-theme :is(.featured-preview, .skills-chapter) { background: #f3f2ed; }
+.sketch-theme .archive-card { padding: 12px; }
+.sketch-theme .archive-card .project-copy { padding: 12px clamp(8px, 2vw, 20px) 20px; }
+.sketch-theme .archive-card .project-visual { margin-bottom: 8px; box-shadow: none; }
+.sketch-theme :is(.project-copy, .project-facts > div, .project-proof > div) { min-width: 0; }
+.sketch-theme .project-copy :is(h3, p, dd, dt, .system-tag, .system-link) { overflow-wrap: anywhere; }
+.sketch-theme .project-copy .system-tag { max-width: 100%; white-space: normal; line-height: 1.6; }
+.sketch-theme .project-disciplines { gap: 8px; }
+.sketch-theme .project-actions { gap: 12px 20px; padding-bottom: 4px; }
+.sketch-theme .project-facts > div { gap: 12px; padding-block: 14px; }
+.sketch-theme .project-proof p { margin-bottom: 0; }
+.sketch-theme .project-visual-inner {
+  position: relative;
+  inset: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  height: auto;
+  min-height: 0;
+  overflow: hidden;
+}
+.sketch-theme .project-visual-inner > img {
+  position: relative !important;
+  inset: auto !important;
+  grid-column: 1 / -1;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 1.65;
+  object-fit: contain;
+  transform: none;
+}
+.sketch-theme .project-visual,
+.sketch-theme .archive-card .project-visual { aspect-ratio: auto; }
+.sketch-theme .project-visual-inner :is(.visual-index, .visual-year) {
+  position: static;
+  display: block;
+  padding: 12px;
+  margin: 0;
+  background: #f0efea;
+  color: #30302c;
+  border-top: 1px solid #92928a;
+  font-size: 10px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+.sketch-theme .flagship-badge { position: static; grid-column: 1 / -1; margin: 0; }
+.sketch-theme :is(.project-signal, .project-reticle) { display: none; }
+@media (max-width: 700px) {
+  .sketch-theme .sketch-nav { top: 84px; bottom: auto; }
+  .sketch-theme .hero-chapter { padding-top: 180px; }
+  .sketch-doodles { top: 160px; }
+  .sketch-theme .archive-card { padding: 8px; }
+  .sketch-theme .archive-card .project-copy { padding: 16px 12px 20px; }
+  .sketch-theme .project-facts > div { grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); }
+}
 @media (prefers-reduced-motion: reduce) { .sketch-theme * { scroll-behavior: auto !important; } }

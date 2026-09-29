@@ -20,10 +20,9 @@ import {
   Sparkles,
   Terminal,
 } from 'lucide-react';
-import ScrollStory from '../components/scroll-story';
+import ScrollStory from '../components/sketch-story';
 import AboutStory from '../components/about-story';
 import LanguageSwitcher from '../components/language-switcher';
-import HeroVideo from '../components/hero-video';
 import ProcessVideo from '../components/process-video';
 import ServicesOverview from '../components/services-overview';
 import ProfileCRTWall from '../components/profile-crt-wall';
@@ -82,9 +81,6 @@ export default async function Home() {
 
       <main id="main">
         <section className="scene-chapter hero-chapter" id="home">
-          <div className="hero-art" aria-hidden="true">
-            <HeroVideo />
-          </div>
           <div className="hero-wordmark" aria-hidden="true">
             POZAN
           </div>

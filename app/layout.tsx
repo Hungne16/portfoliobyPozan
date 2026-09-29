@@ -3,7 +3,8 @@ import './globals.css';
 import '../styles/tokens.css';
 import '../styles/editorial.css';
 import '../styles/profile-crt.css';
-export const viewport: Viewport = { themeColor: '#0B0B0D' };
+import '../styles/sketch.css';
+export const viewport: Viewport = { themeColor: '#faf9f6' };
 export const metadata: Metadata = {
   metadataBase: new URL('https://portfoliobypozan.vercel.app'),
   icons: { icon: '/favicon.svg' },
@@ -23,7 +24,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="vi">
+    <html lang="vi" className="sketch-theme">
       <body>{children}</body>
     </html>
   );

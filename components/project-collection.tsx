@@ -1,10 +1,12 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useMemo, useRef, useState } from 'react';
 import type { PortfolioProject } from '@/data/projects';
 import { projectSlug } from '@/data/projects';
 import { LocalText, Tag } from './pozan-system';
+import { getPublishedCaseStudyForProject } from '@/data/case-studies';
 
 function ProjectCard({
   project,
@@ -18,6 +20,7 @@ function ProjectCard({
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const slug = projectSlug(project.name);
+  const publishedCaseStudy = getPublishedCaseStudyForProject(project.name);
   const stack = project.stack?.length
     ? project.stack
     : ['Design', 'Development'];
@@ -131,17 +134,24 @@ function ProjectCard({
               <LocalText vi="Mở dự án" en="Live website" /> ↗
             </a>
           )}
-          <button className="system-link" ref={trigger} onClick={open}>
-            <LocalText vi="Xem case study" en="Read case study" /> ↗
-          </button>
+          {publishedCaseStudy ? (
+            <Link className="system-link" href={`/projects/${publishedCaseStudy.slug}`}>
+              <LocalText vi="Xem case study" en="Read case study" /> ↗
+            </Link>
+          ) : (
+            <button className="system-link" ref={trigger} onClick={open}>
+              <LocalText vi="Xem case study" en="Read case study" /> ↗
+            </button>
+          )}
         </div>
       </div>
-      <dialog
-        className="project-dialog"
-        ref={dialog}
-        aria-labelledby={`case-${slug}`}
-        onClose={() => trigger.current?.focus()}
-      >
+      {!publishedCaseStudy && (
+        <dialog
+          className="project-dialog"
+          ref={dialog}
+          aria-labelledby={`case-${slug}`}
+          onClose={() => trigger.current?.focus()}
+        >
         <div className="dialog-toolbar">
           <span>POZAN / CASE STUDY</span>
           <button onClick={close} autoFocus>
@@ -246,7 +256,8 @@ function ProjectCard({
             <LocalText vi="Khám phá dự án" en="Explore the project" /> ↗
           </a>
         )}
-      </dialog>
+        </dialog>
+      )}
     </article>
   );
 }

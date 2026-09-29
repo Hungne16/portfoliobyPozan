@@ -4,6 +4,7 @@ import '../styles/tokens.css';
 import '../styles/editorial.css';
 import '../styles/profile-crt.css';
 import '../styles/sketch.css';
+import '../styles/sketchbook.css';
 export const viewport: Viewport = { themeColor: '#faf9f6' };
 export const metadata: Metadata = {
   metadataBase: new URL('https://portfoliobypozan.vercel.app'),

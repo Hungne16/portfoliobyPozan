@@ -1,0 +1,101 @@
+/* Sketchbook art direction. Scoped to the portfolio, not the reference docs. */
+.sketch-story { --paper: #f8f6ef; --graphite: #292925; }
+.sketch-theme .sketch-story .hero-chapter {
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  gap: 28px 6%; padding-top: 128px; padding-bottom: 80px;
+  background-color: #e5e2d9;
+  background-image: linear-gradient(90deg, transparent 39px, #a29c8b30 40px, transparent 41px), radial-gradient(#89847755 .65px, transparent .65px);
+  background-size: 100% 100%, 18px 18px;
+}
+.sketch-theme .sketch-story .hero-wordmark { grid-column: 1 / -1; grid-row: 1; margin: 0 0 12px; max-width: 100%; font-size: clamp(100px, 15vw, 220px); transform: rotate(-2deg); text-align: left; }
+.sketch-theme .sketch-story .hero-copy-block { grid-column: 1; grid-row: 2; width: 100%; align-self: center; padding-block: 18px; }
+.sketch-theme .sketch-story .hero-title { font-size: clamp(32px, 3.7vw, 56px); letter-spacing: -.055em; line-height: 1.08; }
+.sketch-theme .sketch-story .hero-copy { font-size: 18px; line-height: 1.8; }
+.sketch-theme .sketch-story .hero-proof { background: var(--paper); margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.sketch-theme .sketch-story .hero-proof > div { border: 0; padding: 0; }
+.sketchbook-cover { grid-column: 2; grid-row: 2; min-width: 0; align-self: center; color: #37362f; }
+.cover-caption, .cover-sheet-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font: 9px/1.6 var(--font-meta); letter-spacing: .08em; }
+.cover-caption { margin: 0 0 30px; }
+.cover-sheet { position: relative; padding: 30px 24px 26px; background: var(--paper); border: 1px solid #686559; transform: rotate(3deg); box-shadow: 7px 9px 0 #cac6b9, 8px 10px 0 #817d71; }
+.cover-sheet::before { content: ''; position: absolute; inset: 7px; border: 1px solid #a9a49566; pointer-events: none; }
+.paper-tape { position: absolute; width: 112px; height: 32px; top: -16px; left: calc(50% - 56px); transform: rotate(-7deg); background: repeating-linear-gradient(100deg, #ddd8cabc 0 2px, #e9e5d9d9 2px 5px); border-inline: 1px dashed #a6a08e; z-index: 2; }
+.cover-sheet .pencil-art { margin: 22px 0 0; filter: drop-shadow(1px 1px 0 #b6b1a1); }
+.hand-note { font-family: 'Segoe Print', 'Bradley Hand', cursive; font-style: italic; font-size: clamp(18px, 2vw, 26px); line-height: 1.4; letter-spacing: -.035em; }
+.cover-sheet .hand-note { margin: 0; text-align: center; }
+.cover-scribble { display: block; width: 75%; height: 24px; margin: 0 auto; }
+.cover-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 26px; padding-inline: 15px; }
+.cover-stamp { flex-shrink: 0; padding: 16px 20px; border: 3px double #6c695e; border-radius: 50%; text-align: center; transform: rotate(-13deg); font: 10px/1.4 var(--font-meta); }
+.cover-stamp b { font: 800 28px/1.2 var(--font-display, sans-serif); }
+.cover-note { width: 60%; transform: rotate(-6deg); }
+.cover-note .pencil-art { width: 150px; margin: auto; }
+.cover-note .hand-note { display: block; text-align: center; font-size: 17px; }
+
+/* A charcoal pinboard separates the opening from the body of the notebook. */
+.sketch-theme .sketch-story .featured-preview { background: #292925; color: #f8f6ef; padding-block: 72px 90px; background-image: repeating-linear-gradient(135deg, transparent 0 14px, #ffffff05 14px 15px); }
+.sketch-theme .sketch-story .featured-preview .section-meta { color: #dbd8ce; border-color: #b5b1a2; }
+.sketch-theme .sketch-story .featured-preview .section-meta span { color: #c9c5b9; }
+.sketch-theme .sketch-story .featured-preview-heading :is(h2, p, a) { color: #f8f6ef; }
+.sketch-theme .sketch-story .featured-preview-grid { gap: 30px; padding: 20px 8px; align-items: stretch; }
+.sketch-theme .sketch-story .featured-preview-card { position: relative; padding: 12px 12px 24px; background: var(--paper); color: #292925; border: 1px solid #807b6d; box-shadow: 6px 7px 0 #10110f; transform: rotate(-2deg); transition: transform .2s ease, box-shadow .2s ease; }
+.sketch-theme .sketch-story .featured-preview-card:nth-child(2) { transform: rotate(2deg); }
+.sketch-theme .sketch-story .featured-preview-card:nth-child(3) { transform: rotate(-1deg); }
+.sketch-theme .sketch-story .featured-preview-card::before, .sketch-theme .sketch-story .identity-art::after { content: ''; position: absolute; z-index: 3; width: 84px; height: 27px; top: -12px; left: calc(50% - 42px); background: #d8d2bfe0; border-inline: 1px dashed #9b947f; transform: rotate(-6deg); pointer-events: none; }
+.sketch-theme .sketch-story .featured-preview-image { box-shadow: none; border-width: 1px; border-radius: 1px; }
+.sketch-theme .sketch-story .featured-preview-card > div:last-child { padding-inline: 8px; }
+.sketch-theme .sketch-story .featured-preview-card :is(h3, p, b) { color: #292925; }
+.sketch-theme .sketch-story .featured-preview-card h3 { font-size: 26px; }
+.sketch-theme .sketch-story .featured-preview-card b { border-bottom: 1px dashed #686559; padding-bottom: 5px; }
+
+/* Notebook spreads: ruled paper, margin marks, folio numbers. */
+.sketch-theme .sketch-story .identity-story { background: #f5f2e9; background-image: repeating-linear-gradient(0deg, transparent 0 31px, #8d877619 31px 32px); border-bottom: 1px solid #aaa492; }
+.sketch-theme .sketch-story .identity-copy { padding: 24px 0 24px 28px; border-left: 2px solid #aaa18c; }
+.sketch-theme .sketch-story .identity-art { overflow: visible; transform: rotate(-2deg); box-shadow: 7px 9px 0 #d3cfc2; }
+.sketch-theme .sketch-story .identity-art img { border-radius: 0; }
+.sketch-theme .sketch-story .identity-plane.plane-front { border: 0; border-top: 1px solid #ada594; border-radius: 0; box-shadow: 3px 4px 0 #37362f33; }
+.sketch-theme .sketch-story .projects-chapter { background-color: #e5e2d9; background-image: linear-gradient(#938c7715 1px, transparent 1px), linear-gradient(90deg, #938c7715 1px, transparent 1px); background-size: 32px 32px; }
+.sketch-theme .sketch-story .project-orbit { margin-block: 30px; padding: clamp(22px, 3vw, 46px); background: var(--paper); border: 1px solid #777263; box-shadow: 6px 7px 0 #c5c0b2; border-radius: 2px 9px 3px 5px; gap: 36px; }
+.sketch-theme .sketch-story .project-orbit::before { position: static; grid-column: 1 / -1; width: fit-content; font: 12px var(--font-meta); color: #797262; opacity: 1; }
+.sketch-theme .sketch-story .archive-card { background: var(--paper); box-shadow: 5px 6px 0 #bdb7a8; }
+.sketch-theme .sketch-story .project-visual { border-radius: 2px; box-shadow: none; border-width: 1px; }
+.sketch-theme .sketch-story .section-meta { position: relative; border-top: 2px solid #656052; }
+.sketch-theme .sketch-story .section-meta::before { content: ''; position: absolute; top: -4px; right: 0; width: 54px; height: 8px; background: repeating-linear-gradient(120deg, #656052 0 1px, transparent 1px 4px); }
+.sketch-theme .sketch-story .experience-chapter { background: #f3f0e7; }
+.sketch-theme .sketch-story .experience-timeline { gap: 20px; }
+.sketch-theme .sketch-story .experience-entry { background: var(--paper); border: 1px dashed #88816f; padding: 24px; }
+.sketch-theme .sketch-story .lab-frame { box-shadow: 6px 7px 0 #c9c3b5; border-radius: 2px 12px 3px 7px; }
+.sketch-theme .sketch-story .capability-column { background: var(--paper); border-width: 1px; border-top: 8px solid #444138; }
+.sketch-theme .sketch-story .contact-chapter { background: #dfdbcf; background-image: repeating-linear-gradient(-45deg, transparent 0 8px, #716b5920 8px 9px); }
+.sketch-theme .sketch-story .contact-heading { background: var(--paper); padding: clamp(24px, 3vw, 48px); border: 1px solid #9c9584; transform: rotate(-1deg); box-shadow: 5px 6px 0 #bdb6a5; }
+.sketch-theme .sketch-story .contact-heading .chapter-title { font-size: clamp(34px, 4vw, 60px); }
+.sketch-theme .sketch-story .pencil-contact-art { width: 180px; }
+.sketch-theme .sketch-story .contact-console { background: var(--paper); }
+.sketch-theme .sketch-story .site-footer { background: #292925; color: #e3ded0; }
+.sketch-theme .sketch-story .site-footer a { color: #f8f6ef; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .sketch-theme .sketch-story .featured-preview-card:hover { transform: translateY(-8px) rotate(0); box-shadow: 9px 14px 0 #10110f; }
+  .sketch-theme .sketch-story .system-link:hover { text-decoration: underline wavy; text-underline-offset: 5px; }
+}
+@media (max-width: 1000px) {
+  .sketch-theme .sketch-story .hero-chapter { gap: 24px 4%; }
+  .cover-bottom { padding: 0; gap: 12px; }
+  .cover-stamp { padding: 10px; }
+  .cover-caption { font-size: 8px; }
+  .sketch-theme .sketch-story .featured-preview-grid { gap: 18px; }
+}
+@media (max-width: 700px) {
+  .sketch-theme .sketch-story .hero-chapter { grid-template-columns: minmax(0, 1fr); padding-top: 110px; gap: 24px; }
+  .sketch-theme .sketch-story .hero-wordmark { font-size: 25vw; grid-column: 1; margin: 0; }
+  .sketch-theme .sketch-story .hero-copy-block { grid-row: 3; padding: 0; }
+  .sketchbook-cover { grid-column: 1; grid-row: 2; max-width: 420px; width: 100%; margin: 8px auto; }
+  .cover-sheet { padding: 22px 20px; transform: rotate(1deg); }
+  .cover-sheet .pencil-art { max-width: 270px; margin: 10px auto 0; }
+  .cover-bottom { display: none; }
+  .cover-caption { margin-bottom: 24px; }
+  .sketch-theme .sketch-story .hero-title { font-size: 32px; }
+  .sketch-theme .sketch-story .featured-preview-grid { padding: 10px 0; gap: 32px; }
+  .sketch-theme .sketch-story .featured-preview-card:nth-child(n) { transform: none; }
+  .sketch-theme .sketch-story .identity-copy { padding: 12px 0 12px 18px; }
+  .sketch-theme .sketch-story .identity-art { transform: none; }
+  .sketch-theme .sketch-story .project-orbit { padding: 18px; gap: 20px; }
+  .sketch-theme .sketch-story .contact-heading { transform: none; }
+}

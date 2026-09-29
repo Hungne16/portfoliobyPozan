@@ -23,6 +23,7 @@ import {
 import ScrollStory from '../components/sketch-story';
 import AboutStory from '../components/about-story';
 import PencilArt from '../components/pencil-art';
+import SketchbookCover from '../components/sketchbook-cover';
 import LanguageSwitcher from '../components/language-switcher';
 import ProcessVideo from '../components/process-video';
 import ServicesOverview from '../components/services-overview';
@@ -82,7 +83,7 @@ export default async function Home() {
 
       <main id="main">
         <section className="scene-chapter hero-chapter" id="home">
-          <div className="sketch-doodles"><PencilArt /></div>
+          <SketchbookCover />
           <div className="hero-wordmark" aria-hidden="true">
             POZAN
           </div>

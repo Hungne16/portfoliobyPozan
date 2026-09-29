@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import ScrollStory from '../components/sketch-story';
 import AboutStory from '../components/about-story';
+import PencilArt from '../components/pencil-art';
 import LanguageSwitcher from '../components/language-switcher';
 import ProcessVideo from '../components/process-video';
 import ServicesOverview from '../components/services-overview';
@@ -81,6 +82,7 @@ export default async function Home() {
 
       <main id="main">
         <section className="scene-chapter hero-chapter" id="home">
+          <div className="sketch-doodles"><PencilArt /></div>
           <div className="hero-wordmark" aria-hidden="true">
             POZAN
           </div>
@@ -229,6 +231,7 @@ export default async function Home() {
         </div>
 
         <section className="projects-chapter system-section" id="projects">
+          <div className="pencil-section-art"><PencilArt variant="notes" /></div>
           <div className="section-meta">
             03 / SERVICES & SELECTED WORK <span>DESIGN × SOCIAL × CREATIVE DEV</span>
           </div>
@@ -387,6 +390,7 @@ export default async function Home() {
           </div>
           <div className="contact-layout">
             <div className="contact-heading">
+              <div className="pencil-contact-art"><PencilArt variant="letter" /></div>
               <p className="micro-label">FINAL TRANSMISSION / 07</p>
               <h2 className="chapter-title">
                 <span data-localized data-vi="Gửi một" data-en="Send a">

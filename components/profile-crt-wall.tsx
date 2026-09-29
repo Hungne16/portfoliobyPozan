@@ -361,7 +361,7 @@ export default function ProfileCRTWall() {
 
   useGSAP(
     () => {
-      if (!root.current) return;
+      if (!root.current || document.documentElement.classList.contains('sketch-theme')) return;
       const media = gsap.matchMedia();
 
       media.add('(prefers-reduced-motion: no-preference)', () => {

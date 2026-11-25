@@ -13,15 +13,22 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
   useGSAP(
     () => {
       const overlay = root.current!;
-      const content =
-        overlay.parentElement!.querySelector<HTMLElement>('.story-content')!;
+      const story = overlay.closest<HTMLElement>(
+        '.sketch-story, .scroll-story',
+      );
+      const content = story?.querySelector<HTMLElement>('.story-content');
+      if (!content) {
+        onReady();
+        return;
+      }
       const html = document.documentElement;
       const previousOverflow = html.style.overflow;
       const previousInert = content.inert;
       const previousFocus = document.activeElement as HTMLElement | null;
       let hasSeenIntro = false;
       try {
-        hasSeenIntro = window.sessionStorage.getItem('pozan-ink-intro') === '1';
+        hasSeenIntro =
+          window.sessionStorage.getItem('pozan-ink-intro-v2') === '1';
       } catch {
         /* The intro remains available when session storage is unavailable. */
       }
@@ -32,12 +39,12 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
         if (done || disposed) return;
         done = true;
         timeline?.kill();
-        overlay.close();
+        if (overlay.open) overlay.close();
         overlay.style.display = 'none';
         content.inert = previousInert;
         html.style.overflow = previousOverflow;
         try {
-          window.sessionStorage.setItem('pozan-ink-intro', '1');
+          window.sessionStorage.setItem('pozan-ink-intro-v2', '1');
         } catch {
           /* Storage is an enhancement, not a requirement for releasing content. */
         }
@@ -214,7 +221,7 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
         content.inert = previousInert;
         html.style.overflow = previousOverflow;
         overlay.style.display = 'none';
-        overlay.close();
+        if (overlay.open) overlay.close();
       };
     },
     { scope: root },

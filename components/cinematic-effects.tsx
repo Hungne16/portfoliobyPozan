@@ -24,6 +24,10 @@ export default function CinematicEffects() {
   useGSAP(
     () => {
       const container = root.current!;
+      const story = container.closest<HTMLElement>(
+        '.sketch-story, .scroll-story',
+      );
+      if (!story) return;
       const media = gsap.matchMedia();
 
       media.add('(prefers-reduced-motion: no-preference)', () => {
@@ -41,11 +45,31 @@ export default function CinematicEffects() {
         const velocity = container.querySelector<HTMLElement>(
           '.scroll-velocity-value',
         )!;
+        const pulseRings = Array.from(
+          container.querySelectorAll<HTMLElement>('.chapter-pulse-ring'),
+        );
         let activeChapter = '';
+
+        const burst = () => {
+          gsap.killTweensOf(pulseRings);
+          gsap.fromTo(
+            pulseRings,
+            { autoAlpha: 0.4, scale: 0.14 },
+            {
+              autoAlpha: 0,
+              duration: 1.05,
+              ease: 'power3.out',
+              scale: 1.24,
+              stagger: 0.075,
+              transformOrigin: '50% 50%',
+            },
+          );
+        };
 
         const showChapter = (code: string, name: string, color: string) => {
           if (activeChapter === code) return;
           activeChapter = code;
+          burst();
           gsap
             .timeline({ defaults: { overwrite: 'auto' } })
             .to([chapterCode, chapterName], {
@@ -82,8 +106,10 @@ export default function CinematicEffects() {
         };
 
         chapters.forEach(([id, code, name, color]) => {
+          const section = story.querySelector<HTMLElement>(`#${id}`);
+          if (!section) return;
           ScrollTrigger.create({
-            trigger: document.getElementById(id),
+            trigger: section,
             start: 'top center',
             end: 'bottom center',
             onRefresh: (self) => {
@@ -116,10 +142,12 @@ export default function CinematicEffects() {
           onUpdate: (self) => {
             let current: (typeof chapters)[number] = chapters[0];
             chapters.forEach((chapter) => {
+              const section = story.querySelector<HTMLElement>(
+                `#${chapter[0]}`,
+              );
               if (
-                (document.getElementById(chapter[0])?.getBoundingClientRect()
-                  .top ?? Infinity) <=
-                innerHeight * 0.5
+                (section?.getBoundingClientRect().top ?? Infinity) <=
+                window.innerHeight * 0.5
               )
                 current = chapter;
             });
@@ -143,8 +171,8 @@ export default function CinematicEffects() {
         '(pointer: fine) and (min-width: 901px) and (prefers-reduced-motion: no-preference)',
         () => {
           const magneticLinks = gsap.utils.toArray<HTMLElement>(
-            document.querySelectorAll<HTMLElement>(
-              '.hero-actions a, .project-live, .cv-cta',
+            story.querySelectorAll<HTMLElement>(
+              '.hero-actions a, .featured-preview-all-work, .system-link, .client-offer-cta, .cv-cta',
             ),
           );
           const cleanups: Array<() => void> = [];
@@ -188,6 +216,11 @@ export default function CinematicEffects() {
     <div ref={root} className="cinematic-effects" aria-hidden="true">
       <div className="chapter-aura" />
       <div className="scroll-warp" />
+      <div className="chapter-pulse">
+        <i className="chapter-pulse-ring" />
+        <i className="chapter-pulse-ring" />
+        <i className="chapter-pulse-ring" />
+      </div>
       <div className="chapter-transmission">
         <span className="chapter-transmission-code">00</span>
         <i className="chapter-transmission-line" />

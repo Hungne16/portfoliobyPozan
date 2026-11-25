@@ -260,7 +260,7 @@ button {
 .chapter-aura,
 .cinema-flare,
 .scroll-warp {
-  opacity: 0.03 !important;
+  opacity: 0.03;
 }
 .cinema-frame,
 .chapter-transmission,

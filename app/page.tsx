@@ -1,8 +1,4 @@
-import {
-  sampleProjects,
-  featuredNames,
-  type PortfolioProject,
-} from '@/data/projects';
+import { sampleProjects, type PortfolioProject } from '@/data/projects';
 import { LocalText } from '@/components/pozan-system';
 import ProjectCollection from '@/components/project-collection';
 import FeaturedWorkPreview from '@/components/featured-work-preview';
@@ -10,7 +6,6 @@ import VisualLab from '@/components/visual-lab';
 import Capabilities from '@/components/capabilities';
 import Link from 'next/link';
 import {
-  ArrowDown,
   ArrowUpRight,
   Code2,
   GraduationCap,
@@ -28,6 +23,7 @@ import LanguageSwitcher from '../components/language-switcher';
 import ProcessVideo from '../components/process-video';
 import ServicesOverview from '../components/services-overview';
 import ProfileCRTWall from '../components/profile-crt-wall';
+import ProjectJump from '../components/project-jump';
 import { listProjects } from '@/db';
 
 export const dynamic = 'force-dynamic';
@@ -60,6 +56,19 @@ export default async function Home() {
   } catch {
     /* The authored projects remain visible before the first database migration. */
   }
+
+  const framerProjects = projects.filter((project) =>
+    project.projectUrl?.includes('.framer.website'),
+  );
+  const vercelProjects = projects.filter((project) =>
+    project.projectUrl?.includes('.vercel.app'),
+  );
+  const independentProjects = projects.filter(
+    (project) =>
+      project.projectUrl &&
+      !project.projectUrl.includes('.framer.website') &&
+      !project.projectUrl.includes('.vercel.app'),
+  );
 
   return (
     <ScrollStory>
@@ -113,10 +122,7 @@ export default async function Home() {
               />
             </p>
             <div className="hero-actions">
-              <a href="#projects">
-                <LocalText vi="Xem Selected Work" en="View Selected Work" />{' '}
-                <ArrowDown />
-              </a>
+              <ProjectJump />
               <a className="hero-contact-link" href="#visual-lab">
                 <LocalText vi="Khám phá Visual Lab" en="Explore Visual Lab" />{' '}
                 <ArrowUpRight />
@@ -126,7 +132,10 @@ export default async function Home() {
               <div>
                 <b>10</b>
                 <span>
-                  <LocalText vi="DỰ ÁN ĐÃ THIẾT KẾ & XÂY DỰNG" en="PROJECTS DESIGNED & BUILT" />
+                  <LocalText
+                    vi="DỰ ÁN ĐÃ THIẾT KẾ & XÂY DỰNG"
+                    en="PROJECTS DESIGNED & BUILT"
+                  />
                 </span>
               </div>
               <div>
@@ -161,8 +170,18 @@ export default async function Home() {
 
         <FeaturedWorkPreview
           projects={[...projects]
-            .filter((project) => ['BeeTools', 'Arcade Học Đường', 'Orbits DeFi'].includes(project.name))
-            .sort((a, b) => ['BeeTools', 'Arcade Học Đường', 'Orbits DeFi'].indexOf(a.name) - ['BeeTools', 'Arcade Học Đường', 'Orbits DeFi'].indexOf(b.name))}
+            .filter((project) =>
+              ['BeeTools', 'Arcade Học Đường', 'Orbits DeFi'].includes(
+                project.name,
+              ),
+            )
+            .sort(
+              (a, b) =>
+                ['BeeTools', 'Arcade Học Đường', 'Orbits DeFi'].indexOf(
+                  a.name,
+                ) -
+                ['BeeTools', 'Arcade Học Đường', 'Orbits DeFi'].indexOf(b.name),
+            )}
         />
 
         <AboutStory />
@@ -232,9 +251,12 @@ export default async function Home() {
         </div>
 
         <section className="projects-chapter system-section" id="projects">
-          <div className="pencil-section-art"><PencilArt variant="notes" /></div>
+          <div className="pencil-section-art">
+            <PencilArt variant="notes" />
+          </div>
           <div className="section-meta">
-            03 / SERVICES & SELECTED WORK <span>DESIGN × SOCIAL × CREATIVE DEV</span>
+            03 / SERVICES & SELECTED WORK{' '}
+            <span>DESIGN × SOCIAL × CREATIVE DEV</span>
           </div>
           <ServicesOverview />
           <div className="section-heading">
@@ -248,27 +270,127 @@ export default async function Home() {
               />
             </p>
           </div>
-          <ProjectCollection
-            projects={[...projects]
-              .filter((p) => featuredNames.includes(p.name))
-              .sort(
-                (a, b) =>
-                  featuredNames.indexOf(a.name) - featuredNames.indexOf(b.name),
-              )}
-            featured
-          />
-          <div className="archive-heading">
-            <h3>PROJECT ARCHIVE</h3>
-            <span>
-              {String(
-                projects.filter((p) => !featuredNames.includes(p.name)).length,
-              ).padStart(2, '0')}{' '}
-              / MORE EXPLORATIONS
-            </span>
+          <nav className="project-route-index" aria-label="Project collections">
+            <a href="#framer-projects">
+              <span>01 /</span>
+              <b>FRAMER</b>
+              <small>
+                {String(framerProjects.length).padStart(2, '0')} WORKS
+              </small>
+            </a>
+            <a href="#vercel-projects">
+              <span>02 /</span>
+              <b>VERCEL</b>
+              <small>
+                {String(vercelProjects.length).padStart(2, '0')} WORKS
+              </small>
+            </a>
+            {independentProjects.length > 0 && (
+              <a href="#independent-projects">
+                <span>03 /</span>
+                <b>INDEPENDENT</b>
+                <small>
+                  {String(independentProjects.length).padStart(2, '0')} WORKS
+                </small>
+              </a>
+            )}
+          </nav>
+
+          <div className="project-platforms">
+            <section
+              className="project-platform project-platform-framer"
+              id="framer-projects"
+              aria-labelledby="framer-projects-title"
+            >
+              <header className="project-platform-heading">
+                <div>
+                  <p className="micro-label">01 / FRAMER COLLECTION</p>
+                  <h3 id="framer-projects-title">
+                    <LocalText
+                      vi="Landing page & campaign kể chuyện."
+                      en="Landing pages & campaign stories."
+                    />
+                  </h3>
+                </div>
+                <p>
+                  <LocalText
+                    vi="Các trải nghiệm web tập trung vào visual direction, nhịp nội dung và lời kêu gọi hành động rõ ràng."
+                    en="Web experiences focused on visual direction, content rhythm and clear calls to action."
+                  />
+                </p>
+                <span>
+                  {String(framerProjects.length).padStart(2, '0')} / FRAMER
+                  BUILDS
+                </span>
+              </header>
+              <ProjectCollection
+                projects={framerProjects}
+                showFilters={false}
+                startIndex={1}
+                collection="framer"
+              />
+            </section>
+
+            <section
+              className="project-platform project-platform-vercel"
+              id="vercel-projects"
+              aria-labelledby="vercel-projects-title"
+            >
+              <header className="project-platform-heading">
+                <div>
+                  <p className="micro-label">02 / VERCEL COLLECTION</p>
+                  <h3 id="vercel-projects-title">
+                    <LocalText
+                      vi="Web products được thiết kế để vận hành."
+                      en="Web products built to work."
+                    />
+                  </h3>
+                </div>
+                <p>
+                  <LocalText
+                    vi="Các sản phẩm cho thấy cách mình kết nối product thinking, frontend logic và trải nghiệm tương tác."
+                    en="Products that connect product thinking, frontend logic and interactive experience."
+                  />
+                </p>
+                <span>
+                  {String(vercelProjects.length).padStart(2, '0')} / VERCEL
+                  BUILDS
+                </span>
+              </header>
+              <ProjectCollection
+                projects={vercelProjects}
+                showFilters={false}
+                startIndex={framerProjects.length + 1}
+                collection="vercel"
+              />
+            </section>
+
+            {independentProjects.length > 0 && (
+              <section
+                className="project-platform project-platform-independent"
+                id="independent-projects"
+                aria-labelledby="independent-projects-title"
+              >
+                <header className="project-platform-heading">
+                  <div>
+                    <p className="micro-label">03 / INDEPENDENT BUILDS</p>
+                    <h3 id="independent-projects-title">
+                      <LocalText
+                        vi="Các thử nghiệm độc lập."
+                        en="Independent experiments."
+                      />
+                    </h3>
+                  </div>
+                </header>
+                <ProjectCollection
+                  projects={independentProjects}
+                  showFilters={false}
+                  startIndex={framerProjects.length + vercelProjects.length + 1}
+                  collection="independent"
+                />
+              </section>
+            )}
           </div>
-          <ProjectCollection
-            projects={projects.filter((p) => !featuredNames.includes(p.name))}
-          />
         </section>
         <VisualLab />
         <Capabilities />
@@ -391,7 +513,9 @@ export default async function Home() {
           </div>
           <div className="contact-layout">
             <div className="contact-heading">
-              <div className="pencil-contact-art"><PencilArt variant="letter" /></div>
+              <div className="pencil-contact-art">
+                <PencilArt variant="letter" />
+              </div>
               <p className="micro-label">FINAL TRANSMISSION / 07</p>
               <h2 className="chapter-title">
                 <span data-localized data-vi="Gửi một" data-en="Send a">

@@ -10,11 +10,11 @@ import { getPublishedCaseStudyForProject } from '@/data/case-studies';
 
 function ProjectCard({
   project,
-  index,
+  displayIndex,
   featured,
 }: {
   project: PortfolioProject;
-  index: number;
+  displayIndex: number;
   featured: boolean;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -35,9 +35,9 @@ function ProjectCard({
     <article
       className={featured ? 'project-orbit' : 'archive-card'}
       id={`work-${slug}`}
-      style={featured ? { zIndex: index + 1 } : undefined}
+      style={featured ? { zIndex: displayIndex } : undefined}
     >
-      <div className={`project-visual visual-${index % 3}`}>
+      <div className={`project-visual visual-${(displayIndex - 1) % 3}`}>
         <div className="project-visual-inner">
           {project.imageKey ? (
             <Image
@@ -59,8 +59,7 @@ function ProjectCard({
             <div className="project-symbol">{project.name}</div>
           )}
           <span className="visual-index">
-            {String(index + (featured ? 1 : 5)).padStart(2, '0')} /{' '}
-            {project.type}
+            {String(displayIndex).padStart(2, '0')} / {project.type}
           </span>
           <span className="visual-year">{project.year}</span>
           {project.flagship && (
@@ -135,7 +134,10 @@ function ProjectCard({
             </a>
           )}
           {publishedCaseStudy ? (
-            <Link className="system-link" href={`/projects/${publishedCaseStudy.slug}`}>
+            <Link
+              className="system-link"
+              href={`/projects/${publishedCaseStudy.slug}`}
+            >
               <LocalText vi="Xem case study" en="Read case study" /> ↗
             </Link>
           ) : (
@@ -152,110 +154,114 @@ function ProjectCard({
           aria-labelledby={`case-${slug}`}
           onClose={() => trigger.current?.focus()}
         >
-        <div className="dialog-toolbar">
-          <span>POZAN / CASE STUDY</span>
-          <button onClick={close} autoFocus>
-            <LocalText vi="Đóng" en="Close" /> ×
-          </button>
-        </div>
-        <div className="case-heading">
-          <span>
-            {project.type} / {project.year}
-          </span>
-          <h2 id={`case-${slug}`}>{project.name}</h2>
-          <p>{project.sub}</p>
-        </div>
-        {project.imageKey && (
-          <figure className="case-hero-media">
-            <Image
-              src={project.imageKey}
-              alt={`${project.name} final design`}
-              fill
-              sizes="(max-width: 760px) 92vw, 760px"
-            />
-            <figcaption>FINAL DESIGN / PROJECT EVIDENCE</figcaption>
-          </figure>
-        )}
-        <div className="case-grid">
-          {[
-            ['Bối cảnh', 'Problem / Context', project.brief],
-            ['Vai trò', 'My role', project.role],
-            ['Hướng triển khai', 'Design direction', project.process],
-            ['Kết quả', 'Outcome', project.result],
-          ].filter(([, , value]) => Boolean(value)).map(([vi, en, value], i) => (
-            <div key={en}>
-              <b>
-                0{i + 1} / <LocalText vi={vi} en={en} />
-              </b>
-              <p>{value}</p>
-            </div>
-          ))}
-        </div>
-        {project.deepDive && (
-          <section className="flagship-deep-dive">
-            <div className="flagship-deep-dive-heading">
-              <span>05 / PRODUCT & ENGINEERING DEEP DIVE</span>
-              <h3>
-                <LocalText
-                  vi={project.deepDive.titleVi}
-                  en={project.deepDive.titleEn}
-                />
-              </h3>
-              <p>
-                <LocalText
-                  vi={project.deepDive.introVi}
-                  en={project.deepDive.introEn}
-                />
-              </p>
-            </div>
-            <div className="flagship-deep-dive-grid">
-              {project.deepDive.points.map((point, index) => (
-                <div key={point.label}>
+          <div className="dialog-toolbar">
+            <span>POZAN / CASE STUDY</span>
+            <button onClick={close} autoFocus>
+              <LocalText vi="Đóng" en="Close" /> ×
+            </button>
+          </div>
+          <div className="case-heading">
+            <span>
+              {project.type} / {project.year}
+            </span>
+            <h2 id={`case-${slug}`}>{project.name}</h2>
+            <p>{project.sub}</p>
+          </div>
+          {project.imageKey && (
+            <figure className="case-hero-media">
+              <Image
+                src={project.imageKey}
+                alt={`${project.name} final design`}
+                fill
+                sizes="(max-width: 760px) 92vw, 760px"
+              />
+              <figcaption>FINAL DESIGN / PROJECT EVIDENCE</figcaption>
+            </figure>
+          )}
+          <div className="case-grid">
+            {[
+              ['Bối cảnh', 'Problem / Context', project.brief],
+              ['Vai trò', 'My role', project.role],
+              ['Hướng triển khai', 'Design direction', project.process],
+              ['Kết quả', 'Outcome', project.result],
+            ]
+              .filter(([, , value]) => Boolean(value))
+              .map(([vi, en, value], i) => (
+                <div key={en}>
                   <b>
-                    0{index + 1} / {point.label}
+                    0{i + 1} / <LocalText vi={vi} en={en} />
                   </b>
-                  <p>
-                    <LocalText vi={point.vi} en={point.en} />
-                  </p>
+                  <p>{value}</p>
                 </div>
               ))}
-            </div>
-          </section>
-        )}
-        {project.engineering && (
-          <section className="engineering-note">
-            <div>
-              <span>{project.deepDive ? '06' : '05'} / ENGINEERING NOTES</span>
-              <h3>
+          </div>
+          {project.deepDive && (
+            <section className="flagship-deep-dive">
+              <div className="flagship-deep-dive-heading">
+                <span>05 / PRODUCT & ENGINEERING DEEP DIVE</span>
+                <h3>
+                  <LocalText
+                    vi={project.deepDive.titleVi}
+                    en={project.deepDive.titleEn}
+                  />
+                </h3>
+                <p>
+                  <LocalText
+                    vi={project.deepDive.introVi}
+                    en={project.deepDive.introEn}
+                  />
+                </p>
+              </div>
+              <div className="flagship-deep-dive-grid">
+                {project.deepDive.points.map((point, index) => (
+                  <div key={point.label}>
+                    <b>
+                      0{index + 1} / {point.label}
+                    </b>
+                    <p>
+                      <LocalText vi={point.vi} en={point.en} />
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+          {project.engineering && (
+            <section className="engineering-note">
+              <div>
+                <span>
+                  {project.deepDive ? '06' : '05'} / ENGINEERING NOTES
+                </span>
+                <h3>
+                  <LocalText
+                    vi="Quyết định đứng sau trải nghiệm."
+                    en="Decisions behind the experience."
+                  />
+                </h3>
+              </div>
+              <p>
                 <LocalText
-                  vi="Quyết định đứng sau trải nghiệm."
-                  en="Decisions behind the experience."
+                  vi={project.engineering.vi}
+                  en={project.engineering.en}
                 />
-              </h3>
-            </div>
-            <p>
-              <LocalText
-                vi={project.engineering.vi}
-                en={project.engineering.en}
-              />
-            </p>
-            <div className="engineering-stack" aria-label="Technology stack">
-              {stack.map((item) => (
-                <Tag key={item}>{item.toUpperCase()}</Tag>
-              ))}
-            </div>
-          </section>
-        )}
-        {project.projectUrl && (
-          <a
-            className="system-button"
-            href={project.projectUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <LocalText vi="Khám phá dự án" en="Explore the project" /> ↗
-          </a>
-        )}
+              </p>
+              <div className="engineering-stack" aria-label="Technology stack">
+                {stack.map((item) => (
+                  <Tag key={item}>{item.toUpperCase()}</Tag>
+                ))}
+              </div>
+            </section>
+          )}
+          {project.projectUrl && (
+            <a
+              className="system-button"
+              href={project.projectUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <LocalText vi="Khám phá dự án" en="Explore the project" /> ↗
+            </a>
+          )}
         </dialog>
       )}
     </article>
@@ -265,9 +271,15 @@ function ProjectCard({
 export default function ProjectCollection({
   projects,
   featured = false,
+  showFilters = true,
+  startIndex,
+  collection,
 }: {
   projects: PortfolioProject[];
   featured?: boolean;
+  showFilters?: boolean;
+  startIndex?: number;
+  collection?: 'framer' | 'vercel' | 'independent';
 }) {
   const [activeDiscipline, setActiveDiscipline] = useState('ALL');
   const disciplines = ['ALL', 'UI/UX', 'SOCIAL', 'BRANDING', 'CREATIVE DEV'];
@@ -283,9 +295,18 @@ export default function ProjectCollection({
     [activeDiscipline, projects],
   );
 
+  const firstIndex = startIndex ?? (featured ? 1 : 5);
+
   return (
-    <div className={featured ? 'project-stack' : 'work-collection'}>
-      {!featured && (
+    <div
+      className={[
+        featured ? 'project-stack' : 'work-collection',
+        collection ? `work-collection-${collection}` : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
+      {!featured && showFilters && (
         <nav className="work-filter" aria-label="Filter work by discipline">
           {disciplines.map((discipline) => (
             <button
@@ -300,18 +321,23 @@ export default function ProjectCollection({
           ))}
         </nav>
       )}
-      <div className={featured ? 'project-stack' : 'archive-grid'} aria-live="polite">
-      {visibleProjects.map((project, index) => (
-        <ProjectCard
-          key={project.name}
-          project={project}
-          index={index}
-          featured={featured}
-        />
-      ))}
-      {!visibleProjects.length && (
-        <p className="work-filter-empty">No published work in this discipline yet.</p>
-      )}
+      <div
+        className={featured ? 'project-stack' : 'archive-grid'}
+        aria-live="polite"
+      >
+        {visibleProjects.map((project, index) => (
+          <ProjectCard
+            key={project.name}
+            project={project}
+            displayIndex={firstIndex + index}
+            featured={featured}
+          />
+        ))}
+        {!visibleProjects.length && (
+          <p className="work-filter-empty">
+            No published work in this discipline yet.
+          </p>
+        )}
       </div>
     </div>
   );

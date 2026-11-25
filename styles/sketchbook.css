@@ -99,3 +99,50 @@
   .sketch-theme .sketch-story .project-orbit { padding: 18px; gap: 20px; }
   .sketch-theme .sketch-story .contact-heading { transform: none; }
 }
+
+/* Continuous paper canvas for full-bleed chapters on wide screens. */
+.sketch-theme .sketch-story main > :is(.featured-preview, .profile-archive, .experience-chapter, .projects-chapter, .visual-lab, .skills-chapter) { position: relative; isolation: isolate; }
+.sketch-theme .sketch-story main > :is(.featured-preview, .profile-archive, .experience-chapter, .projects-chapter, .visual-lab, .skills-chapter)::before { content: ''; position: absolute; z-index: -1; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); }
+.sketch-theme .sketch-story main > .featured-preview::before { background: repeating-linear-gradient(135deg, transparent 0 14px, #ffffff05 14px 15px), #292925; }
+.sketch-theme .sketch-story main > :is(.profile-archive, .experience-chapter)::before { background: linear-gradient(#938c7713 1px, transparent 1px), linear-gradient(90deg, #938c7713 1px, transparent 1px), #f3f0e7; background-size: 32px 32px; }
+.sketch-theme .sketch-story main > .projects-chapter::before { background: linear-gradient(#938c7720 1px, transparent 1px), linear-gradient(90deg, #938c7720 1px, transparent 1px), #e5e2d9; background-size: 32px 32px; }
+.sketch-theme .sketch-story main > .visual-lab::before { background: radial-gradient(#89847740 .7px, transparent .7px), #eeece4; background-size: 18px 18px; }
+.sketch-theme .sketch-story main > .skills-chapter::before { background: repeating-linear-gradient(0deg, transparent 0 31px, #8d877614 31px 32px), #f3f2ed; }
+
+/* Direct route to the work archive. */
+.sketch-theme .hero-project-jump { display: inline-flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 58px; padding: 10px 14px 10px 18px; border: 2px solid #282826; border-radius: 3px 8px 3px 7px; background: #292926; color: #fff; box-shadow: 4px 4px 0 #282826; text-align: left; transition: transform var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out); }
+.sketch-theme .hero-project-jump > span { display: grid; gap: 2px; }
+.sketch-theme .hero-project-jump small { color: #cbc9bc; font: 9px/1.3 var(--font-meta); letter-spacing: .08em; }
+.sketch-theme .hero-project-jump b { font: 700 13px/1.35 var(--font-meta); letter-spacing: .02em; }
+.sketch-theme .hero-project-jump svg { width: 18px; height: 18px; animation: project-jump-cue 1.45s var(--ease-in-out) infinite; }
+.sketch-theme .hero-project-jump:is(:hover, :focus-visible) { background: #faf9f6; color: #292926; box-shadow: 1px 1px 0 #282826; transform: translate(3px, 3px); outline: none; }
+.sketch-theme .hero-project-jump:is(:hover, :focus-visible) small { color: #5f5c54; }
+@keyframes project-jump-cue { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+
+/* Project archive: group the work by deployment platform before card details. */
+.sketch-theme .project-route-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0 0 clamp(56px, 8vw, 112px); }
+.sketch-theme .project-route-index a { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; min-height: 64px; padding: 12px 16px; border: 1px solid #777263; background: #f8f6ef; box-shadow: 3px 3px 0 #bdb7a8; color: #292925; text-decoration: none; transition: transform var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out); }
+.sketch-theme .project-route-index span, .sketch-theme .project-route-index small { color: #686256; font: 9px/1.4 var(--font-meta); letter-spacing: .08em; }
+.sketch-theme .project-route-index b { font: 800 clamp(18px, 2vw, 26px)/1 var(--font-display); letter-spacing: -.05em; }
+.sketch-theme .project-route-index a:is(:hover, :focus-visible) { background: #292925; color: #f8f6ef; box-shadow: 1px 1px 0 #292925; transform: translate(2px, 2px); outline: none; }
+.sketch-theme .project-route-index a:is(:hover, :focus-visible) :is(span, small) { color: #d7d1c2; }
+.sketch-theme .project-platform { position: relative; scroll-margin-top: 100px; }
+.sketch-theme .project-platform + .project-platform { margin-top: clamp(88px, 14vw, 176px); padding-top: clamp(56px, 8vw, 96px); border-top: 2px solid #565146; }
+.sketch-theme .project-platform-heading { position: relative; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(220px, .8fr) auto; align-items: end; gap: clamp(20px, 4vw, 64px); margin-bottom: clamp(32px, 5vw, 64px); padding: 0 0 24px; border-bottom: 1px solid #8d877a; }
+.sketch-theme .project-platform-heading::after { content: ''; position: absolute; right: 0; bottom: -3px; width: clamp(70px, 10vw, 140px); height: 5px; background: repeating-linear-gradient(120deg, #3c3932 0 2px, transparent 2px 7px); }
+.sketch-theme .project-platform-heading .micro-label { margin: 0 0 12px; color: #5e594f; }
+.sketch-theme .project-platform-heading h3 { max-width: 720px; margin: 0; color: #292925; font-size: clamp(34px, 4.2vw, 64px); line-height: .98; letter-spacing: -.06em; }
+.sketch-theme .project-platform-heading > p { max-width: 430px; margin: 0; color: #5a564d; font-size: 15px; line-height: 1.7; }
+.sketch-theme .project-platform-heading > span { justify-self: end; padding: 8px 10px; border: 1px solid #777263; color: #4f4b42; font: 9px/1.4 var(--font-meta); letter-spacing: .09em; white-space: nowrap; }
+.sketch-theme .work-collection { margin: 0; }
+.sketch-theme .project-platform .archive-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 64px) clamp(22px, 3vw, 44px); }
+.sketch-theme .project-platform .archive-card { position: relative; height: 100%; padding: 12px; border: 1px solid #777263; background: #f8f6ef; box-shadow: 5px 6px 0 #bdb7a8; transition: transform var(--motion-base) var(--ease-out), box-shadow var(--motion-base) var(--ease-out); }
+.sketch-theme .project-platform .archive-card::before { content: 'POZAN / FIELD NOTE'; position: absolute; z-index: 2; top: -10px; left: 18px; padding: 4px 8px; background: #292925; color: #f8f6ef; font: 8px/1.3 var(--font-meta); letter-spacing: .08em; }
+.sketch-theme .project-platform-vercel .archive-card::before { content: 'POZAN / BUILD LOG'; }
+.sketch-theme .project-platform .archive-card .project-copy { padding: 16px clamp(8px, 2vw, 20px) 20px; }
+.sketch-theme .project-platform .archive-card .project-visual { margin-bottom: 8px; }
+.sketch-theme .project-platform .project-actions { justify-content: space-between; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .sketch-theme .project-platform .archive-card:hover { z-index: 2; box-shadow: 9px 12px 0 #9d9788; transform: translateY(-7px) rotate(-.35deg); } .sketch-theme .project-platform .archive-card:nth-child(even):hover { transform: translateY(-7px) rotate(.35deg); } }
+@media (max-width: 900px) { .sketch-theme .project-platform-heading { grid-template-columns: 1fr auto; } .sketch-theme .project-platform-heading > p { grid-column: 1 / -1; } }
+@media (max-width: 700px) { .sketch-theme .hero-project-jump { width: min(100%, 330px); } .sketch-theme .project-route-index, .sketch-theme .project-platform .archive-grid { grid-template-columns: minmax(0, 1fr); } .sketch-theme .project-route-index { gap: 10px; margin-bottom: 56px; } .sketch-theme .project-platform-heading { display: block; margin-bottom: 36px; } .sketch-theme .project-platform-heading > p { margin: 20px 0 18px; } .sketch-theme .project-platform-heading > span { display: inline-block; } .sketch-theme .project-platform + .project-platform { margin-top: 80px; padding-top: 52px; } }
+@media (prefers-reduced-motion: reduce) { .sketch-theme .hero-project-jump svg { animation: none; } .sketch-theme :is(.hero-project-jump, .project-route-index a, .project-platform .archive-card) { transition: none; } }

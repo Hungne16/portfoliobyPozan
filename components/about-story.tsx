@@ -12,6 +12,24 @@ const scenes = [
   },
 ];
 
+const signals = [
+  {
+    label: 'EDUCATION',
+    vi: 'CNPM · HUCE',
+    en: 'SOFTWARE ENGINEERING · HUCE',
+  },
+  {
+    label: 'PRACTICE',
+    vi: 'UI/UX → FRONTEND',
+    en: 'UI/UX → FRONTEND',
+  },
+  {
+    label: 'METHOD',
+    vi: 'BRIEF → BUILD → SHIP',
+    en: 'BRIEF → BUILD → SHIP',
+  },
+];
+
 export default function AboutStory() {
   return (
     <section id="about" className="identity-story" aria-label="About Pozan">
@@ -27,22 +45,26 @@ export default function AboutStory() {
       </div>
       {scenes.map((scene, index) => (
         <article className="identity-scene" key={scene.tag}>
-          <div className="identity-stage">
-            <div className="identity-art" aria-hidden="true">
+          <div className="identity-stage identity-stage--about">
+            <div className="identity-art identity-art--anime" aria-hidden="true">
               <Image
-                src="/anime-studio.png"
+                className="identity-anime-image"
+                src="/media/pozan-about-anime.png"
                 alt=""
                 loading="lazy"
                 width="1536"
                 height="1024"
+                sizes="(max-width: 900px) 100vw, 52vw"
               />
-              <div className="identity-plane plane-back" />
-              <div className="identity-plane plane-front">
-                <span>{scene.note}</span>
-                <strong>{scene.mark}</strong>
-                <span>POZAN / FIELD NOTES — 0{index + 1}</span>
+              <div className="identity-frame-index">
+                <span>FIELD RECORD / 01</span>
+                <span>HANOI / VIETNAM</span>
               </div>
-              <span className="identity-number">0{index + 1}</span>
+              <div className="identity-plane plane-front">
+                <span>{scene.note} / 2026</span>
+                <strong>{scene.mark}</strong>
+                <span>DESIGN → BUILD → SHIP / 0{index + 1}</span>
+              </div>
             </div>
             <div className="identity-copy">
               <span className="identity-tag">{scene.tag}</span>
@@ -52,6 +74,20 @@ export default function AboutStory() {
               <p data-localized data-vi={scene.text} data-en={scene.en}>
                 {scene.text}
               </p>
+              <div className="identity-evidence">
+                {signals.map((signal) => (
+                  <div key={signal.label}>
+                    <span>{signal.label}</span>
+                    <strong
+                      data-localized
+                      data-vi={signal.vi}
+                      data-en={signal.en}
+                    >
+                      {signal.vi}
+                    </strong>
+                  </div>
+                ))}
+              </div>
               {index === 0 && (
                 <a href="#projects">
                   <span

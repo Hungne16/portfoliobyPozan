@@ -24,6 +24,11 @@ function ProjectCard({
   const stack = project.stack?.length
     ? project.stack
     : ['Design', 'Development'];
+  const projectImageSource = project.imageKey
+    ? project.imageKey.startsWith('/') || project.imageKey.startsWith('http')
+      ? project.imageKey
+      : `/api/project-image?key=${encodeURIComponent(project.imageKey)}`
+    : null;
   const close = () => {
     dialog.current?.close();
     trigger.current?.focus();
@@ -39,13 +44,9 @@ function ProjectCard({
     >
       <div className={`project-visual visual-${(displayIndex - 1) % 3}`}>
         <div className="project-visual-inner">
-          {project.imageKey ? (
+          {projectImageSource ? (
             <Image
-              src={
-                project.imageKey.startsWith('/')
-                  ? project.imageKey
-                  : `/api/project-image?key=${encodeURIComponent(project.imageKey)}`
-              }
+              src={projectImageSource}
               alt={`Project — ${project.name}`}
               fill
               sizes={
@@ -167,10 +168,10 @@ function ProjectCard({
             <h2 id={`case-${slug}`}>{project.name}</h2>
             <p>{project.sub}</p>
           </div>
-          {project.imageKey && (
+          {projectImageSource && (
             <figure className="case-hero-media">
               <Image
-                src={project.imageKey}
+                src={projectImageSource}
                 alt={`${project.name} final design`}
                 fill
                 sizes="(max-width: 760px) 92vw, 760px"

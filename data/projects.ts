@@ -208,6 +208,38 @@ const authoredProjects: PortfolioProject[] = [
     year: '2026',
     imageKey: '/projects/arcade-school.png',
   },
+  {
+    name: 'CULTIVERSE',
+    sub: 'Khám phá văn hóa đa quốc gia qua một hành trình số giàu hình ảnh.',
+    type: 'CULTURAL EXPERIENCE',
+    brief:
+      'Xây dựng một không gian trực tuyến giúp người xem tiếp cận ẩm thực, trang phục, lễ hội và những câu chuyện văn hóa của nhiều quốc gia.',
+    role: 'Thiết kế UI/UX, visual direction và phát triển website Framer.',
+    process:
+      'Xác định nhịp kể chuyện → tổ chức nội dung khám phá → xây dựng visual system → hoàn thiện trải nghiệm responsive.',
+    result:
+      'Một website giàu tính khám phá, giúp nội dung văn hóa nhiều lớp trở nên gần gũi và dễ tiếp cận hơn.',
+    projectUrl: 'https://cultiverse.framer.website/',
+    year: '2026',
+    imageKey:
+      'https://framerusercontent.com/assets/r8x4idmli1q8fcoiucxqBc2Ejs.png',
+  },
+  {
+    name: 'Elian Kent',
+    sub: 'Digital experiences rõ ràng, giàu nhịp điệu và hướng tới tác động thực tế.',
+    type: 'CREATIVE PORTFOLIO',
+    brief:
+      'Thiết kế một portfolio Framer thể hiện dịch vụ và tư duy xây dựng trải nghiệm số cho các thương hiệu hiện đại.',
+    role: 'Thiết kế giao diện, định hướng trải nghiệm và phát triển website Framer.',
+    process:
+      'Định hình thông điệp cá nhân → xây dựng cấu trúc nội dung → thiết kế hệ thống hình ảnh → triển khai responsive.',
+    result:
+      'Một portfolio tập trung vào sự rõ ràng, tính chuyên nghiệp và đường dẫn chuyển đổi cho khách hàng tiềm năng.',
+    projectUrl: 'https://magenta-gazelle-902018.framer.app/',
+    year: '2026',
+    imageKey:
+      'https://framerusercontent.com/images/4ood6Ek8mutvyqlWvfhRrm8lTSE.png',
+  },
 ];
 
 const projectEvidence: Record<
@@ -558,6 +590,8 @@ export function getProjectDisciplines(name: string): ProjectDiscipline[] {
     'The BookBridge': ['UI/UX', 'Branding'],
     'ULIS Lost & Found': ['UI/UX'],
     Temsy: ['UI/UX'],
+    CULTIVERSE: ['UI/UX', 'Branding', 'Creative Dev'],
+    'Elian Kent': ['UI/UX', 'Creative Dev'],
   };
   return classifications[name] ?? ['UI/UX'];
 }

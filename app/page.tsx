@@ -18,12 +18,13 @@ import {
 import ScrollStory from '../components/sketch-story';
 import AboutStory from '../components/about-story';
 import PencilArt from '../components/pencil-art';
-import SketchbookCover from '../components/sketchbook-cover';
 import LanguageSwitcher from '../components/language-switcher';
 import ProcessVideo from '../components/process-video';
 import ServicesOverview from '../components/services-overview';
 import ProfileCRTWall from '../components/profile-crt-wall';
 import ProjectJump from '../components/project-jump';
+import HeroVideo from '../components/hero-video';
+import HeroCosmos from '../components/hero-cosmos';
 import { listProjects } from '@/db';
 
 export const dynamic = 'force-dynamic';
@@ -57,8 +58,10 @@ export default async function Home() {
     /* The authored projects remain visible before the first database migration. */
   }
 
-  const framerProjects = projects.filter((project) =>
-    project.projectUrl?.includes('.framer.website'),
+  const framerProjects = projects.filter(
+    (project) =>
+      project.projectUrl?.includes('.framer.website') ||
+      project.projectUrl?.includes('.framer.app'),
   );
   const vercelProjects = projects.filter((project) =>
     project.projectUrl?.includes('.vercel.app'),
@@ -67,6 +70,7 @@ export default async function Home() {
     (project) =>
       project.projectUrl &&
       !project.projectUrl.includes('.framer.website') &&
+      !project.projectUrl.includes('.framer.app') &&
       !project.projectUrl.includes('.vercel.app'),
   );
 
@@ -92,7 +96,9 @@ export default async function Home() {
 
       <main id="main">
         <section className="scene-chapter hero-chapter" id="home">
-          <SketchbookCover />
+          <HeroVideo />
+          <HeroCosmos />
+          <div className="hero-film" aria-hidden="true" />
           <div className="hero-wordmark" aria-hidden="true">
             POZAN
           </div>
@@ -130,7 +136,7 @@ export default async function Home() {
             </div>
             <div className="hero-proof" aria-label="Năng lực nổi bật">
               <div>
-                <b>10</b>
+                <b>{String(projects.length).padStart(2, '0')}</b>
                 <span>
                   <LocalText
                     vi="DỰ ÁN ĐÃ THIẾT KẾ & XÂY DỰNG"
@@ -161,6 +167,11 @@ export default async function Home() {
             CHAPTER_00 / ORIGIN
             <br />
             CODE × STORY × MOTION
+          </div>
+          <div className="hero-scroll-cue" aria-hidden="true">
+            <span>SCROLL TO EXPLORE</span>
+            <i />
+            <b>01</b>
           </div>
         </section>
 

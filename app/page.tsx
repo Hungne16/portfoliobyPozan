@@ -108,7 +108,12 @@ export default async function Home() {
             THE MAKING OF AN IDEA
           </div>
           <div className="hero-copy-block">
-            <p className="hero-kicker">PROLOGUE / THE FIRST SIGNAL</p>
+            <p className="hero-kicker">
+              <LocalText
+                vi="CHƯƠNG 00 / TÍN HIỆU TỪ HÀ NỘI"
+                en="CHAPTER 00 / A SIGNAL FROM HANOI"
+              />
+            </p>
             <p className="hero-positioning">
               <LocalText
                 vi="UI/UX · SOCIAL MEDIA · BRANDING · CREATIVE DEVELOPMENT"
@@ -117,14 +122,14 @@ export default async function Home() {
             </p>
             <h1 className="hero-title">
               <LocalText
-                vi="MULTIDISCIPLINARY DESIGNER & CREATIVE DEVELOPER"
-                en="MULTIDISCIPLINARY DESIGNER & CREATIVE DEVELOPER"
+                vi="BIẾN Ý TƯỞNG THÀNH NHỮNG THẾ GIỚI SỐ ĐÁNG KHÁM PHÁ."
+                en="TURNING IDEAS INTO DIGITAL WORLDS WORTH EXPLORING."
               />
             </h1>
             <p className="hero-copy">
               <LocalText
-                vi="Mình tạo digital products, social campaigns và interactive visual experiences."
-                en="I create digital products, social campaigns and interactive visual experiences."
+                vi="Mình kết hợp UI/UX, visual direction và creative code để biến một brief mơ hồ thành trải nghiệm có cá tính, có logic và sẵn sàng ra mắt."
+                en="I combine UI/UX, visual direction and creative code to turn an ambiguous brief into an experience with character, clarity and launch-ready craft."
               />
             </p>
             <div className="hero-actions">

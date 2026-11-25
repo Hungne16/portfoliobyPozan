@@ -4,7 +4,9 @@ import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 
-gsap.registerPlugin(useGSAP);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(useGSAP);
+}
 
 export default function IntroCurtain({ onReady }: { onReady: () => void }) {
   const root = useRef<HTMLDialogElement>(null);
@@ -17,6 +19,12 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
       const previousOverflow = html.style.overflow;
       const previousInert = content.inert;
       const previousFocus = document.activeElement as HTMLElement | null;
+      let hasSeenIntro = false;
+      try {
+        hasSeenIntro = window.sessionStorage.getItem('pozan-ink-intro') === '1';
+      } catch {
+        /* The intro remains available when session storage is unavailable. */
+      }
       let done = false;
       let disposed = false;
       let timeline: gsap.core.Timeline | undefined;
@@ -28,11 +36,21 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
         overlay.style.display = 'none';
         content.inert = previousInert;
         html.style.overflow = previousOverflow;
+        try {
+          window.sessionStorage.setItem('pozan-ink-intro', '1');
+        } catch {
+          /* Storage is an enhancement, not a requirement for releasing content. */
+        }
         if (overlay.contains(document.activeElement))
           previousFocus?.focus({ preventScroll: true });
         onReady();
       };
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (
+        hasSeenIntro ||
+        window.matchMedia(
+          '(prefers-reduced-motion: reduce), (max-width: 700px)',
+        ).matches
+      ) {
         release();
         return;
       }
@@ -75,8 +93,13 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
         const progress = { value: 0 };
         const progressLabel =
           overlay.querySelector<HTMLElement>('.curtain-progress')!;
+        const inkSurface = overlay.querySelector<HTMLElement>('.ink-surface')!;
+        const inkPool = overlay.querySelector<HTMLElement>('.ink-pool')!;
+        const inkDrops = overlay.querySelectorAll<HTMLElement>('.ink-drip');
+        const inkRipples = overlay.querySelectorAll<HTMLElement>('.ink-ripple');
+        const inkSplatters = overlay.querySelectorAll<HTMLElement>('.ink-splatter');
         timeline = gsap
-          .timeline({ onComplete: release, defaults: { ease: 'power4.inOut' } })
+          .timeline({ onComplete: release, defaults: { ease: 'power3.inOut' } })
           .to(progress, {
             value: 100,
             duration: 1.45,
@@ -88,29 +111,97 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
             },
           })
           .to(overlay.querySelector('.curtain-loader'), {
-            opacity: 0,
-            y: -12,
-            duration: 0.24,
+            autoAlpha: 0,
+            duration: 0.26,
+            y: -18,
           })
-          .to(
-            overlay.querySelectorAll('.curtain-top .curtain-tile'),
+          .fromTo(
+            inkRipples,
+            { autoAlpha: 0, scale: 0.14 },
             {
-              yPercent: -102,
-              duration: 1.1,
-              stagger: { each: 0.065, from: 'center' },
+              autoAlpha: 0.88,
+              duration: 0.62,
+              ease: 'power2.out',
+              scale: 1.1,
+              stagger: 0.1,
+              transformOrigin: '50% 50%',
             },
-            1.5,
+            1.32,
           )
           .to(
-            overlay.querySelectorAll('.curtain-bottom .curtain-tile'),
+            inkDrops,
             {
-              yPercent: 102,
-              duration: 1.1,
-              stagger: { each: 0.065, from: 'center' },
+              duration: 0.58,
+              ease: 'back.out(1.3)',
+              scaleY: (index) => 1.04 + index * 0.08,
+              stagger: { each: 0.055, from: 'center' },
+              y: (index) => 30 + index * 10,
             },
-            1.5,
+            1.38,
           )
-          .to(skip, { opacity: 0, duration: 0.2 }, 1.5);
+          .fromTo(
+            inkSplatters,
+            { autoAlpha: 0, scale: 0.2 },
+            {
+              autoAlpha: 0.9,
+              duration: 0.34,
+              ease: 'back.out(1.8)',
+              scale: 1,
+              stagger: 0.06,
+              transformOrigin: '50% 50%',
+            },
+            1.56,
+          )
+          .to(
+            inkSurface,
+            {
+              duration: 0.98,
+              ease: 'power4.in',
+              scaleY: 0.1,
+              transformOrigin: '50% 100%',
+            },
+            1.62,
+          )
+          .to(
+            inkPool,
+            {
+              duration: 0.78,
+              ease: 'power3.inOut',
+              scaleX: 1.12,
+              scaleY: 0.48,
+              transformOrigin: '50% 100%',
+            },
+            1.76,
+          )
+          .to(
+            inkDrops,
+            {
+              autoAlpha: 0,
+              duration: 0.3,
+              ease: 'power2.in',
+              stagger: { each: 0.025, from: 'edges' },
+              y: '+=54',
+            },
+            2.18,
+          )
+          .to(
+            [inkSurface, inkPool, inkRipples, inkSplatters],
+            {
+              autoAlpha: 0,
+              duration: 0.22,
+              ease: 'power1.out',
+            },
+            2.38,
+          )
+          .to(
+            overlay,
+            {
+              autoAlpha: 0,
+              duration: 0.24,
+            },
+            2.46,
+          )
+          .to(skip, { autoAlpha: 0, duration: 0.16 }, 2.36);
       });
       return () => {
         disposed = true;
@@ -131,26 +222,34 @@ export default function IntroCurtain({ onReady }: { onReady: () => void }) {
 
   return (
     <dialog ref={root} className="intro-curtain" aria-label="Đang mở portfolio">
-      <div className="curtain-half curtain-top" aria-hidden="true">
-        {Array.from({ length: 8 }, (_, i) => (
-          <span className="curtain-tile" key={i} />
+      <div className="ink-surface" aria-hidden="true">
+        <span className="ink-glow" />
+        {Array.from({ length: 7 }, (_, i) => (
+          <span className={`ink-drip ink-drip-${i + 1}`} key={i} />
         ))}
       </div>
-      <div className="curtain-half curtain-bottom" aria-hidden="true">
-        {Array.from({ length: 8 }, (_, i) => (
-          <span className="curtain-tile" key={i} />
+      <div className="ink-pool" aria-hidden="true">
+        <span className="ink-ripple ink-ripple-1" />
+        <span className="ink-ripple ink-ripple-2" />
+        <span className="ink-ripple ink-ripple-3" />
+        {Array.from({ length: 5 }, (_, i) => (
+          <span className={`ink-splatter ink-splatter-${i + 1}`} key={i} />
         ))}
       </div>
       <div className="curtain-loader">
+        <span className="curtain-loader-kicker">POZAN / INK PROTOCOL</span>
+        <strong className="curtain-loader-mark">PZ</strong>
         <div className="curtain-loader-line">
           <span>
-            ▶ LOADING — <b className="curtain-progress">00%</b>
+            INK FORMING — <b className="curtain-progress">00%</b>
           </span>
           <i />
-          <span>POZAN://ORIGIN/STORY/BUILD/001</span>
+          <span>ORIGIN / STORY / BUILD</span>
         </div>
-        <div className="curtain-spinner" aria-hidden="true" />
-        <p>ASSEMBLING A WORLD FROM CODE, CURIOSITY & IMAGINATION</p>
+        <div className="curtain-spinner" aria-hidden="true">
+          <i />
+        </div>
+        <p>IDEAS LEAVE A MARK BEFORE THEY BECOME A WORLD.</p>
       </div>
       <button type="button" className="curtain-skip">
         Bỏ qua phần mở đầu ↗
